@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+<html lang="#{languageDetails.language}" 
+xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+				<f:viewParam name="id" value="#{listeChoixBean.idTypeReponse}"/>
+			<f:event type="preRenderView" listener="#{listeChoixBean.afficher()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+
+<h:form id="formAjouter" > 
+		
+			<rich:panel style="width:500px;align:center;" >
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg['page_choix_reponse_titre']} #{listeChoixBean.libelleTypeReponse}" />
+					</h:panelGroup>
+				</f:facet>
+				<br />
+				
+
+
+				
+				
+		<h:outputStylesheet>
+
+		    .acent{
+		        text-align: center;
+		    }
+		    
+		    .titreTableauInspection{
+		        font-weight:bold;
+		        font-family: arial,verdana,sans-serif; 
+		        font-size: 11px; 
+		    }
+		</h:outputStylesheet>
+		
+		
+            
+	    	
+			<h:outputText value="#{msg['page_choix_titre']} : #{listeChoixBean.libelleTypeReponse}" />
+				
+				
+				 
+  
+    <p:dataTable id ="plist" value="#{listeChoixBean.lister}" var="o2" cache="false" tableStyle="width:auto" editable="true">  
+
+  <p:ajax event="rowEdit" listener="#{listeChoixBean.onEditChoix}" update=":formAjouter:plist" />  
+        <p:ajax event="rowEditCancel" listener="#{listeChoixBean.onCancel}" update=":formAjouter:plist" />  
+    
+        <p:column >  
+            <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_choix_liste_valeur']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+             <p:cellEditor> 
+             <f:facet name="output"> 
+            <h:outputText value="#{o2.libelle}" /> 
+             </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{o2.libelle}" />  
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+                    <p:inputText id="lib" value="#{listeChoixBean.nomlistrep}"  />  
+            </f:facet>  
+        </p:column>  
+
+        <p:column >  
+            <f:facet name="header">  
+            
+                <h:outputText value="#{msg['form_choix_liste_nonConforme']}" />  
+            </f:facet> 
+           <p:cellEditor> 
+             <f:facet name="output">
+            	<p:selectBooleanCheckbox value="#{o2.nonConforme}" disabled="true"  />
+              </f:facet>  
+                <f:facet name="input"> 
+                <p:selectBooleanCheckbox value="#{o2.nonConforme}"  />
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+                    <p:selectBooleanCheckbox id="nonConforme" value="#{listeChoixBean.nclistrep}"  />  
+            </f:facet>  
+        </p:column>  
+  
+  
+          <p:column >  
+            <f:facet name="header">  
+                <h:outputText value="" />  
+            </f:facet> 
+           <p:rowEditor />
+            	<p:commandButton  icon="ui-icon ui-icon-trash" id="Aconsulter#{o2.idChoix}" title="#{msg['appli_bouton_supprimer']}" onclick="if (! confirm('#{msg['appli_confirm_supprimer']}')) return false"
+					action="#{listeChoixBean.supprimer(o2.idChoix)}"/>
+			
+        </p:column>  
+        <f:facet name="footer">  
+            
+				<p:commandButton title="Ajouter" icon="ui-icon-plusthick" action="#{listeChoixBean.creerlistrep}" 
+				update=":formAjouter:plist" />
+				</f:facet> 
+    </p:dataTable>  
+    <p:spacer width="150" height="10" />
+    <h:outputText value="" /> 
+  <p:commandButton  value="#{msg.appli_bouton_retour}" action="#{listeChoixBean.retourback()}" />
+  
+				
+				
+	 
+	</rich:panel>
+			
+		</h:form>	
+		
+	</ui:define>
+
+</ui:composition>
+</html>

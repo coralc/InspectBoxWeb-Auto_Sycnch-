@@ -1,0 +1,881 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+    
+
+<ui:composition template="/WEB-INF/templateadmin.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+ <f:event type="preRenderView" listener="#{utilisateurBean.afficheraj()}"/>
+	</f:metadata>
+	</ui:define>
+ 	<ui:define name="myCSS">
+	 	<style>		
+		.head2 {
+		background-image: url();
+        background-color : #808080 !important;;
+        height:18px;
+        text-align:center;
+        vertical-align:middle;
+		color:White;        
+        padding:4px 0;
+        font-size:120%;
+        border-style: none;
+    	}    	
+		.body3 {
+	    background-color: #F7F6F3;
+        font-size:105%;
+        border-style: none;
+		}
+		.rf-p {
+		 border-style: none;
+		}
+	</style>
+	<style>
+		.datalist-noborder .ui-widget-content {	
+		border-color: transparent;	
+		
+		}
+		myFieldset .ui-fieldset, .ui-fieldset .ui-fieldset-legend {
+		background-color: #369;
+		border-color: transparent;
+		color: white;
+		}
+	 	.calendarFilter .ui-inputfield
+            {
+                width:70px; !important;
+                margin: 0 0.2em; !important;
+            }
+		#innerDate {
+		    width: 50%;
+		    margin: 0px auto;
+		}
+		.ui-fieldset-legend {
+		width:250px; !important;
+		}
+	
+ 	</style>
+</ui:define>   
+	<ui:define name="content">
+
+	   <script type="text/javascript"> 
+	   
+	   
+	   function showtimelplus(){
+		   
+		   document.getElementById("formAjouter:lundilab11").style.display="block";
+		   document.getElementById("formAjouter:begl1").style.display="block";
+		   document.getElementById("formAjouter:lundilab21").style.display="block";
+		   document.getElementById("formAjouter:endl2").style.display="block";
+		   
+		   
+	   }
+function showtimelplusmar(){
+		   
+		   document.getElementById("formAjouter:mardilab11").style.display="block";
+		   document.getElementById("formAjouter:begma1").style.display="block";
+		   document.getElementById("formAjouter:mardilab22").style.display="block";
+		   document.getElementById("formAjouter:endma1").style.display="block";
+		   
+		   
+	   }
+function showtimelplusmer(){
+	   
+	   document.getElementById("formAjouter:mercredilab11").style.display="block";
+	   document.getElementById("formAjouter:begme1").style.display="block";
+	   document.getElementById("formAjouter:mercredilab22").style.display="block";
+	   document.getElementById("formAjouter:endme1").style.display="block";
+	   
+	   
+}
+function showtimelplusj(){
+	   
+	   document.getElementById("formAjouter:jeudilab11").style.display="block";
+	   document.getElementById("formAjouter:begj1").style.display="block";
+	   document.getElementById("formAjouter:jeudilab22").style.display="block";
+	   document.getElementById("formAjouter:endj1").style.display="block";
+	   
+	   
+}
+function showtimelplusv(){
+	   
+	   document.getElementById("formAjouter:vendredilab11").style.display="block";
+	   document.getElementById("formAjouter:begv1").style.display="block";
+	   document.getElementById("formAjouter:vendredilab22").style.display="block";
+	   document.getElementById("formAjouter:endv1").style.display="block";
+	   
+	   
+}
+function showtimelpluss(){
+	   
+	   document.getElementById("formAjouter:samedilab11").style.display="block";
+	   document.getElementById("formAjouter:begs1").style.display="block";
+	   document.getElementById("formAjouter:samedilab22").style.display="block";
+	   document.getElementById("formAjouter:ends1").style.display="block";
+	   
+	   
+}
+
+function showtimelplusd(){
+	   
+	   document.getElementById("formAjouter:dimlab11").style.display="block";
+	   document.getElementById("formAjouter:begd1").style.display="block";
+	   document.getElementById("formAjouter:dimlab22").style.display="block";
+	   document.getElementById("formAjouter:endd1").style.display="block";
+	}
+
+
+	   function showtimel(){
+		  
+		   if (document.getElementById("formAjouter:lundi").checked )
+			   {
+			   document.getElementById("formAjouter:lundilab1").style.display="block";
+				document.getElementById("formAjouter:lundilab2").style.display="block";
+				document.getElementById("formAjouter:begl").style.display="block";
+				document.getElementById("formAjouter:endl").style.display="block";
+				document.getElementById("formAjouter:ajhl").style.display="block";
+				
+			   }
+		   else
+			   {
+			   document.getElementById("formAjouter:lundilab1").style.display="none";
+				document.getElementById("formAjouter:lundilab2").style.display="none";
+				document.getElementById("formAjouter:begl").style.display="none";
+				document.getElementById("formAjouter:endl").style.display="none";
+				document.getElementById("formAjouter:ajhl").style.display="none";
+				document.getElementById("formAjouter:lundilab11").style.display="none";
+				   document.getElementById("formAjouter:begl1").style.display="none";
+				   document.getElementById("formAjouter:lundilab21").style.display="none";
+				   document.getElementById("formAjouter:endl2").style.display="none";
+				}
+		   
+		   
+	   }
+	   function showtimema(){
+		   
+		   
+		   
+		   if (document.getElementById("formAjouter:mardi").checked )
+			   {
+			   document.getElementById("formAjouter:mardilab1").style.display="block";
+				document.getElementById("formAjouter:mardilab2").style.display="block";
+				document.getElementById("formAjouter:begma").style.display="block";
+				document.getElementById("formAjouter:endma").style.display="block";
+				document.getElementById("formAjouter:ajhma").style.display="block";
+			   }
+		   else
+			   {
+			   document.getElementById("formAjouter:mardilab1").style.display="none";
+				document.getElementById("formAjouter:mardilab2").style.display="none";
+				document.getElementById("formAjouter:begma").style.display="none";
+				document.getElementById("formAjouter:endma").style.display="none";
+				document.getElementById("formAjouter:ajhma").style.display="none";
+				document.getElementById("formAjouter:mardilab11").style.display="none";
+				   document.getElementById("formAjouter:begma1").style.display="none";
+				   document.getElementById("formAjouter:mardilab22").style.display="none";
+				   document.getElementById("formAjouter:endma1").style.display="none";
+				}
+		   
+		   
+	   }
+	   
+function showtimeme(){
+		   
+		   
+		   
+		   if (document.getElementById("formAjouter:mercredi").checked )
+			   {
+			   document.getElementById("formAjouter:mercredilab1").style.display="block";
+				document.getElementById("formAjouter:mercredilab2").style.display="block";
+				document.getElementById("formAjouter:begme").style.display="block";
+				document.getElementById("formAjouter:endme").style.display="block";
+				document.getElementById("formAjouter:ajhme").style.display="block";
+			   }
+		   else
+			   {
+			   document.getElementById("formAjouter:mercredilab1").style.display="none";
+				document.getElementById("formAjouter:mercredilab2").style.display="none";
+				document.getElementById("formAjouter:begme").style.display="none";
+				document.getElementById("formAjouter:endme").style.display="none";
+				document.getElementById("formAjouter:ajhme").style.display="none";
+				 document.getElementById("formAjouter:mercredilab11").style.display="none";
+				   document.getElementById("formAjouter:begme1").style.display="none";
+				   document.getElementById("formAjouter:mercredilab22").style.display="none";
+				   document.getElementById("formAjouter:endme1").style.display="none";
+				}
+		   
+		   
+	   }
+	   
+function showtimej(){
+	   
+	   
+	   
+	   if (document.getElementById("formAjouter:jeudi").checked )
+		   {
+		   document.getElementById("formAjouter:jeudilab1").style.display="block";
+			document.getElementById("formAjouter:jeudilab2").style.display="block";
+			document.getElementById("formAjouter:begj").style.display="block";
+			document.getElementById("formAjouter:endj").style.display="block";
+			document.getElementById("formAjouter:ajhj").style.display="block";
+		   
+		   }
+	   else
+		   {
+		   document.getElementById("formAjouter:jeudilab1").style.display="none";
+			document.getElementById("formAjouter:jeudilab2").style.display="none";
+			document.getElementById("formAjouter:begj").style.display="none";
+			document.getElementById("formAjouter:endj").style.display="none";
+			document.getElementById("formAjouter:jeudilab11").style.display="none";
+			   document.getElementById("formAjouter:begj1").style.display="none";
+			   document.getElementById("formAjouter:jeudilab22").style.display="none";
+			   document.getElementById("formAjouter:endj1").style.display="none";
+			   document.getElementById("formAjouter:ajhj").style.display="none";
+			}
+	   
+	   
+}
+	   
+function showtimev(){
+	   
+	   
+	   
+	   if (document.getElementById("formAjouter:vendredi").checked )
+		   {
+		   document.getElementById("formAjouter:vendredilab1").style.display="block";
+			document.getElementById("formAjouter:vendredilab2").style.display="block";
+			document.getElementById("formAjouter:begv").style.display="block";
+			document.getElementById("formAjouter:endv").style.display="block";
+			document.getElementById("formAjouter:ajhv").style.display="block";
+		   
+		   }
+	   else
+		   {
+		   document.getElementById("formAjouter:vendredilab1").style.display="none";
+			document.getElementById("formAjouter:vendredilab2").style.display="none";
+			document.getElementById("formAjouter:begv").style.display="none";
+			document.getElementById("formAjouter:endv").style.display="none";
+			 document.getElementById("formAjouter:vendredilab11").style.display="none";
+			   document.getElementById("formAjouter:begv1").style.display="none";
+			   document.getElementById("formAjouter:vendredilab22").style.display="none";
+			   document.getElementById("formAjouter:endv1").style.display="none";
+			   document.getElementById("formAjouter:ajhv").style.display="none";
+			}
+	   
+	   
+}	   
+
+function showtimes(){
+	   
+	   
+	   
+	   if (document.getElementById("formAjouter:samedi").checked )
+		   {
+		   document.getElementById("formAjouter:samedilab1").style.display="block";
+			document.getElementById("formAjouter:samedilab2").style.display="block";
+			document.getElementById("formAjouter:begs").style.display="block";
+			document.getElementById("formAjouter:ends").style.display="block";
+			document.getElementById("formAjouter:ajhs").style.display="block";
+		   }
+	   else
+		   {
+		   document.getElementById("formAjouter:samedilab1").style.display="none";
+			document.getElementById("formAjouter:samedilab2").style.display="none";
+			document.getElementById("formAjouter:begs").style.display="none";
+			document.getElementById("formAjouter:ends").style.display="none";
+			document.getElementById("formAjouter:samedilab11").style.display="none";
+			   document.getElementById("formAjouter:begs1").style.display="none";
+			   document.getElementById("formAjouter:samedilab22").style.display="none";
+			   document.getElementById("formAjouter:ends1").style.display="none";
+			   document.getElementById("formAjouter:ajhs").style.display="none";
+		   }
+	   
+	   
+}
+
+function showtimed(){
+	   
+	   
+	   
+	   if (document.getElementById("formAjouter:dim").checked )
+		   {
+
+			document.getElementById("formAjouter:dimlab1").style.display="block";
+			document.getElementById("formAjouter:dimlab2").style.display="block";
+			document.getElementById("formAjouter:begd").style.display="block";
+			document.getElementById("formAjouter:endd").style.display="block";
+			document.getElementById("formAjouter:ajhd").style.display="block";
+		   
+		   }
+	   else
+		   {
+
+			document.getElementById("formAjouter:dimlab1").style.display="none";
+			document.getElementById("formAjouter:dimlab2").style.display="none";
+			document.getElementById("formAjouter:begd").style.display="none";
+			document.getElementById("formAjouter:endd").style.display="none";
+			 document.getElementById("formAjouter:dimlab11").style.display="none";
+			   document.getElementById("formAjouter:begd1").style.display="none";
+			   document.getElementById("formAjouter:dimlab22").style.display="none";
+			   document.getElementById("formAjouter:endd1").style.display="none";
+			   document.getElementById("formAjouter:ajhd").style.display="none";
+			}
+	   
+	   
+}
+
+function verifbegl(){
+	   
+	   var beg=document.getElementById("formAjouter:begl").value;
+	  if ((beg.length != 5) || (beg.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begl").value="00:00";
+		  }
+	  var end=document.getElementById("formAjouter:endl").value;
+	  if ((end.length != 5) || (end.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endl").value="00:00";
+		  }
+	  var beg1=document.getElementById("formAjouter:begl1").value;
+	  if ((beg1.length != 5) || (beg1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begl1").value="00:00";
+		  }
+	  var end1=document.getElementById("formAjouter:endl2").value;
+	  if ((end1.length != 5) || (end1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endl1").value="00:00";
+		  }
+	   
+}
+
+
+function verifbegma(){
+	   
+	   var beg=document.getElementById("formAjouter:begma").value;
+	  if ((beg.length != 5) || (beg.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begma").value="00:00";
+		  }
+	  var end=document.getElementById("formAjouter:endma").value;
+	  if ((end.length != 5) || (end.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endma").value="00:00";
+		  }
+	  var beg1=document.getElementById("formAjouter:begma1").value;
+	  if ((beg1.length != 5) || (beg1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begma1").value="00:00";
+		  }
+	  var end1=document.getElementById("formAjouter:endma1").value;
+	  if ((end1.length != 5) || (end1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endma1").value="00:00";
+		  }
+	      
+}
+function verifbegme(){
+	   
+	   var beg=document.getElementById("formAjouter:begme").value;
+	  if ((beg.length != 5) || (beg.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begme").value="00:00";
+		  }
+	  var end=document.getElementById("formAjouter:endme").value;
+	  if ((end.length != 5) || (end.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endme").value="00:00";
+		  }
+	      
+	  
+	  var beg1=document.getElementById("formAjouter:begme1").value;
+	  if ((beg1.length != 5) || (beg1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begme1").value="00:00";
+		  }
+	  var end1=document.getElementById("formAjouter:endme1").value;
+	  if ((end1.length != 5) || (end1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endme1").value="00:00";
+		  }
+}
+function verifbegj(){
+	   
+	   var beg=document.getElementById("formAjouter:begj").value;
+	  if ((beg.length != 5) || (beg.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begj").value="00:00";
+		  }
+	  var end=document.getElementById("formAjouter:endj").value;
+	  if ((end.length != 5) || (end.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endj").value="00:00";
+		  }
+	  var beg1=document.getElementById("formAjouter:begj1").value;
+	  if ((beg1.length != 5) || (beg1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begj1").value="00:00";
+		  }
+	  var end1=document.getElementById("formAjouter:endj1").value;
+	  if ((end1.length != 5) || (end1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endj1").value="00:00";
+		  }
+	      
+}
+function verifbegv(){
+	   
+	   var beg=document.getElementById("formAjouter:begv").value;
+	  if ((beg.length != 5) || (beg.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begv").value="00:00";
+		  }
+	  var end=document.getElementById("formAjouter:endv").value;
+	  if ((end.length != 5) || (end.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endv").value="00:00";
+		  }
+	  var beg1=document.getElementById("formAjouter:begv1").value;
+	  if ((beg1.length != 5) || (beg1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begv1").value="00:00";
+		  }
+	  var end1=document.getElementById("formAjouter:endv1").value;
+	  if ((end1.length != 5) || (end1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endv1").value="00:00";
+		  }
+	      
+}
+function verifbegs(){
+	   
+	   var beg=document.getElementById("formAjouter:begs").value;
+	  if ((beg.length != 5) || (beg.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begs").value="00:00";
+		  }
+	  var end=document.getElementById("formAjouter:ends").value;
+	  if ((end.length != 5) || (end.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:ends").value="00:00";
+		  }
+	  var beg1=document.getElementById("formAjouter:begs1").value;
+	  if ((beg1.length != 5) || (beg1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begs1").value="00:00";
+		  }
+	  var end1=document.getElementById("formAjouter:ends1").value;
+	  if ((end1.length != 5) || (end1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:ends1").value="00:00";
+		  }
+	      
+}
+function verifbegd(){
+	   
+	   var beg=document.getElementById("formAjouter:begd").value;
+	  if ((beg.length != 5) || (beg.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begd").value="00:00";
+		  }
+	  var end=document.getElementById("formAjouter:endd").value;
+	  if ((end.length != 5) || (end.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endd").value="00:00";
+		  }
+	  var beg1=document.getElementById("formAjouter:begd1").value;
+	  if ((beg1.length != 5) || (beg1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:begd1").value="00:00";
+		  }
+	  var end1=document.getElementById("formAjouter:endd1").value;
+	  if ((end1.length != 5) || (end1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:endd1").value="00:00";
+		  }
+}
+
+	
+	   function showvalue(){ 	
+		  
+			 if(document.forms['formAjouter']['formAjouter:typemode'][0].checked) {
+				document.getElementById("formAjouter:nomlab").style.display="block";			
+				document.getElementById("formAjouter:nom").style.display="block";
+				document.getElementById("formAjouter:pnomlab").style.display="block";
+				document.getElementById("formAjouter:prenom").style.display="block";
+				document.getElementById("formAjouter:usrlab").style.display="block";
+				document.getElementById("formAjouter:utilisateur").style.display="block";
+				document.getElementById("formAjouter:passlab").style.display="block";
+				document.getElementById("formAjouter:password").style.display="block";
+				document.getElementById("formAjouter:terminal").style.display="block";
+				document.getElementById("formAjouter:termlab").style.display="block";
+				document.getElementById("formAjouter:administration").style.display="block";
+				document.getElementById("formAjouter:admlab").style.display="block";
+				
+				
+				document.getElementById("formAjouter:lundilab").style.display="none";
+				document.getElementById("formAjouter:lundi").style.display="none";
+				document.getElementById("formAjouter:mardilab").style.display="none";
+				document.getElementById("formAjouter:mardi").style.display="none";
+				document.getElementById("formAjouter:mercredilab").style.display="none";
+				document.getElementById("formAjouter:mercredi").style.display="none";
+				document.getElementById("formAjouter:jeudilab").style.display="none";
+				document.getElementById("formAjouter:jeudi").style.display="none";
+				document.getElementById("formAjouter:vendredilab").style.display="none";
+				document.getElementById("formAjouter:vendredi").style.display="none";
+				document.getElementById("formAjouter:samedilab").style.display="none";
+				document.getElementById("formAjouter:samedi").style.display="none";
+				document.getElementById("formAjouter:dimlab").style.display="none";
+				document.getElementById("formAjouter:dim").style.display="none";
+				document.getElementById("formAjouter:daylab").style.display="none";
+				document.getElementById("formAjouter:acclab").style.display="none";
+				document.getElementById("formAjouter:lundilab1").style.display="none";
+				document.getElementById("formAjouter:lundilab2").style.display="none";
+				document.getElementById("formAjouter:begl").style.display="none";
+				document.getElementById("formAjouter:endl").style.display="none";
+				
+				document.getElementById("formAjouter:mercredilab1").style.display="none";
+				document.getElementById("formAjouter:mercredilab2").style.display="none";
+				document.getElementById("formAjouter:begme").style.display="none";
+				document.getElementById("formAjouter:endme").style.display="none";
+				document.getElementById("formAjouter:jeudilab1").style.display="none";
+				document.getElementById("formAjouter:jeudilab2").style.display="none";
+				document.getElementById("formAjouter:begj").style.display="none";
+				document.getElementById("formAjouter:endj").style.display="none";
+				document.getElementById("formAjouter:vendredilab1").style.display="none";
+				document.getElementById("formAjouter:vendredilab2").style.display="none";
+				document.getElementById("formAjouter:begv").style.display="none";
+				document.getElementById("formAjouter:endv").style.display="none";
+				document.getElementById("formAjouter:samedilab1").style.display="none";
+				document.getElementById("formAjouter:samedilab2").style.display="none";
+				document.getElementById("formAjouter:begs").style.display="none";
+				document.getElementById("formAjouter:ends").style.display="none";
+				document.getElementById("formAjouter:dimlab1").style.display="none";
+				document.getElementById("formAjouter:dimlab2").style.display="none";
+				document.getElementById("formAjouter:begd").style.display="none";
+				document.getElementById("formAjouter:endd").style.display="none";
+				
+				document.getElementById("formAjouter:ajhl").style.display="none";
+				document.getElementById("formAjouter:lundilab11").style.display="none";
+				   document.getElementById("formAjouter:begl1").style.display="none";
+				   document.getElementById("formAjouter:lundilab21").style.display="none";
+				   document.getElementById("formAjouter:endl2").style.display="none";
+				   document.getElementById("formAjouter:ajhma").style.display="none";
+					document.getElementById("formAjouter:mardilab11").style.display="none";
+					   document.getElementById("formAjouter:begma1").style.display="none";
+					   document.getElementById("formAjouter:mardilab22").style.display="none";
+					   document.getElementById("formAjouter:endma1").style.display="none";
+	document.getElementById("formAjouter:ajhme").style.display="none";
+					 document.getElementById("formAjouter:mercredilab11").style.display="none";
+					   document.getElementById("formAjouter:begme1").style.display="none";
+					   document.getElementById("formAjouter:mercredilab22").style.display="none";
+					   document.getElementById("formAjouter:endme1").style.display="none";
+	ocument.getElementById("formAjouter:jeudilab11").style.display="none";
+				   document.getElementById("formAjouter:begj1").style.display="none";
+				   document.getElementById("formAjouter:jeudilab22").style.display="none";
+				   document.getElementById("formAjouter:endj1").style.display="none";
+				   document.getElementById("formAjouter:ajhj").style.display="none";
+	document.getElementById("formAjouter:vendredilab11").style.display="none";
+				   document.getElementById("formAjouter:begv1").style.display="none";
+				   document.getElementById("formAjouter:vendredilab22").style.display="none";
+				   document.getElementById("formAjouter:endv1").style.display="none";
+				   document.getElementById("formAjouter:ajhv").style.display="none";
+	document.getElementById("formAjouter:samedilab11").style.display="none";
+				   document.getElementById("formAjouter:begs1").style.display="none";
+				   document.getElementById("formAjouter:samedilab22").style.display="none";
+				   document.getElementById("formAjouter:ends1").style.display="none";
+				   document.getElementById("formAjouter:ajhs").style.display="none";
+	document.getElementById("formAjouter:dimlab11").style.display="none";
+				   document.getElementById("formAjouter:begd1").style.display="none";
+				   document.getElementById("formAjouter:dimlab22").style.display="none";
+				   document.getElementById("formAjouter:endd1").style.display="none";
+				   document.getElementById("formAjouter:ajhd").style.display="none";
+				
+			 }
+			 if(document.forms['formAjouter']['formAjouter:typemode'][1].checked) { 
+				 document.getElementById("formAjouter:usrlab").style.display="block";
+					document.getElementById("formAjouter:utilisateur").style.display="block";
+					document.getElementById("formAjouter:passlab").style.display="block";
+					document.getElementById("formAjouter:password").style.display="block";
+					document.getElementById("formAjouter:terminal").style.display="block";
+					document.getElementById("formAjouter:termlab").style.display="block";
+					document.getElementById("formAjouter:administration").style.display="block";
+					document.getElementById("formAjouter:admlab").style.display="block";
+					document.getElementById("formAjouter:nomlab").style.display="none";			
+					document.getElementById("formAjouter:nom").style.display="none";
+					document.getElementById("formAjouter:pnomlab").style.display="none";
+					document.getElementById("formAjouter:prenom").style.display="none";
+					document.getElementById("formAjouter:acclab").style.display="block";
+					document.getElementById("formAjouter:lundilab").style.display="block";
+					document.getElementById("formAjouter:lundi").style.display="block";
+					document.getElementById("formAjouter:mardilab").style.display="block";
+					document.getElementById("formAjouter:mardi").style.display="block";
+					document.getElementById("formAjouter:mercredilab").style.display="block";
+					document.getElementById("formAjouter:mercredi").style.display="block";
+					document.getElementById("formAjouter:jeudilab").style.display="block";
+					document.getElementById("formAjouter:jeudi").style.display="block";
+					document.getElementById("formAjouter:vendredilab").style.display="block";
+					document.getElementById("formAjouter:vendredi").style.display="block";
+					document.getElementById("formAjouter:samedilab").style.display="block";
+					document.getElementById("formAjouter:samedi").style.display="block";
+					document.getElementById("formAjouter:dimlab").style.display="block";
+					document.getElementById("formAjouter:dim").style.display="block";
+					document.getElementById("formAjouter:daylab").style.display="block";
+					
+					
+					
+					
+					
+					
+			 }
+	   }
+	   </script> 
+     <h:form id="formAjouter">
+     <p:growl id="messages" showDetail="true" sticky="true" /> 
+    
+        <rich:panel      headerClass="head2" style="width:700px;align:center;" bodyClass="body3">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{msg['page_utilisateur_ajouter_titre']}" />
+                </h:panelGroup>
+            </f:facet>
+<h:panelGrid id="addPDP" columns="2" cellspacing="2" cellpadding="2">
+
+<h:outputText value="Client" />
+	               <p:selectOneMenu value="#{utilisateurBean.client}"   >
+			   
+			   <f:selectItems value="#{utilisateurBean.listClients()}"  />
+			   </p:selectOneMenu>
+					<h:outputText value="#{msg['form_utilisateur_type']}" />
+	               <h:selectOneRadio value="#{utilisateurBean.typeUser}" id="typemode" layout="pageDirection" onclick="showvalue()"  >
+			   	<f:selectItem itemValue="S" itemLabel="#{msg.form_user_simple}" id="simple" />
+			   	<f:selectItem itemValue="E" itemLabel="#{msg.form_user_team}" id="equipe"  />
+			   	</h:selectOneRadio>
+			   	
+	                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_nom']}" id="nomlab" />
+	                <p:inputText style="display:none;"  value="#{utilisateurBean.nom}" id="nom" />
+	            
+	                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_prenom']}" id="pnomlab" />
+	                <p:inputText style="display:none;"  value="#{utilisateurBean.prenom}" id="prenom" />
+	               
+	                
+	               
+	                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_utilisateur']}" id="usrlab"/>
+	                <p:inputText style="display:none;"  value="#{utilisateurBean.codeAcces}" id="utilisateur" />
+	                
+	                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_password']}" id="passlab"/>
+	                <p:password style="display:none;"  value="#{utilisateurBean.motDePasse}" id="password" />
+	                
+	               
+<h:outputText   style="display:none;" value="#{msg['form_utilisateur_daywork']}" id="daylab"/>
+
+            
+</h:panelGrid>
+ <h:panelGrid id="addPDP2" columns="7" >
+	              		<h:selectBooleanCheckbox style="display:none;"  value="#{utilisateurBean.lundi}" id="lundi"  onclick="showtimel()"  />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_lundi']}" id="lundilab"/>
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"   id="lundilab1"/>
+		                <p:inputText   size ="" style="display:none;" value="#{utilisateurBean.beginHour1}" id="begl" onchange="verifbegl()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="lundilab2"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour1}" id="endl" onchange="verifbegl()" />
+		                <p:commandButton style="display:none;" id ="ajhl" title="#{msg['form_gammes_liste_bouton_ajout']}" icon="ui-icon-plusthick" onclick="showtimelplus()"  />
+	           
+	           
+	           <h:selectBooleanCheckbox style="display:none;"  value="#{utilisateurBean.lundi}"    />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_lundi']}" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"   id="lundilab11"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour11}" id="begl1" onchange="verifbegl()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="lundilab21"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour11}" id="endl2" onchange="verifbegl()" />
+		               <h:outputText style="display:none;"  value="#{msg['form_utilisateur_lundi']}" />
+		 
+		 
+		              
+		                <h:selectBooleanCheckbox  style="display:none;" value="#{utilisateurBean.mardi}" id="mardi" onclick="showtimema()"   />
+		                <h:outputText    style="display:none;" value="#{msg['form_utilisateur_mardi']}" id="mardilab" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="mardilab1"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour2}" id="begma"  onchange="verifbegma()"/>
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="mardilab2"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour2}" id="endma" onchange="verifbegma()"/>
+		                 <p:commandButton style="display:none;" id ="ajhma" title="#{msg['form_gammes_liste_bouton_ajout']}" icon="ui-icon-plusthick" onclick="showtimelplusmar()"  />  
+		                  
+		               <h:selectBooleanCheckbox  style="display:none;" value="#{utilisateurBean.mardi}"    />
+		                <h:outputText    style="display:none;" value="#{msg['form_utilisateur_mardi']}" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="mardilab11"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour22}" id="begma1"  onchange="verifbegma()"/>
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="mardilab22"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour22}" id="endma1" onchange="verifbegma()"/>
+		               <h:outputText    style="display:none;" value="#{msg['form_utilisateur_mardi']}" />
+		               
+		               
+		               
+		               
+		               
+		                <h:selectBooleanCheckbox  style="display:none;"  value="#{utilisateurBean.mercredi}" id="mercredi" onclick="showtimeme()"   />
+		                <h:outputText   style="display:none;" value="#{msg['form_utilisateur_mercredi']}" id="mercredilab"/>
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="mercredilab1"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour3}" id="begme" onchange="verifbegme()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="mercredilab2"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour3}" id="endme" onchange="verifbegme()" />
+		                 <p:commandButton style="display:none;" id ="ajhme" title="#{msg['form_gammes_liste_bouton_ajout']}" icon="ui-icon-plusthick" onclick="showtimelplusmer()"  />  
+		                 
+		                 
+		                <h:selectBooleanCheckbox  style="display:none;"  value="#{utilisateurBean.mercredi}"    />
+		                <h:outputText   style="display:none;" value="#{msg['form_utilisateur_mercredi']}" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="mercredilab11"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour33}" id="begme1" onchange="verifbegme()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="mercredilab22"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour33}" id="endme1" onchange="verifbegme()" /> 
+		                <h:outputText   style="display:none;" value="#{msg['form_utilisateur_mercredi']}" />
+		                 
+		                 
+		                <h:selectBooleanCheckbox style="display:none;"  value="#{utilisateurBean.jeudi}" id="jeudi"  onclick="showtimej()" />
+		                <h:outputText  style="display:none;" value="#{msg['form_utilisateur_jeudi']}" id="jeudilab"/>
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="jeudilab1"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour4}" id="begj" onchange="verifbegj()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="jeudilab2"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour4}" id="endj" onchange="verifbegj()" />
+		                 <p:commandButton style="display:none;" id ="ajhj" title="#{msg['form_gammes_liste_bouton_ajout']}" icon="ui-icon-plusthick" onclick="showtimelplusj()"  />  
+		                
+		                 <h:selectBooleanCheckbox style="display:none;"  value="#{utilisateurBean.jeudi}"  />
+		                <h:outputText  style="display:none;" value="#{msg['form_utilisateur_jeudi']}"/>
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="jeudilab11"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour44}" id="begj1" onchange="verifbegj()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="jeudilab22"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour44}" id="endj1" onchange="verifbegj()" />
+		                 <h:outputText  style="display:none;" value="#{msg['form_utilisateur_jeudi']}"/>
+		                
+		                
+		                
+		               
+		                <h:selectBooleanCheckbox  style="display:none;"  value="#{utilisateurBean.vendredi}" id="vendredi"  onclick="showtimev()"  />
+		                <h:outputText  style="display:none;" value="#{msg['form_utilisateur_vendredi']}" id="vendredilab"/>
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="vendredilab1"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour5}" id="begv" onchange="verifbegv()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="vendredilab2"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour5}" id="endv" onchange="verifbegv()" />
+		                 <p:commandButton style="display:none;" id ="ajhv" title="#{msg['form_gammes_liste_bouton_ajout']}" icon="ui-icon-plusthick" onclick="showtimelplusv()"  />  
+		                
+		                <h:selectBooleanCheckbox  style="display:none;"  value="#{utilisateurBean.vendredi}"   />
+		                <h:outputText  style="display:none;" value="#{msg['form_utilisateur_vendredi']}" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="vendredilab11"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour55}" id="begv1" onchange="verifbegv()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="vendredilab22"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour55}" id="endv1" onchange="verifbegv()" />
+		                  <h:outputText  style="display:none;" value="#{msg['form_utilisateur_vendredi']}" />
+		                 
+		                 
+		                 
+		                
+		               
+		                <h:selectBooleanCheckbox  style="display:none;"  value="#{utilisateurBean.samedi}" id="samedi" onclick="showtimes()"  />
+		                <h:outputText  style="display:none;"  value="#{msg['form_utilisateur_samedi']}" id="samedilab"/>
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="samedilab1"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour6}" id="begs" onchange="verifbegs()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="samedilab2"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour6}" id="ends" onchange="verifbegs()" />
+		                 <p:commandButton style="display:none;" id ="ajhs" title="#{msg['form_gammes_liste_bouton_ajout']}" icon="ui-icon-plusthick" onclick="showtimelpluss()"  />  
+		                
+		                 <h:selectBooleanCheckbox  style="display:none;"  value="#{utilisateurBean.samedi}"  />
+		                <h:outputText  style="display:none;"  value="#{msg['form_utilisateur_samedi']}" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="samedilab11"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour66}" id="begs1" onchange="verifbegs()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="samedilab22"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour66}" id="ends1" onchange="verifbegs()" />
+		                  <h:outputText  style="display:none;"  value="#{msg['form_utilisateur_samedi']}" />
+		                
+		                
+		                
+		                 <h:selectBooleanCheckbox  style="display:none;" value="#{utilisateurBean.dimanche}" id="dim" onclick="showtimed()"  />
+		                <h:outputText  style="display:none;" value="#{msg['form_utilisateur_dim']}" id="dimlab"/>
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="dimlab1"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour7}" id="begd" onchange="verifbegd()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="dimlab2"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour7}" id="endd"  onchange="verifbegd()"/>
+		                 <p:commandButton style="display:none;" id ="ajhd" title="#{msg['form_gammes_liste_bouton_ajout']}" icon="ui-icon-plusthick" onclick="showtimelplusd()"  />  
+		                
+		                 <h:selectBooleanCheckbox  style="display:none;" value="#{utilisateurBean.dimanche}"   />
+		                <h:outputText  style="display:none;" value="#{msg['form_utilisateur_dim']}" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_beginHour']}"  id="dimlab11"/>
+		                <p:inputText  style="display:none;" value="#{utilisateurBean.beginHour77}" id="begd1" onchange="verifbegd()" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_endHour']}"   id="dimlab22"/>
+		                <p:inputText   style="display:none;" value="#{utilisateurBean.endHour77}" id="endd1"  onchange="verifbegd()"/>
+		                 <h:outputText  style="display:none;" value="#{msg['form_utilisateur_dim']}" />
+		                
+		                
+	                
+	               </h:panelGrid>
+	               
+	               
+	               <h:panelGrid  columns="2" cellspacing="2" cellpadding="2">
+	                <h:outputText  style="display:none;" value="#{msg['form_utilisateur_accee']}" id="acclab"/>
+	                 <h:outputText   />
+		                <p:selectBooleanCheckbox style="display:none;"  value="#{utilisateurBean.terminal}" id="terminal" >
+		                		                </p:selectBooleanCheckbox>
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_terminal']}" id="termlab"/>
+	               
+		                <p:selectBooleanCheckbox style="display:none;"  value="#{utilisateurBean.administration}" id="administration" />
+		                <h:outputText style="display:none;"  value="#{msg['form_utilisateur_administration']}" id="admlab"/>
+	                
+	                
+	               </h:panelGrid>
+    
+   
+		<p:spacer width="150" height="10" />
+		 <p:commandButton  value="#{msg.appli_bouton_retour}" action="#{utilisateurBean.retourbackAdmin()}" />
+                <h:outputText value="" /> 
+          <p:spacer width="40" height="5" /> 
+            		<p:commandButton id="ModifierObjet" value="#{msg['appli_bouton_ajouter']}" action="#{utilisateurBean.ajouterAdmin()}" />
+
+	             </rich:panel>
+            </h:form>
+       
+    
+    
+ 
+
+    
+	</ui:define>
+
+</ui:composition>
+   
+</html>

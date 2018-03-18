@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+		    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+		    
+			<f:event type="preRenderView" listener="#{ajouterObjetInspectionBean.afficher2()}"/>
+		    
+	    </f:metadata>
+	</ui:define>
+ <ui:define name="myCSS">
+	 	<style>		
+		.head2 {
+		background-image: url();
+        background-color : #808080 !important;;
+        height:18px;
+        text-align:center;
+        vertical-align:middle;
+		color:White;        
+        padding:4px 0;
+        font-size:120%;
+        border-style: none;
+    	}    	
+		.body3 {
+	    background-color: #F7F6F3;
+        font-size:105%;
+        border-style: none;
+		}
+		.rf-p {
+		 border-style: none;
+		}
+		.ui-picklist-list {
+height:200px !important;
+width:250px !important;
+}
+	</style>
+</ui:define>
+	<ui:define name="content">
+ 
+<script type="text/javascript"> 
+function shownext()
+{
+	
+	document.getElementById("form:choix").style.display="block";	
+	document.getElementById("form:tagchoix").style.display="block";
+	document.getElementById("form:AjouterTypeReponse").style.display="none";
+	document.getElementById("form:ret").style.display="none";
+	document.getElementById("form:tageq").style.display="block";
+	document.getElementById("form:tagcom").style.display="block";
+	document.getElementById("form:commentaire").style.display="block";
+	document.getElementById("form:lundi").style.display="block";
+	
+}
+
+</script>
+	    <h:form id="form"> 
+    
+       
+    
+       <rich:panel     headerClass="head2" style="width:600px;align:center;" bodyClass="body3">
+   
+            <f:facet name="header">
+                <h:panelGroup>
+                	<h:outputText value="#{msg['appli_titre_ajout_objet']} " />
+                
+                </h:panelGroup>
+            </f:facet>
+		
+		
+ <h:panelGrid id="addPDP" columns="2" cellspacing="2" cellpadding="2">
+		
+	                <h:outputText value="#{msg['appli_libelle']}"/>
+	                <p:inputText value="#{ajouterObjetInspectionBean.nom}" id="nom"  />
+	                
+	                 <h:outputText value="#{msg['appli_codeBarre']}"/>
+	                <p:inputText value="#{ajouterObjetInspectionBean.codeBarre}" id="cb"  />
+ <p:commandButton id="AjouterTypeReponse" value="#{msg['form_objetInspection_suivant']}"  action="#{ajouterObjetInspectionBean.ajouterobj}"  onclick="shownext()" />
+	                
+       <p:commandButton id="ret" type="button" value="#{msg['form_objetInspection_annuler']}"     />
+        <h:outputText value=""/>
+         </h:panelGrid>
+         <h:panelGrid  columns="2" cellspacing="2" cellpadding="2">
+	    <h:outputText style="display:none;" id="tagchoix" value="#{msg['appli_typeChoix']}" />
+         <p:selectOneMenu style="display:none;width: 100px;" value="#{ajouterObjetInspectionBean.choix}" id="choix"  >
+                		<f:selectItems value="#{ajouterObjetInspectionBean.listTypeReponse()}"  />
+		</p:selectOneMenu>
+		 <h:selectBooleanCheckbox  style="display:none;" id="commentaire" value="#{ajouterObjetInspectionBean.commentaireAutorise}" />
+	<h:outputLabel style="display:none;" id="tagcom" value="#{msg['form_objetInspection_commentaire']}" />
+		<h:outputLabel  style="display:none;" id="tageq"  value="#{msg['appli_bouton_Team']}" />
+
+ 	 
+ 		</h:panelGrid>
+ 		
+ 		
+ 		 <p:dataTable value="#{ajouterObjetInspectionBean.teamselect}" var="o2" cache="false" tableStyle="width:auto" emptyMessage="">  
+
+  
+ 
+         <p:column >  
+            <f:facet name="header">
+            	<div align="left">
+                <h:outputText value="#{msg.appli_bouton_Team}"  styleClass="titreTableauInspection" />
+                </div> 
+            </f:facet>  
+            <h:outputText value="#{o2.libelle}" />  
+        </p:column>  
+ 
+  <p:column >  
+            <f:facet name="header">
+            	<div align="left">
+                <h:outputText value="#{msg.form_utilisateur_lundi}"  styleClass="titreTableauInspection" />
+                </div> 
+            </f:facet>  
+            <h:selectBooleanCheckbox value="#{o2.lun}" disabled="true" />  
+        </p:column> 
+         
+      <p:column >  
+            <f:facet name="header">
+            	<div align="left">
+                <h:outputText value="#{msg.form_utilisateur_mardi}"  styleClass="titreTableauInspection" />
+                </div> 
+            </f:facet>  
+            <h:selectBooleanCheckbox value="#{o2.mar}" disabled="true" />  
+        </p:column>  
+     
+        <p:column >  
+            <f:facet name="header">
+            	<div align="left">
+                <h:outputText value="#{msg.form_utilisateur_mercredi}"  styleClass="titreTableauInspection" />
+                </div> 
+            </f:facet>  
+            <h:selectBooleanCheckbox value="#{o2.mer}" disabled="true" />  
+        </p:column>  
+        
+        <p:column >  
+            <f:facet name="header">
+            	<div align="left">
+                <h:outputText value="#{msg.form_utilisateur_jeudi}"  styleClass="titreTableauInspection" />
+                </div> 
+            </f:facet>  
+            <h:selectBooleanCheckbox value="#{o2.jeu}" disabled="true" />  
+        </p:column>
+        
+        <p:column >  
+            <f:facet name="header">
+            	<div align="left">
+                <h:outputText value="#{msg.form_utilisateur_vendredi}"  styleClass="titreTableauInspection" />
+                </div> 
+            </f:facet>  
+            <h:selectBooleanCheckbox value="#{o2.ven}" disabled="true" />  
+        </p:column>
+        
+        <p:column >  
+            <f:facet name="header">
+            	<div align="left">
+                <h:outputText value="#{msg.form_utilisateur_samedi}"  styleClass="titreTableauInspection" />
+                </div> 
+            </f:facet>  
+            <h:selectBooleanCheckbox value="#{o2.sam}" disabled="true" />  
+        </p:column>
+        
+        
+        <p:column >  
+            <f:facet name="header">
+            	<div align="left">
+                <h:outputText value="#{msg.form_utilisateur_dim}"  styleClass="titreTableauInspection" />
+                </div> 
+            </f:facet>  
+            <h:selectBooleanCheckbox value="#{o2.dim}" disabled="true" />  
+        </p:column>
+        
+        
+        
+        
+        
+        
+        
+    </p:dataTable>  
+  
+ 		</rich:panel>	
+            </h:form>
+        
+    
+    
+    
+    
+	</ui:define>
+
+</ui:composition>
+</html>

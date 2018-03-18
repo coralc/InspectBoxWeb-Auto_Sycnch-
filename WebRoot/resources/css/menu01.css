@@ -1,0 +1,72 @@
+
+/* ------------------------------------------------------------------------------------
+Tha Drop-down Menu
+------------------------------------------------------------------------------------ */
+
+/* Elements de premier niveau
+--------------------------------------*/
+#menuDeroulant
+{
+
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+
+}
+#menuDeroulant li
+{
+	float: left;
+	width: 150px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#menuDeroulant li a:link, #menuDeroulant li a:visited
+{
+	display: block;
+	height: 1%;
+	color: #CCCC;
+	background: #3B4E77;
+	margin: 0;
+	padding: 4px 8px;
+	border-right: 1px solid #000;
+	text-decoration: none;
+}
+#menuDeroulant li a:hover { background-color: #F2462E; }
+#menuDeroulant li a:active { background-color: #5F879D; }
+
+#menuDeroulant .sousMenu
+{
+	display: none;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+#menuDeroulant .sousMenu li
+{
+	float: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 149px;
+	border-top: 1px solid transparent;
+	border-right: 1px solid transparent;
+}
+#menuDeroulant .sousMenu li a:link, #menuDeroulant .sousMenu li a:visited
+{
+	display: block;
+	color: #000;
+	margin: 0;
+	border: 0;
+	text-decoration: none;
+	background: #CCC;
+}
+#menuDeroulant .sousMenu li a:hover
+{
+	background-image: none;
+	background-color: #F2462E;
+}
+
+#menuDeroulant li:hover > .sousMenu { display: block; }

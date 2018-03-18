@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+
+<ui:composition template="/WEB-INF/templateadmin.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+			<f:event type="preRenderView" listener="#{terminauxBean.afficher()}" />
+			
+		</f:metadata>
+	</ui:define>
+<ui:define name="myCSS">
+	 	<style>		
+		.head2 {
+		 
+		border:none;
+    
+        background-color : #FFFFFF !important;;
+       border-color:transparent;
+        
+    	}    	
+		
+	</style>
+	</ui:define> 
+	<ui:define name="content">
+
+
+		<div class="presentation-page">
+			<rich:panel>
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="current status of terminal synchronization " />
+					</h:panelGroup>
+				</f:facet>
+				<br />
+				
+
+
+				
+				
+				<h:outputStylesheet>
+    .rf-dt{
+        width:900px;    
+    }
+    .acent{
+        text-align: center;
+    }
+    
+    .titreTableauInspection{
+        font-weight:bold;
+        font-family: arial,verdana,sans-serif; 
+        font-size: 11px; 
+    }
+    
+    
+</h:outputStylesheet>
+
+	<br/>
+
+<div align="center">
+   
+			
+						
+
+				<br /><br />
+				
+				<h:form id="formAjouter">  
+  
+   
+  
+   <p:dataTable var="car" value="#{terminauxBean.listeTerm}" sortBy="#{car.idTerminal}" tableStyle="width:auto">
+        <p:column headerText="Terminal" groupRow="true">
+            <h:outputText value="#{car.idTerminal}" />
+        </p:column>
+        <p:column headerText="Loop">
+            <h:outputText value="#{car.client}" />
+        </p:column>
+        <p:column headerText="State">
+             <p:selectBooleanCheckbox value="#{car.etat}"  disabled="true"  
+             rendered="#{car.etat eq'true'}" style="color:White;background:Green;" />
+             <p:selectBooleanCheckbox value="#{car.etat}"  disabled="true"  
+             rendered="#{car.etat eq'false'}" style="color:Black;background:Red;" />
+        </p:column>
+        <p:column headerText="Last Synchro Date">
+            <h:outputText value="#{car.dateLastSynchro}" />
+        </p:column>
+    </p:dataTable>
+</h:form>  
+			
+  	
+				
+	  </div>
+	</rich:panel>
+			
+			
+		</div>
+
+			
+	<br /><br />
+	</ui:define>
+
+</ui:composition>
+</html>

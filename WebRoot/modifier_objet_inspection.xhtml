@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+		    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+		   	<f:viewParam name="id"   	value="#{ajouterObjetInspectionBean.objtnveau}"/>
+				<f:viewParam name="idp"   value="#{ajouterObjetInspectionBean.page}"/>
+			
+		    <f:event type="preRenderView" listener="#{ajouterObjetInspectionBean.afficher()}"/>
+	    </f:metadata>
+	</ui:define>
+ 
+	
+
+	  <ui:define name="myCSS">
+	 	<style>		
+		.head2 {
+		background-image: url();
+        background-color : #808080 !important;;
+        height:18px;
+        text-align:center;
+        vertical-align:middle;
+		color:White;        
+        padding:4px 0;
+        font-size:120%;
+        border-style: none;
+    	}    	
+		.body3 {
+	    background-color: #F7F6F3;
+        font-size:105%;
+        border-style: none;
+		}
+		.rf-p {
+		 border-style: none;
+		}
+	</style>
+</ui:define>
+	<ui:define name="content">
+ <h:form id="formAjouter">
+	  <rich:panel  headerClass="head2" style="width:600px;align:center;" bodyClass="body3">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{listeObjetsBean.libelleNiveauCourant}  (#{ajouterObjetInspectionBean.nom})" />
+                
+                </h:panelGroup>
+            </f:facet>
+            
+		
+		
+			  <h:panelGrid id="addPDP" columns="2" cellspacing="2" cellpadding="2">
+	                <h:outputText value="#{msg['appli_libelle']}" />
+	                <p:inputText value="#{ajouterObjetInspectionBean.nom}" id="nom" style="width: 250px; "/>
+	                  
+	                 <h:outputText value="#{msg['appli_codeBarre']}"/>
+	                <p:inputText value="#{ajouterObjetInspectionBean.codeBarre}" id="cb"  />
+
+ 					
+ 					<h:outputText  value="#{msg.form_mode_unitemesure} " id="unit" />
+	                <p:inputText  value="#{ajouterObjetInspectionBean.unitMeasure}" id="unitMeasure"  />
+				 	
+            		<h:outputText  value="#{msg.form_mode_minautorise} " id="minv"  rendered= "#{ajouterObjetInspectionBean.islist==false}" />
+	                <p:inputText  value="#{ajouterObjetInspectionBean.minValue}" id="minValue"     rendered= "#{ajouterObjetInspectionBean.islist==false}"    />
+ 					 
+ 					 	
+            		
+	                <h:outputText   value="#{msg.form_mode_maxautorise}" id="maxv" rendered= "#{ajouterObjetInspectionBean.islist==false}" />
+	                <p:inputText   value="#{ajouterObjetInspectionBean.maxValue}" id="maxValue" rendered= "#{ajouterObjetInspectionBean.islist==false}"  />
+ 								
+					                
+            		
+	                <h:outputText   value="#{msg.form_mode_limitbasse}" id="minl"  rendered= "#{ajouterObjetInspectionBean.islist==false}" />
+	                <p:inputText   value="#{ajouterObjetInspectionBean.lowBorder}" id="minlimit"  rendered= "#{ajouterObjetInspectionBean.islist==false}" />
+	               
+	                <h:outputText   value="#{msg.form_mode_limithausse} " id="maxl" rendered= "#{ajouterObjetInspectionBean.islist==false}" />
+	                <p:inputText   value="#{ajouterObjetInspectionBean.highBorder}" id="maxlimit" rendered= "#{ajouterObjetInspectionBean.islist==false}" />
+            		
+            		<h:outputText   value="#{msg.form_mode_limitbassealert} " rendered= "#{ajouterObjetInspectionBean.islist==false}" />
+	                <p:inputText   value="#{ajouterObjetInspectionBean.lowBorderAlert}"  rendered= "#{ajouterObjetInspectionBean.islist==false}" />
+	                
+	                <h:outputText   value="#{msg.form_mode_limithaussealert} "  rendered= "#{ajouterObjetInspectionBean.islist==false}" />
+	                <p:inputText   value="#{ajouterObjetInspectionBean.highBorderAlert}"  rendered= "#{ajouterObjetInspectionBean.islist==false}" />
+            		
+            		
+            			
+						
+							
+						
+						
+            				</h:panelGrid>
+						
+					  
+  
+							<p:spacer width="150" height="10" />
+  	 	  <h:outputText value="" />        
+	           
+            	
+         
+	            
+            	
+            		<p:commandButton align="center" id="Modifier" value="#{msg['appli_bouton_modifier']}" type="submit"
+            		 action="#{ajouterObjetInspectionBean.updatev2()}" />
+            	
+           
+        </rich:panel>
+        
+        
+         </h:form>
+         
+        
+        
+       
+    
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+			<f:event type="preRenderView" listener="#{gammesBean.afficher()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+
+
+		<div class="presentation-page">
+			<rich:panel style="width:750px;">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg['page_gammes_titre']} #{gammesBean.libelleGamme}" />
+					</h:panelGroup>
+				</f:facet>
+				<br />
+				
+
+
+				
+				
+		<h:outputStylesheet>
+
+		    .acent{
+		        text-align: center;
+		    }
+		    
+		    .titreTableauInspection{
+		        font-weight:bold;
+		        font-family: arial,verdana,sans-serif; 
+		        font-size: 11px;
+		        text-align: left; 
+		    }
+		</h:outputStylesheet>
+		
+		<br/>
+		
+		<div align="center">
+   
+			
+		<h:button id="ajouterGammes" 
+			outcome="ajouter_gammes"
+			value="#{msg['form_gammes_liste_bouton_ajout']} #{gammesBean.libelleGamme}" >
+			<f:param name="libelle" value="#{gammesBean.libelleGamme}" />
+		</h:button>
+						
+
+				<br /><br /><br/>
+				
+				<h:form>  
+  
+    <p:dataTable value="#{gammesBean.lister}" var="o2" cache="false" tableStyle="width:auto" emptyMessage="">  
+
+  
+  
+  
+        <p:column >  
+            <f:facet name="header">
+            	<div align="left">
+                <h:outputText value="#{msg['form_gammes_liste_libelle']} #{gammesBean.libelleGamme}" styleClass="titreTableauInspection"/>
+                </div>  
+            </f:facet>  
+            <h:outputText value="#{o2.libelle}" />  
+        </p:column>  
+  
+
+
+          <p:column >  
+            <f:facet name="header">  
+                <h:outputText value="" />  
+            </f:facet> 
+            <div align="center">			
+            	<h:outputText value="  " />
+            	<h:button outcome="modifier_gammes" id="modify#{o2.idGammes}" value="#{msg['appli_bouton_modifier']}" style="width:50pt;" >
+					<f:param name="id" value="#{o2.idGammes}" />
+				</h:button>
+			</div>
+        </p:column>
+
+         
+    </p:dataTable>  
+  
+</h:form>  
+				
+				
+	  </div>
+	</rich:panel>
+			
+			
+		</div>
+
+			
+	<br /><br />
+	</ui:define>
+
+</ui:composition>
+</html>

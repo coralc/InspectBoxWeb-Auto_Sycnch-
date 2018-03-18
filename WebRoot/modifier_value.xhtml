@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+    
+<ui:define name="myCSS">
+	 	<style>		
+		.head2 {
+		background-image: url();
+        background-color : #808080 !important;;
+        height:18px;
+        text-align:center;
+        vertical-align:middle;
+		color:White;        
+        padding:4px 0;
+        font-size:120%;
+        border-style: none;
+    	}    	
+		.body3 {
+	    background-color: #F7F6F3;
+        font-size:105%;
+        border-style: none;
+		}
+		.rf-p {
+		 border-style: none;
+		}
+	</style>
+</ui:define>
+    
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+	    <f:viewParam name="id" value="#{valeurReponseBean.idTypeReponse}"/>
+	    <f:event type="preRenderView" listener="#{valeurReponseBean.afficher()}"/>
+	</f:metadata>
+	</ui:define>
+ 
+	<ui:define name="content">
+	<script type="text/javascript"> 
+	
+		
+		
+		function showminmax(){ 	
+			
+			 if(document.forms['formAjouter']['formAjouter:radiob'][0].checked) { 
+					document.getElementById("formAjouter:minv").style.display="none";						
+					document.getElementById("formAjouter:maxv").style.display="none";						
+					document.getElementById("formAjouter:minValue").style.display="none";						
+					document.getElementById("formAjouter:maxValue").style.display="none";						
+					document.getElementById("formAjouter:minl").style.display="none";						
+					document.getElementById("formAjouter:minlimit").style.display="none";						
+					document.getElementById("formAjouter:maxl").style.display="none";						
+					document.getElementById("formAjouter:maxlimit").style.display="none";
+					
+			 }
+			 if(document.forms['formAjouter']['formAjouter:radiob'][1].checked) {
+				document.getElementById("formAjouter:minv").style.display="block";						
+				document.getElementById("formAjouter:maxv").style.display="block";						
+				document.getElementById("formAjouter:minValue").style.display="block";						
+				document.getElementById("formAjouter:maxValue").style.display="block";						
+				document.getElementById("formAjouter:minl").style.display="block";						
+				document.getElementById("formAjouter:minlimit").style.display="block";						
+				document.getElementById("formAjouter:maxl").style.display="block";						
+				document.getElementById("formAjouter:maxlimit").style.display="block";	
+				
+			 }
+			}
+
+	</script>   
+
+	  <h:form id="formAjouter">
+      <rich:panel  headerClass="head2" style="width:500px;align:center;" bodyClass="body3">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{msg['page_value_mofifier_titre']}" />
+                </h:panelGroup>
+            </f:facet>
+
+		
+		
+			<h:inputHidden value="#{valeurReponseBean.idTypeReponse}" />
+			<f:event type="postValidate" listener="#{valeurReponseBean.validate}"/>
+				<h:panelGrid columns="1"> 
+					<rich:messages />
+					<br />
+	
+				</h:panelGrid>
+				
+				<h:outputText value="#{msg['page_value_mofifier_titre']}" />
+				
+				<p:growl id="messages" showSummary="true" showDetail="true"/>
+             <h:panelGrid id="addPDP" columns="2" cellspacing="2" cellpadding="2">
+	                <h:outputText value="#{msg['form_valeur_liste_libelle']}" />
+	                <p:inputText value="#{valeurReponseBean.libelleTypeReponse}" id="nom" />
+	                
+    <h:outputText value="Label:" id="lable123"  />
+	                <p:inputText value="#{valeurReponseBean.valeur}" id="valeur" />
+                
+              		
+					               
+ 	                <h:outputText value="#{msg['form_mode_unitemesure']}" id="unit" />
+	                <p:inputText value="#{valeurReponseBean.unitMeasure}" id="unitMeasure" />
+				 
+					 
+					 
+
+					<h:outputText value="#{msg['form_mode_typeformat']}" id="format" style="vertical-align:top;"/>				 	
+					
+		 			<h:selectOneRadio value="#{valeurReponseBean.typeFormat}" layout="pageDirection"  id="radiob" onclick="showminmax()" >							
+						<h:outputLabel value="" />	
+					   	<f:selectItem itemValue="Date" itemLabel="Date" />
+						<h:outputLabel value="" />	
+					   		<f:selectItem itemValue="Flottant" itemLabel="Flottant" />
+						<h:outputLabel value="" />						   
+					</h:selectOneRadio>
+ 
+					
+ 					<h:outputText style="display:none;" value="#{msg['form_mode_minautorise']} " id="minv" />
+	                <p:inputText style="display:none;" value="#{valeurReponseBean.minValue}" id="minValue" />	                
+            		
+	                <h:outputText style="display:none;" value="#{msg['form_mode_maxautorise']} " id="maxv" />
+	                <p:inputText style="display:none;" value="#{valeurReponseBean.maxValue}" id="maxValue"  />
+	                
+	                <h:outputText style="display:none;" value="#{msg['form_mode_limitbasse']} " id="minl" />
+	                <p:inputText style="display:none;" value="#{valeurReponseBean.lowBorder}" id="minlimit"  />	                
+            		
+	                <h:outputText style="display:none;" value="#{msg['form_mode_limithausse']} " id="maxl" />
+	                <p:inputText style="display:none;" value="#{valeurReponseBean.highBorder}" id="maxlimit" />
+	                
+	                </h:panelGrid>
+	                <p:spacer width="150" height="20" />
+  	 	 <h:outputText value="" />  
+          <p:commandButton  value="#{msg.appli_bouton_retour}"  action="#{valeurReponseBean.retourback()}"  />
+          <h:outputText value="" />  
+          <p:spacer width="20" height="10" />
+	                
+            		<p:commandButton id="AjouterTypeReponse" value="#{msg['appli_bouton_modifier']}" action="#{valeurReponseBean.modifier()}"   />
+            		<h:outputText value="" />
+ <h:outputText value="#{msg['form_champs_oblig']} " />
+	            
+            
+            
+            	
+            
+            
+            
+            
+            
+        </rich:panel>
+        
+        </h:form>
+        
+        
+    
+    
+    
+	</ui:define>
+
+</ui:composition>
+   
+</html>

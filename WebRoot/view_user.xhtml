@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui"      >
+    <h:head>
+  	<style>		
+		.head2 {
+		background-image: url();
+        background-color : #5D7B9D !important;;
+        height:18px;
+        text-align:center;
+        vertical-align:middle;
+		color:White;        
+        padding:4px 0;
+    	}    	
+		.body3 {
+	    background-color: #F7F6F3;
+		}
+	</style>
+    	
+    </h:head>
+    <h:body>
+    	<f:metadata>
+			<f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />		
+		</f:metadata>
+		<f:view>
+			
+			<f:event type="preRenderView" listener="#{utilisateurBean.preModifier}" />
+		</f:view>
+    
+	<br></br>
+	<br></br>
+	<br></br>
+	
+	<div align="center" >
+	<h:form> 
+	
+	<rich:panel  headerClass="head2" style="height:160px;width:400px;align:center;" bodyClass="body3">
+            <f:facet name="header">Formulaire</f:facet>            
+            <h:panelGrid columns="3">               
+                <h:outputText value="Identifiant :" />
+                <h:inputText value="#{utilisateurBean.identifiant}" id="user">
+                    <rich:validator />
+                </h:inputText>
+                <rich:message for="user" />
+
+                <h:outputText value="Nom :" />
+                <h:inputText value="#{utilisateurBean.nom}" id="nom"/>                    
+                <rich:message for="nom" />
+
+                <h:outputText value="Fonction :" />
+                    <h:selectOneMenu value="#{utilisateurBean.idFonction}" id="fonction" > 
+						<f:selectItems value="#{utilisateurBean.fonctionList}" />                           
+                    </h:selectOneMenu> 
+                <rich:message for="fonction" />
+                
+                <h:outputText value="Profil :" />
+                    <h:selectOneMenu value="#{utilisateurBean.idFonction}" id="Profile" > 
+						<f:selectItems value="#{utilisateurBean.profileList}" />                           
+                    </h:selectOneMenu> 
+                <rich:message for="Profile" />
+
+
+
+                <h:outputText value="Mot de passe :" />
+                <p:password id="pwd1" value="#{utilisateurBean.motDePasseChanged}" match="pwd2" label="Password 1" required="true"/>
+                <rich:message for="pwd1" />    
+ 
+                <h:outputText value="Confirmer le mot de passe :" />
+               	<p:password id="pwd2" value="#{utilisateurBean.motDePasseChanged}" label="Password 2" required="true"/>
+                <rich:message for="pwd2" />
+                
+                <h:outputText value="Client :" />
+                    <h:selectOneMenu value="#{utilisateurBean.idClient}" id="client" > 
+						<f:selectItems value="#{utilisateurBean.clientList}" />                           
+                    </h:selectOneMenu> 
+                <rich:message for="client" />
+                
+                <h:outputLabel value="" />
+               
+                <h:commandButton id="valid" value="Valider" type="submit" action="#{utilisateurBean.modifier()}"/>
+                <h:button id="annuler" value="Annuler" type="submit" outcome="utilisateurs?faces-redirect=true"/>
+                
+            </h:panelGrid>
+        </rich:panel>
+        </h:form>
+	 </div>
+</h:body>
+		
+</html>

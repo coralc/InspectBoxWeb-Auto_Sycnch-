@@ -1,0 +1,945 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+			<f:event   type="preRenderView" listener="#{generalController.show()}" />
+			 
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+	
+	
+	<h:form    id="form">
+	 
+	 <f:facet name="header">
+            <p:messages id="msgs" />
+        </f:facet>
+	<p:growl id="messages" showDetail="true" sticky="true"/> 
+	 
+	 <p:fieldset id="availableCarsField" legend="Loop">
+	 <h:outputText value="&#160;" />
+	 <div align="center">
+	 <rich:panel style="width: 450px;">
+				 <h:panelGrid id="addPDP" columns="2" cellspacing="3" cellpadding="3">
+	          
+				<h:outputText value="#{msg['page_listeObjets_findtitres']}" />
+				<p:autoComplete id="themePojo" 
+				value="#{generalController.tagChoisi}" 	completeMethod="#{generalController.completeTheme}" 
+                         style="width: 250px; " />
+				<p:commandButton id="rechercher"   
+							action="#{generalController.afficherRow()}" update=":form:allg"
+							value="#{msg['appli_bouton_rechercher']}"   />	
+								
+							
+			<p:commandButton   update=":form" action="#{generalController.reset()}" value="#{msg['appli_bouton_reset']}" 
+			type="submit"  />
+						</h:panelGrid>
+				</rich:panel>
+				</div>
+				
+				
+			<p:spacer width="150" height="50" />	
+	  <p:dataTable id ="allg"  value="#{generalController.getLister()}"  var="o2"  tableStyle="width:auto"
+	  rows="10" paginator="true" >
+	                 
+	  <p:ajax event="rowEdit" listener="#{generalController.onEditLine}" update=":form:allg"  />  
+        <p:ajax event="rowEditCancel" listener="#{generalController.onCancel}" update=":form:allg" /> 
+	   <f:facet name="header">
+           <h:outputText value="#{msg['page_consulter_general']}" />
+        </f:facet>
+	  
+	  <p:columnGroup type="header">
+            <p:row>
+                 <p:column colspan="5"   headerText="#{msg['page_consulter_general_niveau']}"/>  
+                <p:column colspan="7"  headerText="#{msg['page_consulter_general_choix']}" />  
+                <p:column  colspan="21"   headerText="#{msg['page_consulter_general_equipe']}" /> 
+            </p:row>
+            
+                <p:row>  
+                <p:column  rowspan="2" headerText="#{msg['page_consulter_general_site']}" />
+             <p:column rowspan="2" headerText="#{msg['page_consulter_general_bat']}" />
+              <p:column rowspan="2" headerText="#{msg['page_consulter_general_tag']}" />
+               <p:column rowspan="2" headerText="#{msg['page_consulter_general_descr']}" />
+                <p:column rowspan="2" headerText="Barcode" /> 
+                
+                <p:column rowspan="2"  headerText="#{msg['form_mode_unitemesuregv']}"  />
+                <p:column rowspan="2" headerText="LowLimit" />
+                <p:column rowspan="2" headerText="HighLimit" />
+                <p:column rowspan="2" headerText="LowBorder" />
+                <p:column rowspan="2" headerText="HighBorder" />
+                <p:column rowspan="2" headerText="LowBorder Alert" />
+                <p:column rowspan="2" headerText="HighBorder Alert" />
+                
+                <p:column colspan="3"   headerText="#{msg['form_utilisateur_lu']}"  />
+                <p:column  colspan="3"   headerText="#{msg['form_utilisateur_ma']}" />
+                <p:column  colspan="3"  headerText="#{msg['form_utilisateur_me']}" />
+                <p:column   colspan="3"  headerText="#{msg['form_utilisateur_je']}" />
+                <p:column   colspan="3" headerText="#{msg['form_utilisateur_ve']}" />
+                <p:column   colspan="3"  headerText="#{msg['form_utilisateur_sa']}" />
+                 <p:column  colspan="3"  headerText="#{msg['form_utilisateur_di']}" />
+         </p:row> 
+            
+            <p:row>
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+            </p:row>
+        </p:columnGroup>
+        
+        <p:column  > 
+         
+                 <p:cellEditor> 
+             <f:facet name="output"> 
+            <h:outputText value="#{o2.site}" />    
+             </f:facet>  
+                <f:facet name="input" rendered= "#{loginBean.idacce}">  
+                     <p:inputText  value="#{o2.site}" disabled="true"  />  
+                </f:facet> 
+                  
+            </p:cellEditor> 
+                      
+              <f:facet name="footer" >  
+               <p:inputText   value="#{generalController.sitechoisit}"   />
+                
+                </f:facet> 
+		 </p:column> 
+		 
+        <p:column >
+          <p:cellEditor> 
+             <f:facet name="output">
+                     <h:outputText value="#{o2.bat}" />  
+               </f:facet>  
+                <f:facet name="input" >  
+                     <p:inputText  value="#{o2.bat}" disabled="true"  />  
+                </f:facet> 
+                  
+            </p:cellEditor>  
+             <f:facet name="footer" >  
+             <p:inputText   value="#{generalController.batchoisit}"   />
+              
+            		</f:facet>    
+          </p:column> 
+        
+        <p:column >  
+       <p:cellEditor> 
+             <f:facet name="output">
+                     <h:outputText value="#{o2.equip}" />  
+               </f:facet>  
+                <f:facet name="input"> 
+                      
+               <p:inputText  value="#{o2.equip}" disabled="true"  />  
+                </f:facet> 
+                  
+            </p:cellEditor>  
+             <f:facet name="footer">  
+              <p:inputText   value="#{generalController.locchoisit}"   />
+            
+            		</f:facet>  
+        </p:column>
+        
+        <p:column >  
+          <p:cellEditor> 
+             <f:facet name="output">
+               
+                     <h:outputText value="#{o2.controle}" />  
+               </f:facet>  
+                <f:facet name="input"> 
+                      
+               <p:inputText  value="#{o2.controle}"   />  
+                </f:facet> 
+                  
+            </p:cellEditor>
+            <f:facet name="footer">  
+             <p:inputText   value="#{generalController.obchoisit}"   />
+            
+            		
+            		</f:facet> 
+          </p:column>
+          
+        <p:column >  
+          <p:cellEditor> 
+             <f:facet name="output">
+                     <h:outputText value="#{o2.barecode}" />  
+               </f:facet>  
+                <f:facet name="input"> 
+                      
+               <p:inputText  value="#{o2.barecode}"   />  
+                </f:facet> 
+                   
+            </p:cellEditor> 
+             <f:facet name="footer">  
+            <p:inputText  value="#{generalController.barcodechoisi}"  />  
+            		</f:facet>
+        </p:column>
+        
+        
+        <p:column  >  
+          <p:cellEditor> 
+           <f:facet name="output">
+                     <h:outputText value="#{o2.unit}" /> 
+                      </f:facet>  
+                       <f:facet name="input">  
+                    <p:inputText value="#{o2.unit}" />  
+                </f:facet>   
+               </p:cellEditor>  
+                <f:facet name="footer">  
+               
+                <p:selectOneMenu id="selectWV" value="#{generalController.choixchoisi}"    >
+                <f:selectItems value="#{generalController.listchoix()}"  />
+            </p:selectOneMenu>
+           
+            		<p:inputText   value="#{generalController.unitmesure}" id="ch1" /> 
+            		<p:watermark for="ch1" value="#{msg.form_mode_unitemesure}" />
+           </f:facet>  
+        </p:column>
+        
+				 
+         <p:column  >  
+            <p:cellEditor> 
+           <f:facet name="output">
+                     <h:outputText value="#{o2.lowlimit}"    />   
+               </f:facet>  
+                       <f:facet name="input">  
+                    <p:inputText value="#{o2.lowlimit}" />  
+                </f:facet>   
+               </p:cellEditor>
+                 <f:facet name="footer">  
+                  <p:inputText  id ="minl" value="#{generalController.lowlimitchoisi}"     /> 
+                 </f:facet>  
+        </p:column>
+        
+         <p:column >  
+          <p:cellEditor> 
+           <f:facet name="output">
+                     <h:outputText value="#{o2.hightlimit}"  />  
+              </f:facet>  
+                       <f:facet name="input">  
+                    <p:inputText value="#{o2.hightlimit}" />  
+                </f:facet> 
+                 </p:cellEditor>
+                 <f:facet name="footer">  
+                  <p:inputText  id="maxl" value="#{generalController.hightlimitchoisi}"   /> 
+                 </f:facet>    
+              
+        </p:column>
+        
+         <p:column >  
+         <p:cellEditor> 
+           <f:facet name="output">
+                     <h:outputText value="#{o2.lowBorder}" />  
+               </f:facet>  
+                       <f:facet name="input">  
+                    <p:inputText value="#{o2.lowBorder}" />  
+                </f:facet>   
+               </p:cellEditor>
+                <f:facet name="footer">  
+                  <p:inputText  id="minv" value="#{generalController.lowBorderchoisi}"   /> 
+                 </f:facet>  
+        </p:column>
+        
+         <p:column >  
+           <p:cellEditor> 
+           <f:facet name="output">
+                     <h:outputText value="#{o2.highBorder}" />  
+               </f:facet>  
+                       <f:facet name="input">  
+                    <p:inputText value="#{o2.highBorder}" />  
+                </f:facet>   
+               </p:cellEditor>
+                <f:facet name="footer">  
+                  <p:inputText  id="maxv" value="#{generalController.highBorderchoisi}"  /> 
+                 </f:facet>  
+        </p:column>
+        
+        
+        
+         <p:column >  
+          <p:cellEditor> 
+           <f:facet name="output">
+          <h:outputText value="#{o2.lowBorderAlert}" />  
+                </f:facet>  
+                       <f:facet name="input">  
+                    <p:inputText value="#{o2.lowBorderAlert}" />  
+                </f:facet>   
+               </p:cellEditor>
+                <f:facet name="footer">  
+                  <p:inputText  id="lowAlert" value="#{generalController.lowBorderAlertchoisi}"   /> 
+                 </f:facet>  
+        </p:column>
+        
+         <p:column >  
+           <p:cellEditor> 
+           <f:facet name="output">
+                     <h:outputText value="#{o2.highBorderAlert}" />  
+                    </f:facet>  
+                       <f:facet name="input">  
+                    <p:inputText value="#{o2.highBorderAlert}" />  
+                </f:facet>   
+               </p:cellEditor>  
+                <f:facet name="footer">  
+                  <p:inputText   id="highAlert" value="#{generalController.highBorderAlertchoisi}"  /> 
+                 </f:facet>   
+         </p:column>      
+       
+       
+       <p:column >
+          <p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.lunFS}" disabled="true"  />
+         </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.lunFS}"  />  
+                </f:facet>   
+               </p:cellEditor>
+                <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.lunFSchoisi}"  />   
+                 </f:facet> 
+		</p:column>
+		
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+          <h:selectBooleanCheckbox value="#{o2.lunSS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+          <h:selectBooleanCheckbox value="#{o2.lunSS}"   />  
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.lunSSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.lunNS}" disabled="true"  />
+         </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.lunNS}"   /> 
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.lunNSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+          <h:selectBooleanCheckbox value="#{o2.maFS}" disabled="true"  /> 
+         </f:facet>  
+                       <f:facet name="input">  
+          <h:selectBooleanCheckbox value="#{o2.maFS}"   /> 
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.maFSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		
+		<p:column>
+        <p:cellEditor> 
+           <f:facet name="output">
+        
+         <h:selectBooleanCheckbox value="#{o2.maSS}" disabled="true"  />
+         </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.maSS}"   />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.maSSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+        
+         <h:selectBooleanCheckbox value="#{o2.maNS}" disabled="true"  />
+         </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.maNS}"   />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.maNSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+          <h:selectBooleanCheckbox value="#{o2.meFS}" disabled="true"  /> 
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.meFS}"   />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.meFSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.meSS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.meSS}"  />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.meSSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+          <h:selectBooleanCheckbox value="#{o2.meNS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox  value="#{o2.meNS}"  />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.meNSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.jeFS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.jeFS}"  />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.jeFSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.jeSS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.jeSS}"   />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.jeSSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+          <h:selectBooleanCheckbox value="#{o2.jeNS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.jeNS}"   />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.jeNSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.veFS}" disabled="true"  /> 
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.veFS}"   />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.veFSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.veSS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.veSS}"   />
+                </f:facet>   
+               </p:cellEditor>
+	<f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.veSSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.veNS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.veNS}"  />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.veNSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+        <h:selectBooleanCheckbox value="#{o2.saFS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.saFS}"   />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.saFSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+        <h:selectBooleanCheckbox value="#{o2.saSS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.saSS}"  />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.saSSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.saNS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.saNS}"  />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.saNSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.diFS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.diFS}"   />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.diFSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.diSS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.diSS}"   />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.diSSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		<p:column>
+		<p:cellEditor> 
+           <f:facet name="output">
+         <h:selectBooleanCheckbox value="#{o2.diNS}" disabled="true"  />
+          </f:facet>  
+                       <f:facet name="input">  
+           <h:selectBooleanCheckbox value="#{o2.diNS}"   />
+                </f:facet>   
+               </p:cellEditor>
+               <f:facet name="footer">  
+                   <p:selectBooleanCheckbox value="#{generalController.diNSchoisi}"  />   
+                 </f:facet>
+		</p:column>
+		
+		
+		<p:column >  
+            <f:facet name="header">  
+                <h:outputText value="Option" />  
+            </f:facet> 
+          
+           <p:rowEditor rendered= "#{loginBean.idacce}" id="edt" />
+            <p:blockUI block="allg" trigger="edt">
+        LOADING<br />
+        <p:graphicImage value="/resources/images/ajaxloadingbar.gif"/>
+    </p:blockUI>
+          
+           <p:commandButton icon="ui-icon ui-icon-trash" title="#{msg['appli_bouton_supprimer']}" onclick="if (! confirm('#{msg['appli_confirm_supprimer']}')) return false"
+					rendered= "#{loginBean.idacce}" action="#{generalController.supprimerInspect(o2.idObj)}"/>  
+					
+					
+					 <f:facet name="footer">  
+            
+				<p:commandButton id="save" value="#{msg.form_add_vue_inspection}"  action="#{generalController.creerInspectionv2}" 
+				 rendered= "#{(loginBean.idacce and generalController.onerow==false ) }"
+				update=":form:allg "   />
+				
+				<p:commandButton id="save2" value="#{msg.form_add_vue_inspection}"  onclick="PF('dlg1').show();" 
+				 rendered= "#{(loginBean.idacce and generalController.onerow==true ) }"
+				   />
+				<p:blockUI block="allg" trigger="save">
+        LOADING<br />
+        <p:graphicImage value="/resources/images/ajaxloadingbar.gif"/>
+    </p:blockUI>
+				</f:facet> 	
+        </p:column> 
+	  </p:dataTable>
+	 
+	 
+	
+	
+	 <p:blockUI block="allg" trigger="allg">
+        LOADING<br />
+        <p:graphicImage value="/resources/images/ajaxloadingbar.gif"/>
+    </p:blockUI>
+    
+     </p:fieldset>
+  <p:dialog header="Adding new tag" widgetVar="dlg1" >
+    <p:outputLabel for="console" value="Add:" />
+        <p:selectOneRadio id="console" value="#{generalController.triChoisi}" >
+            <f:selectItem itemLabel="Before #{generalController.tagChoisi}" itemValue="1" />
+            <f:selectItem itemLabel="After #{generalController.tagChoisi}" itemValue="2" />
+            
+        </p:selectOneRadio>
+<p:commandButton id="save2" value="#{msg.form_add_vue_inspection}"  action="#{generalController.creerInspectionv2}" 
+				 
+				update=":form:allg "   />
+</p:dialog>
+	 
+<p:dataTable id ="allghide" style="display:none;" value="#{generalController.listeView}" var="o2"  > 
+	
+	<f:facet name="header">  
+           <h:outputText value="#{msg['page_consulter_general']}" />
+        </f:facet>  
+      
+	<p:columnGroup type="header" colspan="34" >  
+             <p:row>  
+                <p:column colspan="5"   headerText="#{msg['page_consulter_general_niveau']}"/>  
+                <p:column colspan="8"  headerText="#{msg['page_consulter_general_choix']}" />  
+                <p:column  colspan="21"   headerText="#{msg['page_consulter_general_equipe']}" /> 
+                
+            </p:row>  
+ <p:row>
+ 
+     </p:row>        
+  
+            <p:row>  
+                <p:column  rowspan="2" headerText="#{msg['page_consulter_general_site']}"  />
+             <p:column rowspan="2" headerText="#{msg['page_consulter_general_bat']}" />
+              <p:column rowspan="2" headerText="#{msg['page_consulter_general_tag']}" />
+               <p:column rowspan="2" headerText="#{msg['page_consulter_general_descr']}" />
+                <p:column rowspan="2" headerText="Barcode" /> 
+                
+                
+                 
+               
+           
+               <p:column rowspan="2"  headerText="Unité"  />
+                <p:column rowspan="2" headerText="LowLimit" />
+                <p:column rowspan="2" headerText="HighLimit" />
+                <p:column rowspan="2" headerText="LowBorder" />
+                <p:column rowspan="2" headerText="HighBorder" />
+                <p:column rowspan="2" headerText="other" />
+                 <p:column rowspan="2" headerText="LowBorder Alert" />
+                <p:column rowspan="2" headerText="HighBorder Alert" />
+                
+                <p:column colspan="3"   headerText="#{msg['form_utilisateur_lu']}"  />
+                <p:column  colspan="3"   headerText="#{msg['form_utilisateur_ma']}" />
+                <p:column  colspan="3"  headerText="#{msg['form_utilisateur_me']}" />
+                <p:column   colspan="3"  headerText="#{msg['form_utilisateur_je']}" />
+                <p:column   colspan="3" headerText="#{msg['form_utilisateur_ve']}" />
+                <p:column   colspan="3"  headerText="#{msg['form_utilisateur_sa']}" />
+                 <p:column  colspan="3"  headerText="#{msg['form_utilisateur_di']}" />
+         </p:row> 
+          <p:row>
+ 
+             
+   				<p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+                <p:column headerText="FS" />
+                <p:column headerText="SS" />
+                <p:column headerText="NS" />
+   
+  
+                
+   </p:row>
+   
+        </p:columnGroup>  
+        
+        
+        
+        <p:column style="width:60px;">  
+        
+               
+            <h:outputText value="#{o2.site}" />    
+             
+                      
+              
+		 </p:column> 
+		 
+         <p:column>  
+          
+                     <h:outputText value="#{o2.bat}" />  
+                
+          </p:column> 
+        
+        <p:column>  
+      
+                     <h:outputText value="#{o2.equip}" />  
+              
+        </p:column>
+        
+        <p:column>  
+          
+                     <h:outputText value="#{o2.controle}" />  
+              
+          </p:column>
+          
+        <p:column>  
+         
+                     <h:outputText value="#{o2.barecode}" />  
+               
+        </p:column>
+          <p:column >  
+          
+                     <h:outputText value="#{o2.unit}" /> 
+                      
+        </p:column>
+        
+				 
+         <p:column>  
+           
+                     <h:outputText value="#{o2.lowlimit}"    />  
+              
+        </p:column>
+        
+         <p:column>  
+          
+                     <h:outputText value="#{o2.hightlimit}"  />  
+               
+              
+        </p:column>
+        
+         <p:column>  
+        
+                     <h:outputText value="#{o2.lowBorder}" />  
+              
+        </p:column>
+        
+         <p:column>  
+          
+                     <h:outputText value="#{o2.highBorder}" />  
+             
+        </p:column>
+        
+        <p:column>  
+           
+                     <h:outputText value="#{o2.autre}" />  
+                
+        </p:column>
+        
+         <p:column>  
+         
+          <h:outputText value="#{o2.lowBorderAlert}" />  
+               
+        </p:column>
+        
+         <p:column>  
+           
+                     <h:outputText value="#{o2.highBorderAlert}" />  
+                    
+         </p:column>      
+       
+		<p:column>
+          
+         <h:selectBooleanCheckbox value="#{o2.lunFS}" disabled="true"  />
+         
+		</p:column>
+		
+		<p:column>
+		
+          <h:selectBooleanCheckbox value="#{o2.lunSS}" disabled="true"  />
+         
+		</p:column>
+		
+		<p:column>
+		
+         <h:selectBooleanCheckbox value="#{o2.lunNS}" disabled="true"  />
+         
+		</p:column>
+		<p:column>
+		
+          <h:selectBooleanCheckbox value="#{o2.maFS}" disabled="true"  /> 
+         
+		</p:column>
+		
+		<p:column>
+       
+        
+         <h:selectBooleanCheckbox value="#{o2.maSS}" disabled="true"  />
+        
+		</p:column>
+		<p:column>
+		
+        
+         <h:selectBooleanCheckbox value="#{o2.maNS}" disabled="true"  />
+         
+		</p:column>
+		<p:column>
+		
+          <h:selectBooleanCheckbox value="#{o2.meFS}" disabled="true"  /> 
+          
+		</p:column>
+		<p:column>
+		
+         <h:selectBooleanCheckbox value="#{o2.meSS}" disabled="true"  />
+         
+		</p:column>
+		<p:column>
+		
+          <h:selectBooleanCheckbox value="#{o2.meNS}" disabled="true"  />
+         
+		</p:column>
+		<p:column>
+		
+         <h:selectBooleanCheckbox value="#{o2.jeFS}" disabled="true"  />
+         
+		</p:column>
+		<p:column>
+		
+         <h:selectBooleanCheckbox value="#{o2.jeSS}" disabled="true"  />
+         
+		</p:column>
+		<p:column>
+		
+          <h:selectBooleanCheckbox value="#{o2.jeNS}" disabled="true"  />
+         
+		</p:column>
+		<p:column>
+		
+         <h:selectBooleanCheckbox value="#{o2.veFS}" disabled="true"  /> 
+         
+		</p:column>
+		<p:column>
+		
+         <h:selectBooleanCheckbox value="#{o2.veSS}" disabled="true"  />
+          
+		</p:column>
+		<p:column>
+		
+         <h:selectBooleanCheckbox value="#{o2.veNS}" disabled="true"  />
+         
+		</p:column>
+		<p:column>
+		
+        <h:selectBooleanCheckbox value="#{o2.saFS}" disabled="true"  />
+          
+		</p:column>
+		<p:column>
+		
+        <h:selectBooleanCheckbox value="#{o2.saSS}" disabled="true"  />
+          
+		</p:column>
+		<p:column>
+		
+         <h:selectBooleanCheckbox value="#{o2.saNS}" disabled="true"  />
+         
+		</p:column>
+		<p:column>
+		
+         <h:selectBooleanCheckbox value="#{o2.diFS}" disabled="true"  />
+         
+		</p:column>
+		<p:column>
+		
+         <h:selectBooleanCheckbox value="#{o2.diSS}" disabled="true"  />
+         
+		</p:column>
+		<p:column>
+		
+         <h:selectBooleanCheckbox value="#{o2.diNS}" disabled="true"  />
+         
+		</p:column>
+		
+		
+	 </p:dataTable> 
+	 <p:spacer width="150" height="20" />
+	 <div align="center">
+	 <p:panelGrid columns="2">
+	 <h:outputText value="#{msg['page_export_consulter_general']}" />
+	 <h:commandLink>  
+            <p:graphicImage value="/resources/images/excel.png" />  
+            <p:dataExporter type="xls" target="allghide" fileName="tournées" />  
+        </h:commandLink>
+        
+        </p:panelGrid>  
+        </div>
+        
+
+	</h:form>
+	
+	
+	
+	
+	</ui:define>
+
+</ui:composition>
+</html>

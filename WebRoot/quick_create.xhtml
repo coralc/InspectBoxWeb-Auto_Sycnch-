@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+ <h:form >
+<p:button value="Open dialog" onclick="dlg5.show(); return false;" />
+
+            		
+            		
+							
+	           
+	          <p:dialog id="dial5" header="5. Attestation de 1ère étape de consignation" widgetVar="dlg5" modal="true" height="500">
+	           <f:facet name="footer">   
+        <p:commandButton value="Effacer" process="@this"  />      	
+    	</f:facet>  
+</p:dialog>
+ </h:form>
+</html>

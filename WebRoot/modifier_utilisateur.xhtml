@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+    
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+	    <f:viewParam name="id"   
+			value="#{utilisateurBean.idUtilisateur}"/>
+	    <f:event type="preRenderView" listener="#{utilisateurBean.afficher()}"/>
+	</f:metadata>
+	</ui:define>
+ 
+	<ui:define name="content">
+ <script type="text/javascript"> 
+ function verifdate(){
+	
+	 var beg=document.getElementById("formAjouter:tlist:beg").value;
+	  if ((beg.length != 5) || (beg.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:tlist:beg").value="00:00";
+		  }
+	  var end=document.getElementById("formAjouter:tlist:end").value;
+	  if ((end.length != 5) || (end.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:tlist:end").value="00:00";
+		  }
+	  
+	  var beg1=document.getElementById("formAjouter:tlist:beg1").value;
+	  if ((beg1.length != 5) || (beg1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:tlist:beg1").value="00:00";
+		  }
+	  var end1=document.getElementById("formAjouter:tlist:end1").value;
+	  if ((end1.length != 5) || (end1.split(":").length !=2))
+		  {
+		  alert(" Format Date: HH:MM ");
+		  document.getElementById("formAjouter:tlist:end1").value="00:00";
+		  }
+	 
+ }
+function startdate(){
+	
+	var beg=document.getElementById("formAjouter:tlist:beg").value;
+	  if (beg.length == 0) 
+		  {
+		 
+		  document.getElementById("formAjouter:tlist:beg").value="00:00";
+		  }
+	  var end=document.getElementById("formAjouter:tlist:end").value;
+	  if (end.length == 0) 
+		  {
+		 
+		  document.getElementById("formAjouter:tlist:end").value="00:00";
+		  }
+ }
+ 
+ 
+ </script> 
+	   <h:form id="formAjouter">
+     <p:growl id="messages" showDetail="true" sticky="true" /> 
+    
+       <rich:panel style="width:700px;align:center;" >
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{msg.page_utilisateur_mofifier_titre} #{utilisateurBean.codeAcces}" />
+                </h:panelGroup>
+            </f:facet>
+
+		
+		
+			<h:inputHidden value="#{utilisateurBean.idUtilisateur}" />
+				<h:panelGrid columns="1"> 
+					<rich:messages />
+					<br />
+				</h:panelGrid>
+				
+				
+            <h:panelGrid id="addPDP" columns="2" cellspacing="2" cellpadding="2">
+            <h:outputText value="#{msg['form_utilisateur_type']}" />
+	               <h:selectOneRadio value="#{utilisateurBean.typeUser}" id="typemode" layout="pageDirection" disabled="true"  >
+			   	<f:selectItem itemValue="S" itemLabel="#{msg.form_user_simple}" id="simple" />
+			   	<f:selectItem itemValue="E" itemLabel="#{msg.form_user_team}" id="equipe"  />
+			   	</h:selectOneRadio>
+			   	
+	               <h:outputText value="#{msg.form_utilisateur_prenom}" rendered="#{utilisateurBean.typeUser eq 'S'}"/>
+	                <p:inputText value="#{utilisateurBean.prenom}" id="nom" rendered="#{utilisateurBean.typeUser eq 'S'}" />
+	              
+	                <h:outputText value="#{msg.form_utilisateur_nom}" rendered="#{utilisateurBean.typeUser eq 'S'}"/>
+	                <p:inputText value="#{utilisateurBean.nom}" id="libelleNiveau2" rendered="#{utilisateurBean.typeUser eq 'S'}"/>
+	               
+	               <h:outputText value="#{msg.form_utilisateur_utilisateur}" />
+	                <h:inputText value="#{utilisateurBean.codeAcces}" id="utilisateur" />
+	                
+	                <h:outputText value="#{msg.form_utilisateur_password}" />
+	                <p:password value="#{utilisateurBean.motDePasseModif}" id="password" />
+	                
+	                <h:outputText   value="#{msg['form_utilisateur_accee']}" id="acclab"/>
+	                 <h:outputText   />
+		                <p:selectBooleanCheckbox   value="#{utilisateurBean.terminal}" id="terminal" disabled="true" rendered="#{utilisateurBean.typeUser eq 'E'}">
+		                		                </p:selectBooleanCheckbox>
+		                		                <p:selectBooleanCheckbox   value="#{utilisateurBean.terminal}" rendered="#{utilisateurBean.typeUser eq 'S'}"  >
+		                		                </p:selectBooleanCheckbox>
+		                <h:outputText   value="#{msg['form_utilisateur_terminal']}" id="termlab"/>
+	               
+		                <p:selectBooleanCheckbox   value="#{utilisateurBean.administration}" id="administration" />
+		                <h:outputText value="#{msg['form_utilisateur_administration']}" id="admlab"/>
+	                 
+	                 <h:outputText    value="#{msg['form_utilisateur_daywork']}" rendered="#{utilisateurBean.typeUser eq 'E'}"/>
+	                  <h:outputText   />
+	                  </h:panelGrid> 
+	  <p:dataTable id ="tlist" value="#{utilisateurBean.lister}" var="o2" cache="false" tableStyle="width:auto" editable="true" rendered="#{utilisateurBean.typeUser eq 'E'}" > 
+	             
+	             <p:ajax event="rowEdit" listener="#{utilisateurBean.onEditTeam}" update=":formAjouter:tlist , :formAjouter:messages" />  
+        <p:ajax event="rowEditCancel" listener="#{utilisateurBean.onCancel}" update=":formAjouter:tlist , :formAjouter:messages" />  
+    
+	               
+	                <p:column >  
+            <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_utilisateur_jour']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+             <p:cellEditor> 
+             <f:facet name="output"> 
+            <h:outputText value="#{o2.dayOfWeek}" /> 
+             </f:facet>  
+                <f:facet name="input">  
+                <p:inputText value="#{o2.dayOfWeek}" disabled="true" />  
+                    
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+			<rich:select value="#{utilisateurBean.newDay}"  openOnEdit="true" enableManualInput="false"  disabled="false" >
+                		<f:selectItem itemLabel="#{msg['form_utilisateur_lundi']}" itemValue="1" />  
+            <f:selectItem itemLabel="#{msg['form_utilisateur_mardi']}" itemValue="2" />  
+            <f:selectItem itemLabel="#{msg['form_utilisateur_mercredi']}" itemValue="3" />  
+            <f:selectItem itemLabel="#{msg['form_utilisateur_jeudi']}" itemValue="4" />  
+            <f:selectItem itemLabel="#{msg['form_utilisateur_vendredi']}" itemValue="5" />  
+            <f:selectItem itemLabel="#{msg['form_utilisateur_samedi']}" itemValue="6" />  
+            <f:selectItem itemLabel="#{msg['form_utilisateur_dim']}" itemValue="0" /> 
+            		</rich:select>
+                     
+            </f:facet>  
+        </p:column> 
+        
+        <p:column >  
+            <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_utilisateur_beginHour']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+             <p:cellEditor> 
+             <f:facet name="output"> 
+            <h:outputText value="#{o2.beginHour}" /> 
+             </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{o2.beginHour}"  id="beg1" onchange="verifdate()" />  
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+                     
+                      <p:inputText  value="#{utilisateurBean.beginHournew}"  id="beg" onclick="startdate()" onchange="verifdate()"  />
+            </f:facet>  
+        </p:column> 
+        
+         <p:column >  
+            <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_utilisateur_endHour']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+             <p:cellEditor> 
+             <f:facet name="output"> 
+            <h:outputText value="#{o2.endHour}" /> 
+             </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{o2.endHour}"  id="end1" onchange="verifdate()"/>  
+                    
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+                     
+                      <p:inputText  value="#{utilisateurBean.endHournew}"  id="end"  onclick="startdate()" onchange="verifdate()" />
+            </f:facet>  
+        </p:column> 
+        <p:column >  
+            <f:facet name="header">  
+                <h:outputText value="" />  
+            </f:facet> 
+           <p:rowEditor />
+            	<p:commandButton  icon="ui-icon ui-icon-trash"  title="#{msg['appli_bouton_supprimer']}" onclick="if (! confirm('#{msg['appli_confirm_supprimer']}')) return false"
+					action="#{utilisateurBean.supprimerTeam(o2.idTeam)}"/>
+			
+        </p:column> 
+        <f:facet name="footer">  
+            
+				<p:commandButton title="#{msg['form_gammes_liste_bouton_ajout']}" icon="ui-icon-plusthick" action="#{utilisateurBean.creerTeam}" 
+				update=":formAjouter:tlist , :formAjouter:messages" />
+				</f:facet> 
+	                </p:dataTable> 
+	               
+            	<p:spacer width="150" height="10" />
+  	 	 <h:outputText value="" />  
+          <p:commandButton  value="#{msg.appli_bouton_retour}"  action="#{utilisateurBean.retourback()}"  />
+          <h:outputText value="" /> 
+           <p:spacer width="150" height="10" />
+            <p:commandButton id="ModifierObjet" value="#{msg.appli_bouton_modifier}" update=":formAjouter:messages"  action="#{utilisateurBean.modifier()}" />
+        </rich:panel>
+        </h:form>
+  
+       
+        
+   
+    
+ 
+
+    
+	</ui:define>
+
+</ui:composition>
+   
+</html>

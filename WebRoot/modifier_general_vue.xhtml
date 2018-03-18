@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+      <ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+				<f:viewParam name="idSelected" value="#{generalControllerbean.idObjetChoisie}"/>
+			<f:event type="preRenderView" listener="#{generalControllerbean.afficher()}" />
+			
+		</f:metadata>
+	</ui:define>
+<ui:define name="myCSS">
+	 	<style>		
+		.head2 {
+		background-image: url();
+        background-color : #808080 !important;;
+        height:18px;
+        text-align:center;
+        vertical-align:middle;
+		color:White;        
+        padding:4px 0;
+        font-size:120%;
+        border-style: none;
+    	}    	
+		.body3 {
+	    background-color: #F7F6F3;
+        font-size:105%;
+        border-style: none;
+		}
+		.rf-p {
+		 border-style: none;
+		}
+	</style>
+</ui:define>
+	<ui:define name="content">
+	
+	<script type="text/javascript"> 
+	
+		function showvalue(){ 	
+			
+			if(document.forms['formAjouter']['formAjouter:typemode'][1].checked) {
+				
+				document.getElementById("formAjouter:plist").style.display="none";
+				
+				document.getElementById("formAjouter:minv").style.display="block";					
+				document.getElementById("formAjouter:maxv").style.display="block";				
+				document.getElementById("formAjouter:minValue").style.display="block";				
+				document.getElementById("formAjouter:maxValue").style.display="block";				
+				document.getElementById("formAjouter:minl").style.display="block";					
+				document.getElementById("formAjouter:minlimit").style.display="block";
+				
+				document.getElementById("formAjouter:maxl").style.display="block";					
+				document.getElementById("formAjouter:maxlimit").style.display="block";	
+				document.getElementById("formAjouter:minlalert").style.display="block";					
+				document.getElementById("formAjouter:minlimitalert").style.display="block";				
+				document.getElementById("formAjouter:maxlalert").style.display="block";					
+				document.getElementById("formAjouter:maxlimitalert").style.display="block";
+				
+				
+			 }
+			
+			
+			 if(document.forms['formAjouter']['formAjouter:typemode'][0].checked) { 
+				 
+				 document.getElementById("formAjouter:plist").style.display="block";
+					
+				document.getElementById("formAjouter:minv").style.display="none";
+				
+				document.getElementById("formAjouter:maxv").style.display="none";				
+				
+				document.getElementById("formAjouter:minValue").style.display="none";	
+				
+				document.getElementById("formAjouter:maxValue").style.display="none";	
+				
+				document.getElementById("formAjouter:minl").style.display="none";	
+				
+				document.getElementById("formAjouter:minlimit").style.display="none";	
+				
+				document.getElementById("formAjouter:maxl").style.display="none";	
+				
+				document.getElementById("formAjouter:maxlimit").style.display="none";	
+				
+				document.getElementById("formAjouter:minalert").style.display="none";	
+				
+				document.getElementById("formAjouter:minlimitalert").style.display="none";	
+				
+				document.getElementById("formAjouter:maxlalert").style.display="none";	
+				
+				document.getElementById("formAjouter:maxlimitalert").style.display="none";	
+				
+				
+			 }
+		 
+	
+		}
+	
+		</script> 
+	<h:form    id="formAjouter">
+	 <rich:panel  headerClass="head2" style="width:600px;align:center;" bodyClass="body3">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Modifier Inspection" />
+                
+                </h:panelGroup>
+            </f:facet>
+  
+<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+<h:outputText value="Site :" />
+ <p:inputText value="#{generalControllerbean.nomSite}" id="SiteId"  />
+		
+		
+		
+		<h:outputText value="Batiment :" />
+		 
+	<p:inputText value="#{generalControllerbean.nomBat}"  />
+		
+		<h:outputText value="Localisation :" />
+		
+		<p:inputText value="#{generalControllerbean.nomEq}"  />
+		
+		
+		<h:outputText value="Description :" />
+		<p:inputText value="#{generalControllerbean.nomObj}"  />
+		
+		
+		<h:outputText value="barrecode :" />
+		 <p:inputText value="#{generalControllerbean.codeBarre}" id="cb"  />
+		 </h:panelGrid>
+		 <h:panelGrid columns="3" cellspacing="2" cellpadding="2">
+		 <h:outputText value="#{msg.form_mode_reponse}" />
+			<h:selectOneRadio value="#{generalControllerbean.modeReponse}" id="typemode" layout="pageDirection" disabled="true"  >
+			   	<f:selectItem itemValue="Liste" itemLabel="#{msg.form_choix_liste}" id="listechoix" />
+			   	<f:selectItem itemValue="Valeur" itemLabel="#{msg.form_choix_valeur}" id="valuechoix"  />
+			   	</h:selectOneRadio>
+			   	
+			   	<p:inputText value="#{generalControllerbean.unitvue}" id="unitvue"  />
+		
+</h:panelGrid>
+ <h:panelGrid columns="1" cellspacing="2" cellpadding="2">
+
+<p:dataTable id ="plist" value="#{generalControllerbean.lister}" var="o2" cache="false" tableStyle="width:auto" " rendered="#{generalControllerbean.modeReponse eq 'Liste' }"  editable="true"  >  
+
+  <p:ajax event="rowEdit" listener="#{generalControllerbean.onEditChoix}" update=":formAjouter:plist" />  
+        <p:ajax event="rowEditCancel" listener="#{listeChoixBean.onCancel}" update=":formAjouter:plist" />  
+    
+        <p:column >  
+            <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_choix_liste_valeur']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+             <p:cellEditor> 
+             <f:facet name="output"> 
+            <h:outputText value="#{o2.libelle}" /> 
+             </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{o2.libelle}" />  
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+			 
+                    <p:inputText id="lib" value="#{generalControllerbean.nomlistrep}"  />  
+            </f:facet>  
+        </p:column>  
+
+        <p:column >  
+            <f:facet name="header">  
+            
+                <h:outputText value="#{msg['form_choix_liste_nonConforme']}" />  
+            </f:facet> 
+           <p:cellEditor> 
+             <f:facet name="output">
+            	<p:selectBooleanCheckbox value="#{o2.nonConforme}" disabled="true"  />
+              </f:facet>  
+                <f:facet name="input"> 
+                <p:selectBooleanCheckbox value="#{o2.nonConforme}"  />
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+                    <p:selectBooleanCheckbox id="nonConforme" value="#{generalControllerbean.nclistrep}" />  
+            </f:facet>  
+        </p:column>  
+  
+  
+          <p:column >  
+            <f:facet name="header">  
+                <h:outputText value="" />  
+            </f:facet> 
+           <p:rowEditor />
+            	<p:commandButton  icon="ui-icon ui-icon-trash" id="Aconsulter#{o2.idChoix}" title="#{msg['appli_bouton_supprimer']}" onclick="if (! confirm('#{msg['appli_confirm_supprimer']}')) return false"
+					action="#{generalControllerbean.supprimer(o2.idChoix)}"  update=":formAjouter:plist"/>
+			
+        </p:column>  
+        <f:facet name="footer">  
+            
+				<p:commandButton title="Ajouter" icon="ui-icon-plusthick"  action="#{generalControllerbean.creerlistrep}"
+				update=":formAjouter:plist" />
+				</f:facet> 
+    </p:dataTable>  
+    
+   
+</h:panelGrid>
+<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+					<h:outputText  value="#{msg['form_mode_minautorise']} " id="minv" rendered="#{generalControllerbean.modeReponse eq 'Valeur' }"  />
+	                <p:inputText  value="#{generalControllerbean.minValue}" id="minValue" rendered="#{generalControllerbean.modeReponse eq 'Valeur' }" />	                
+            		
+	                <h:outputText  value="#{msg['form_mode_maxautorise']} " id="maxv"  rendered="#{generalControllerbean.modeReponse eq 'Valeur' }" />
+	                <p:inputText  value="#{generalControllerbean.maxValue}" id="maxValue" rendered="#{generalControllerbean.modeReponse eq 'Valeur' }" />
+	                
+	                <h:outputText  value="#{msg['form_mode_limitbasse']} " id="minl" rendered="#{generalControllerbean.modeReponse eq 'Valeur' }" />
+	                <p:inputText  value="#{generalControllerbean.lowBorder}" id="minlimit" rendered="#{generalControllerbean.modeReponse eq 'Valeur' }" />	                
+            		
+	                <h:outputText  value="#{msg['form_mode_limithausse']} " id="maxl" rendered="#{generalControllerbean.modeReponse eq 'Valeur' }" />
+	                <p:inputText  value="#{generalControllerbean.highBorder}" id="maxlimit" rendered="#{generalControllerbean.modeReponse eq 'Valeur' }" />
+	                
+	                <h:outputText  value="#{msg['form_mode_limitbassealert']} " id="minalert" rendered="#{generalControllerbean.modeReponse eq 'Valeur' }" />
+	                <p:inputText  value="#{generalControllerbean.lowBorderAlert}" id="minlimitalert" rendered="#{generalControllerbean.modeReponse eq 'Valeur' }"  />	                
+            		
+	                <h:outputText  value="#{msg['form_mode_limithaussealert']} " id="maxlalert" rendered="#{generalControllerbean.modeReponse eq 'Valeur' }" />
+	                <p:inputText  value="#{generalControllerbean.highBorderAlert}" id="maxlimitalert" rendered="#{generalControllerbean.modeReponse eq 'Valeur' }" />
+	                
+	          <h:outputText value="Team :" />  
+  		<p:selectManyMenu id="userteam" value="#{generalControllerbean.selectedteam}" style="height:200px; width:200px" >
+			<f:selectItems value="#{generalControllerbean.listeSelectteam}" />    							                       
+		</p:selectManyMenu>
+		</h:panelGrid>
+		<p:spacer width="150" height="10" />
+  	 	  <h:outputText value="" />        
+	           
+            	<p:commandButton  value="#{msg.appli_bouton_retour}"  action="#{generalControllerbean.retourback()}"  />
+           <h:outputText value="" /> 
+	            
+            	
+            		<p:commandButton align="center" id="Modifier" value="#{msg['appli_bouton_modifier']}" type="submit" action="${generalControllerbean.modifier()}" />
+            	
+	                
+	                
+
+</rich:panel>
+	</h:form>
+	
+	
+	
+	
+	</ui:define>
+
+</ui:composition>
+</html>

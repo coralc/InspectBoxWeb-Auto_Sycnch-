@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+		    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+		    
+			
+		    
+	    </f:metadata>
+	</ui:define>
+ <ui:define name="myCSS">
+	 	<style>		
+		.head2 {
+		background-image: url();
+        background-color : #808080 !important;;
+        height:18px;
+        text-align:center;
+        vertical-align:middle;
+		color:White;        
+        padding:4px 0;
+        font-size:120%;
+        border-style: none;
+    	}    	
+		.body3 {
+	    background-color: #F7F6F3;
+        font-size:105%;
+        border-style: none;
+		}
+		.rf-p {
+		 border-style: none;
+		}
+		.ui-picklist-list {
+height:200px !important;
+width:250px !important;
+}
+	</style>
+</ui:define>
+	<ui:define name="content">
+ 
+
+    
+       <h:form id="form"> 
+    
+       <rich:panel     headerClass="head2" style="width:600px;align:center;" bodyClass="body3">
+   
+            <f:facet name="header">
+                <h:panelGroup>
+                	<h:outputText value="#{msg['appli_titre_ajout_objet']} " />
+                
+                </h:panelGroup>
+            </f:facet>
+		
+		
+ <h:panelGrid id="addPDP" columns="2" cellspacing="2" cellpadding="2">
+		
+	                <h:outputText value="#{msg['appli_libelle']}"/>
+	                <p:inputText value="#{ajouterObjetInspectionBean.nom}" id="nom"  />
+	                
+	                 <h:outputText value="#{msg['appli_codeBarre']}"/>
+	                <p:inputText value="#{ajouterObjetInspectionBean.codeBarre}" id="cb"  />
+   <h:outputText value=""/>
+         </h:panelGrid>
+         <h:panelGrid  columns="2" cellspacing="2" cellpadding="2">
+	    <h:outputText  id="tagchoix" value="#{msg['appli_typeChoix']}" />
+         <p:selectOneMenu style="width: 100px;" value="#{ajouterObjetInspectionBean.choix}" id="choix"  >
+                		<f:selectItems value="#{ajouterObjetInspectionBean.listTypeReponse()}"  />
+		</p:selectOneMenu>
+		 <h:selectBooleanCheckbox   id="commentaire" value="#{ajouterObjetInspectionBean.commentaireAutorise}" />
+	<h:outputLabel  id="tagcom" value="#{msg['form_objetInspection_commentaire']}" />
+		
+ 	 <p:commandButton id="AjouterTypeReponse" value="#{msg['form_objetInspection_valider']}"  action="#{ajouterObjetInspectionBean.ajouterobj()}"  />
+	                
+       <p:commandButton id="ret" type="button" value="#{msg['form_objetInspection_annuler']}"     />
+      
+ 		</h:panelGrid>
+ 		
+ 	 
+  
+ 		</rich:panel>	
+            </h:form>
+        
+    
+    
+    
+    
+	</ui:define>
+
+</ui:composition>
+</html>

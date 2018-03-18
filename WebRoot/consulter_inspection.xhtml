@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+		   <f:viewParam name="date" value="#{inspectionBean.clefDate}"/>
+		   <f:viewParam name="idNiveau" value="#{inspectionBean.idNiveau}"/>
+		   <f:viewParam name="idBatiment" value="#{inspectionBean.idNiveauBatiment}"/>
+		   <f:viewParam name="idLocalisation" value="#{inspectionBean.idNiveauLocalisation}"/>
+		   <f:viewParam name="idObjet" value="#{inspectionBean.idNiveauObjet}"/>
+		   
+	       <f:event type="preRenderView" listener="#{inspectionBean.afficher()}" />
+	    </f:metadata>
+		
+		
+	</ui:define>
+
+	<ui:define name="content">
+<h:inputHidden value="#{inspectionBean.clefDate}" />
+<h:inputHidden value="#{inspectionBean.idNiveau}" />
+
+
+		<div class="presentation-page">
+			<rich:panel style="width: 1200px;">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg['page_home_recherche_inspection_titre']}" />
+					</h:panelGroup>
+				</f:facet>
+				<br />
+				<div align="center">
+				
+				<h:form id="enum"> 
+					<h:commandLink value="#{msg['navigation_rechercher']}" action="recherche_inspection" /> 
+					<h:outputLabel value=" > #{msg['navigation_consulter_inspection']}" />
+
+				</h:form>
+				<br /><br />
+				
+				<rich:panel style="width: 300px;">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg['page_consulter_inspection_titre']}" />
+					</h:panelGroup>
+				</f:facet>
+				
+				<div align="center">
+				
+				
+				<h:panelGrid columns="2">
+					<h:outputLabel value="#{msg['page_consulter_inspection_date']} " /><h:outputLabel value="#{inspectionBean.date}" />
+					<h:outputLabel value="#{inspectionBean.listeLibelleNiveau.get(0).libelle} " /><h:outputLabel value="#{inspectionBean.niveauInitial}" />
+					</h:panelGrid>
+					
+				</div>
+				</rich:panel>
+					
+				</div>
+
+				
+				
+				
+<h:outputStylesheet>
+    .rf-dt{
+        width:780px;    
+    }
+    .acent{
+        text-align: center;
+    }
+        
+    .titreTableauInspection{
+        font-weight:bold;
+        font-family: arial,verdana,sans-serif; 
+        font-size: 11px; 
+</h:outputStylesheet>
+
+	<br/><br/>
+
+<div align="center">
+  <h:form>
+    <p:dataTable  id="allghide" value="#{inspectionBean.listeMapInspection}" var="o2"  tableStyle="width:auto"
+                 
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 >  
+
+ <p:column >  
+            <f:facet name="header">  
+                <h:outputText value="#{msg['form_rechercher_inspection_date']}" styleClass="titreTableauInspection"/>  
+            </f:facet>  
+            <h:outputText value="#{o2.dateins}" />  
+        </p:column>  
+  
+        <p:column >  
+            <f:facet name="header">  
+                <h:outputText value="#{inspectionBean.listeLibelleNiveau.get(1).libelle}" styleClass="titreTableauInspection"/>  
+            </f:facet>  
+            <h:outputText value="#{o2.niveau2Libelle}" />  
+        </p:column>  
+  
+        <p:column>  
+            <f:facet name="header">  
+                <h:outputText value="#{inspectionBean.listeLibelleNiveau.get(2).libelle}"  styleClass="titreTableauInspection" />  
+            </f:facet>  
+            <h:outputText value="#{o2.niveau3Libelle}" />  
+        </p:column>  
+  
+        <p:column>  
+            <f:facet name="header">  
+                <h:outputText value="#{inspectionBean.listeLibelleObjet.get(0).libelle}"  styleClass="titreTableauInspection" />  
+            </f:facet>  
+            <h:outputText value="#{o2.niveau4Libelle}"  title="#{msg['page_consulter_inspection_type']} #{inspectionBean.listeLibelleObjet.get(0).libelle}: #{o2.objet1Libelle}" />  
+        </p:column>  
+        
+        <p:column>  
+            <f:facet name="header">  
+                <h:outputText value="#{inspectionBean.listeLibelleObjet.get(1).libelle}"  styleClass="titreTableauInspection" />  
+            </f:facet>  
+            <h:outputText value="#{o2.objet2Libelle}" />  
+        </p:column>  
+  
+ 		<p:column>  
+            <f:facet name="header" styleClass="titreTableauInspection" >  
+                <h:outputText value="#{msg['page_consulter_inspection_resultat']}"  styleClass="titreTableauInspection" />  
+            </f:facet>  
+            <h:outputText value="#{o2.choix}" style="text-align: center;" />  
+        </p:column>  
+   
+  
+         
+           
+    <p:column>
+           <f:facet name="header" styleClass="titreTableauInspection" >  
+                <h:outputText value="#{msg['page_consulter_inspection_defect']}"  styleClass="titreTableauInspection" />  
+            </f:facet> 
+         <h:selectBooleanCheckbox value="#{o2.defect}" disabled="true"  />
+         
+		</p:column>
+		 <p:column>
+           <f:facet name="header" styleClass="titreTableauInspection" >  
+                <h:outputText value="#{msg['page_consulter_inspection_user']}"  styleClass="titreTableauInspection" />  
+            </f:facet> 
+         <h:outputText value="#{o2.utilisateur}" />
+         
+		</p:column>
+		<p:column>
+           <f:facet name="header" styleClass="titreTableauInspection" >  
+                <h:outputText value="#{msg['form_utilisateur_liste_terminal']}"  styleClass="titreTableauInspection" />  
+            </f:facet> 
+         <h:outputText value="#{o2.idTerminal}" />
+         
+		</p:column>
+    </p:dataTable>  
+  
+  
+				
+				<br/><br/>
+				
+			
+				<rich:panel style="width: 130px;">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg['page_consulter_inspection_exporter']}" />
+					</h:panelGroup>
+				</f:facet>
+				
+				<div align="center">
+				
+				<h:commandLink>  
+            <p:graphicImage value="/resources/images/excel.png" />  
+            <p:dataExporter type="xls" target="allghide" fileName="#{inspectionBean.nomcsv}" />  
+        </h:commandLink>
+					
+					
+				</div>
+				</rich:panel>
+
+			    
+				<br />
+				</h:form>
+	  </div>
+	</rich:panel>
+			
+			
+		</div>
+
+ 		<br />
+			
+		
+	</ui:define>
+
+</ui:composition>
+</html>

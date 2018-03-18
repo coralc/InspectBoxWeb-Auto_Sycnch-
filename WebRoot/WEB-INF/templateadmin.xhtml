@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+	<html 
+lang="#{languageDetails.language}" 
+	xmlns="http://www.w3.org/1999/xhtml"   
+	style="height: 100%;"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      >
+<f:view locale="#{languageDetails.locale}">
+<f:event type="preRenderView" listener="#{languageDetails.lister()}" />
+<ui:insert name="haut">
+  VVV
+</ui:insert> 
+
+<h:head>
+  <title><ui:insert name="title">InspectBox</ui:insert></title>    
+	<meta http-equiv="Pragma" content="no-cache"/>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Expires" content="-1"/>
+  <h:outputScript name="jquery.js" target="head" />
+ 	<h:outputScript library="js" name="calLocale.js" />
+  
+  <h:outputStylesheet library="css" name="table-style.css"  />
+  
+  <h:outputStylesheet library="css" name="General_002.css" />
+  <h:outputStylesheet library="css" name="Controls.css" />
+  <h:outputStylesheet library="css" name="General.css" />
+  <h:outputStylesheet library="css" name="MenuBar.css" />
+  <h:outputStylesheet library="css" name="Controls_002.css" />
+  <h:outputStylesheet library="css" name="General_003.css" />
+  
+  <h:outputScript library="js" name="utils.js" />
+  <h:outputScript library="js" name="MenuBar.js" />
+  <h:outputScript library="js" name="MenuBarDetail.js" />
+  
+<style type="text/css">
+        .ui-widget-content22 {
+        	border:0 !important;
+        	font-family: Arial, Verdana, sans-serif !important;
+        	font-size: 9pt !important;
+			}
+    </style>
+
+<ui:insert name="myCSS">
+</ui:insert> 
+
+</h:head>
+
+<h:body style="height: 100%;">
+
+
+<div id="header">
+    <ui:insert name="header">
+    	<!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
+    	<!-- <ui:include src="header.xhtml"/> -->
+    	
+    </ui:insert>
+</div>
+  
+  
+
+<table  style="height: 100%;" align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody>
+  
+  <tr id="TableRow_Content"  style="height: 100%;">
+  
+  <td height="100%" valign="top">
+    <table  style="height: 100%;" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody>
+    <tr>
+        <td height="100%" align="center" valign="top">
+           <table class="contentMapTableFull" border="0" cellpadding="0" cellspacing="0">
+           <tbody>
+           	    <tr>
+				  <td>
+				     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+				     <tbody>
+				     <tr>
+				       <td valign="top" align="left" style="width: 486px; height: 50px; "><img src="images/Logo-top.gif"/></td>
+				       <td valign="top" align="right" style="width: 486px; height: 40px; "><img src="images/banner.jpg"/></td>
+				       <td nowrap="nowrap" align="right" width="100%" style="color: #fff;  font-size: 8pt; background: #000; margin: 0 12px 0 0;">&nbsp;<h:form> 
+				       	<h:commandLink style="color: #fff; font-family: verdana,sans-serif; font-size: 13px;" id="logout" action="#{loginBean.logout}"
+				       	 value="#{msg['page_home_deconnexion']}" type="submit" /> &nbsp;&nbsp;
+				       	 
+				       	 </h:form>&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+				       <td nowrap="nowrap" align="right" width="100%" style="color: #fff;  font-size: 8pt; background: #000; margin: 0 12px 0 0;">&nbsp;<h:form> 
+				       	<h:commandButton action="#{languageDetails.languagechde}" image="images/de.gif" />&nbsp;&nbsp;
+				       	 <h:commandButton action="#{languageDetails.languagechen}" image="images/en.gif" />&nbsp;&nbsp;
+				       	 <h:commandButton action="#{languageDetails.languagechfr}" image="images/fr.gif" />&nbsp;&nbsp;
+				       	 </h:form>&nbsp;&nbsp;&nbsp;&nbsp;</td> 
+				       		
+				     </tr>
+				     </tbody>
+				     </table>
+				  </td>
+			  </tr>
+              <!-- The MenuBar is display iff 'content.class.table' is "contentTable"/"contentMapTable" -->
+              
+              <tr>
+              	<td class="menuFondTraq">
+	              	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+						<tbody><tr>
+						<td nowrap="nowrap"  align="left" valign="top" style="height:32px; width: 165px; margin: 0; padding: 0; background: url(images/Logo-bot.gif) top left no-repeat;"></td>
+        					<td nowrap="nowrap" align="left"  valign="top" style="height:32px; width: 44px; margin: 0; padding: 0; background: url(images/menu-left.gif) top left no-repeat transparent;"></td>
+	              			<td nowrap="nowrap" align="center" style="background: url(images/menu-blue-background.gif) top left repeat-x;color : #fff;" ><i>#{msg['page_home_compte']}</i> #{loginBean.client} (#{loginBean.user})
+	              			</td>
+							<td class="menuMidTraq" nowrap="nowrap" align="left"  valign="top"></td>
+							
+							
+						
+							<td nowrap="nowrap" align="left" width="19px"> </td>
+							<td nowrap="nowrap" align="left"  width="12px"><img src="images/menu-button.gif"   /> </td>
+					        <td width="100px" style="margin: 0; padding: 0 0 0 0; color: #fff; font-weight: bold; font-size: 8pt; " nowrap="nowrap" align="left">&nbsp;
+					          
+					          
+					          
+					          
+					          <h:form name="NavHautInspectionForm">         
+    					    	<h:link style="color: #fff; font-family: verdana,sans-serif; font-size: 11px;text-decoration:none;" outcome="liste_utilisateuradmin"    value="#{msg['page_consulter_inspection_user']}" >
+    					    		
+    					    	</h:link>
+								</h:form>
+					        </td>
+
+							
+					        
+					        
+					        
+					        <td nowrap="nowrap" align="left" width="39px"> </td>
+							<td nowrap="nowrap" align="left" width="12px">
+							 <h:graphicImage value="images/menu-button.gif"  /></td>
+					        
+					        <td width="100px" style="margin: 0; padding: 0 0 0 0; color: #fff; font-weight: bold; font-size: 8pt; " nowrap="nowrap" align="left">&nbsp;
+					          <h:form name="NavHautInspectionForm3">         
+    					    	<h:link style="color: #fff; font-family: verdana,sans-serif; font-size: 11px;text-decoration:none;" outcome="liste_clients" value="Client"   >
+    					    		
+    					    	</h:link>
+    					    	
+								</h:form>
+					        </td>
+					        
+							
+					       <td nowrap="nowrap" align="left" width="39px"> </td>
+							<td nowrap="nowrap" align="left" width="12px">
+							 <h:graphicImage value="images/menu-button.gif"  /></td>
+					        
+					        <td width="100px" style="margin: 0; padding: 0 0 0 0; color: #fff; font-weight: bold; font-size: 8pt; " nowrap="nowrap" align="left">&nbsp;
+					          <h:form name="NavHautInspectionForm3">         
+    					    	<h:link style="color: #fff; font-family: verdana,sans-serif; font-size: 11px;text-decoration:none;" outcome="liste_terminaux" value="Terminals"   >
+    					    		
+    					    	</h:link>
+    					    	
+								</h:form>
+					        </td>
+							
+					       	<td class="menuRightTraq" width="27%"></td>
+						</tr>
+	              	</tbody></table>
+	            </td>
+              </tr>
+			  <tr>
+				<td id="menuLigneTraq"></td>
+			  </tr>
+	
+<tr valign="top">
+	<td style="width: 100%; height: 100%;"> 
+	<table border="0" cellpadding="0" cellspacing="0" width="100%"> 
+	<tbody> 
+		<tr> 
+			<td valign="top" style="width: 20%; height: 100%;">
+			
+			
+			</td>
+			<td valign="top" style="width: 80%; height: 100%;">
+			<div id="content">
+				  <ui:insert name="content">
+				    	Content area.  See comments below this line in the source.
+				    	<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
+					  	<!-- <div> -->
+				    	<!-- <ui:include src="content.xhtml"/> -->  
+				    	<!-- </div> -->
+				  </ui:insert>
+			</div> 
+			</td>		
+		</tr>
+	</tbody>
+	</table>
+	</td>
+</tr>
+
+
+
+</tbody></table>
+
+                </td>
+              </tr>
+              <tr>
+                <td id="contentMessage" class="contentMessage"></td>
+              </tr>
+              <tr>
+              	<td class="footerLoginaute"></td>
+              </tr>
+              <tr>
+              	<td>
+              		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				     <tbody>
+				     <tr>
+				      <td class="footerTraq"><a style="text-decoration: none;" href="http://www.coral-C.com/" target="_blank">Powered by Coral.C - Mobile Solutions Integrator Ã‚Â© Coral.C</a></td>
+				      
+						<td class="footerTexttraq">
+							
+								&nbsp;
+							
+				      	</td>
+				    
+				         
+				     </tr>
+				     </tbody>
+				     </table>
+              	</td>
+              </tr>
+           </tbody>
+           </table>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+  
+
+
+<div id="footer">
+  <ui:insert name="footer">
+    	<!--  include your header file or uncomment the include below and create footer.xhtml in this directory -->
+		<!--<ui:include src="footer.xhtml"/>  -->
+  </ui:insert>
+</div>
+
+
+</h:body>
+</f:view>
+</html>

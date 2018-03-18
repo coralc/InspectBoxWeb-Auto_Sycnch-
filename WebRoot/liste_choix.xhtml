@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+			<f:event type="preRenderView" listener="#{listeTypeReponsesBean.afficher()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+
+
+		<div class="presentation-page">
+			<rich:panel style="width:750px;">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg.page_choix_titre}" />
+					</h:panelGroup>
+				</f:facet>
+				<br />
+				
+
+
+				
+				
+		<h:outputStylesheet>
+
+		    .acent{
+		        text-align: center;
+		    }
+		    
+		    .titreTableauInspection{
+		        font-weight:bold;
+		        font-family: arial,verdana,sans-serif; 
+		        font-size: 11px;
+		        text-align: left; 
+		    }
+		</h:outputStylesheet>
+		
+		<br/>
+		
+		<div align="center">
+   
+			
+				
+				<h:form id="formch">  
+  
+    <p:dataTable id="list1" value="#{listeTypeReponsesBean.lister}" var="o2" cache="false"  editable="true"  >  
+
+  <p:ajax event="rowEdit" listener="#{listeTypeReponsesBean.onEditrep}" update=":formch:list1" />  
+        <p:ajax event="rowEditCancel" listener="#{listeTypeReponsesBean.onCancel}" update=":formch:list1" />
+ 
+        <p:column >  
+            <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg.form_choix_liste_libelle}" styleClass="titreTableauInspection"/>
+                   
+            </f:facet> 
+             <p:cellEditor> 
+             <f:facet name="output"> 
+            <h:outputText value="#{o2.libelle}" /> 
+             </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{o2.libelle}" />  
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+                    <p:inputText  value="#{listeTypeReponsesBean.nomlist}"  />  
+            </f:facet>  
+        </p:column> 
+  
+         
+  
+  
+  
+  
+          <p:column  rendered= "#{loginBean.idacce}">  
+            <f:facet name="header">  
+                <h:outputText value="" />  
+            </f:facet> 
+            
+           
+			 <p:rowEditor />
+ 
+				
+				<p:commandButton   icon="ui-icon-search"  title="#{msg.appli_bouton_voir}" action ="#{listeTypeReponsesBean.voir(o2.num)}" onclick="dlg1.show();"
+				update=":formch:plist"/>
+					
+				
+				<p:commandButton  icon="ui-icon ui-icon-trash"  title="#{msg['appli_bouton_supprimer']}" onclick="if (! confirm('#{msg['appli_confirm_supprimer']}')) return false"
+					action="#{listeTypeReponsesBean.supprimer2(o2.num)}"/>
+			 <f:facet name="footer">  
+            
+				<p:commandButton title="Ajouter" icon="ui-icon-plusthick" action="#{listeTypeReponsesBean.creer}" 
+				 />
+				</f:facet> 
+   
+			
+        </p:column>  
+    </p:dataTable>  
+  <p:dialog id="dial1" header="#{msg['cree_nveau_objet']}" widgetVar="dlg1" modal="true" height="350">
+       <p:dataTable id ="plist" value="#{listeTypeReponsesBean.listeMapchoix}" var="o2" cache="false" tableStyle="width:auto" editable="true">  
+
+  <p:ajax event="rowEdit" listener="#{listeTypeReponsesBean.onEditChoix}" update=":formch:plist" />  
+        <p:ajax event="rowEditCancel" listener="#{listeTypeReponsesBean.onCancel}"  update=":formch:plist" />  
+    
+        <p:column >  
+            <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_choix_liste_valeur']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+             <p:cellEditor> 
+             <f:facet name="output"> 
+            <h:outputText value="#{o2.libelle}" /> 
+             </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{o2.libelle}" />  
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+                    <p:inputText id="lib" value="#{listeTypeReponsesBean.nomlistrep}"  />  
+            </f:facet>  
+        </p:column>  
+
+        <p:column >  
+            <f:facet name="header">  
+            
+                <h:outputText value="#{msg['form_choix_liste_nonConforme']}" />  
+            </f:facet> 
+           <p:cellEditor> 
+             <f:facet name="output">
+            	<p:selectBooleanCheckbox value="#{o2.nonConforme}" disabled="true"  />
+              </f:facet>  
+                <f:facet name="input"> 
+                <p:selectBooleanCheckbox value="#{o2.nonConforme}"  />
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+                    <p:selectBooleanCheckbox id="nonConforme" value="#{listeTypeReponsesBean.nclistrep}"  />  
+            </f:facet>  
+        </p:column>  
+  
+  
+          <p:column >  
+            <f:facet name="header">  
+                <h:outputText value="" />  
+            </f:facet> 
+           <p:rowEditor />
+            	<p:commandButton  icon="ui-icon ui-icon-trash" id="Aconsulter#{o2.idChoix}" title="#{msg['appli_bouton_supprimer']}" onclick="if (! confirm('#{msg['appli_confirm_supprimer']}')) return false"
+					action="#{listeTypeReponsesBean.supprimerchoixrep(o2.idChoix)}" update=":formch:plist" oncomplete="dlg1.show()" />
+			
+         
+        <f:facet name="footer">  
+            
+				<p:commandButton title="Ajouter" icon="ui-icon-plusthick" action="#{listeTypeReponsesBean.creerlistrep}" update=":formch:plist" oncomplete="dlg1.show()"
+				 />
+				</f:facet> 
+				</p:column> 
+    </p:dataTable>
+    <br/>
+    <br/>
+      <p:commandButton type="button" value="#{msg['form_objetInspection_annuler']}"   icon="ui-icon-closethick" style="margin:0"  oncomplete="dlg1.hide();" onclick="dlg1.hide();"/>
+       
+</p:dialog>
+</h:form>  
+				
+				
+	  </div>
+	</rich:panel>
+			
+			
+		</div>
+
+			
+	<br /><br />
+	</ui:define>
+
+</ui:composition>
+</html>

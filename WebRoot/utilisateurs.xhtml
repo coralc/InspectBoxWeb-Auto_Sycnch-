@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">		
+		<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />		
+		</f:metadata>
+		<f:view>
+		<f:event type="preRenderView" listener="#{utilisateurBean.lister()}" />
+		</f:view>
+	</ui:define>
+	
+	<ui:define name="content">
+
+
+		
+			<h:form id="form">  
+  
+    <p:growl id="messages" showDetail="true"/>  
+  
+  
+    <p:dataTable  style="width: 70%" var="entreprise" value="#{utilisateurBean.listeUtilisateur}" id="usinList"
+       paginator="true" rows="10"  paginatorPosition="bottom" editable="true" tableStyle="width:auto" >  
+  
+        <f:facet name="header">  
+            Utilisateur  
+        </f:facet>  
+        <p:ajax event="rowEdit" listener="#{utilisateurBean.onEdit}" update=":form:messages" />  
+        <p:ajax event="rowEditCancel" listener="#{utilisateurBean.onCancel}" update=":form:messages" />  
+        
+         <p:column  filterBy="#{entreprise.identifiant}" filterMatchMode="contains">  
+			<f:facet name="header">  
+                    Identifiant  
+            </f:facet>  
+            <p:cellEditor>  
+                <f:facet name="output">  
+                    <h:outputText value="#{entreprise.identifiant}" />  
+                </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{entreprise.identifiant}" />  
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+                    <p:inputText id="usrIdf" value="#{utilisateurBean.identifiant}"  />  
+            </f:facet>
+        </p:column>
+ 
+         <p:column  filterBy="#{entreprise.nom}" filterMatchMode="contains">  
+			<f:facet name="header">  
+                    Nom  
+            </f:facet>  
+            <p:cellEditor>  
+                <f:facet name="output">  
+                    <h:outputText value="#{entreprise.nom}" />  
+                </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{entreprise.nom}" />  
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+                    <p:inputText id="usrNom" value="#{utilisateurBean.nom}"  />  
+            </f:facet>
+        </p:column>
+
+       
+         <p:column  filterBy="#{entreprise.nomFonction}" filterMatchMode="contains">  
+			<f:facet name="header">  
+                    Fonction  
+            </f:facet>  
+            <p:cellEditor>  
+                <f:facet name="output">  
+                    <h:outputText value="#{entreprise.nomFonction}" />  
+                </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{entreprise.nomFonction}" />  
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">
+				<p:selectOneMenu id="typeFon" value="#{utilisateurBean.idFonction}" >
+					<f:selectItems value="#{utilisateurBean.fonctionList}" />    							                       
+				</p:selectOneMenu>
+            </f:facet>
+        </p:column>
+        
+         <p:column  filterBy="#{entreprise.nomProfil}" filterMatchMode="contains">  
+			<f:facet name="header">  
+                    Profil  
+            </f:facet>  
+            <p:cellEditor>  
+                <f:facet name="output">  
+                    <h:outputText value="#{entreprise.nomProfil}" />  
+                </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{entreprise.nomProfil}" />  
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+					<p:selectOneMenu id="typePro" value="#{utilisateurBean.idProfil}" >
+						<f:selectItems value="#{utilisateurBean.profileList}" />    							                       
+					</p:selectOneMenu>  
+            </f:facet>
+        </p:column>
+
+        <p:column   rendered="#{loginBean.profileStr eq 'ADM' or loginBean.profileStr eq 'TEC'  }">  
+			<f:facet name="header">  
+                    Options  
+            </f:facet>  
+            <p:button id="mod" outcome="modifier_utilisateur" icon="ui-icon-pencil" 
+            rendered="#{loginBean.profileStr eq 'ADM' or (loginBean.profileStr eq 'TEC' and loginBean.userId eq entreprise.identifiant)  }" >						
+				<f:param name="idSelected" value="#{entreprise.id}" />
+			</p:button>
+            <p:spacer width="10" height="5" />
+  			<p:commandButton id="delete" title="Supprimer" action="#{utilisateurBean.delete(entreprise)}" 
+  			onclick="return confirm('Voulez-vous vraiment supprimer?');" icon="ui-icon ui-icon-trash" 
+  			rendered="#{loginBean.profileStr eq 'ADM' }" />
+			<f:facet name="footer">  
+
+				<p:commandButton title="Ajouter" icon="ui-icon-plusthick" action="#{utilisateurBean.creer}"  process="usrIdf, usrNom, typeFon, typePro"  update=":form:usinList" />
+			</f:facet>  
+        </p:column>  
+  
+    </p:dataTable>   
+
+</h:form>  
+            
+</ui:define>
+
+</ui:composition>
+</html>

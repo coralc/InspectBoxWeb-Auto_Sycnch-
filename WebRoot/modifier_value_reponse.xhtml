@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}"  
+xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      >
+    
+    
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	
+	
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+		<f:viewParam name="idParent" value="#{valeurReponseBean.idTypeReponse}"/>
+		<f:event type="preRenderView" listener="#{valeurReponseBean.afficher()}"/>
+	</f:metadata>
+	</ui:define>
+  			         
+ 
+	<ui:define name="content">
+	<script type="text/javascript"> 
+		function showvalue(){ 					
+		 if(document.forms['formAjouter']['formAjouter:typemode'][1].checked) { 
+			document.getElementById("formAjouter:lable123").style.visibility ="visible";			
+			document.getElementById("formAjouter:valeur").style.visibility ="visible";
+			document.getElementById("formAjouter:unit").style.visibility ="visible";
+			document.getElementById("formAjouter:unitMeasure").style.visibility ="visible";
+			document.getElementById("formAjouter:format").style.visibility ="visible";
+			document.getElementById("formAjouter:radiob").style.visibility ="visible"; 
+			document.getElementById("formAjouter:minv").style.visibility ="visible";					
+			document.getElementById("formAjouter:maxv").style.visibility ="visible";					
+			document.getElementById("formAjouter:minValue").style.visibility ="visible";					
+			document.getElementById("formAjouter:maxValue").style.visibility ="visible";					
+		 }
+		 if(document.forms['formAjouter']['formAjouter:typemode'][0].checked) { 
+			document.getElementById("formAjouter:lable123").style.visibility ="hidden";
+			document.getElementById("formAjouter:valeur").style.visibility ="hidden";
+			document.getElementById("formAjouter:unit").style.visibility ="hidden";
+			document.getElementById("formAjouter:unitMeasure").style.visibility ="hidden";					
+			document.getElementById("formAjouter:format").style.visibility ="hidden";					
+			document.getElementById("formAjouter:radiob").style.visibility ="hidden";
+			document.getElementById("formAjouter:minv").style.visibility ="hidden";					
+			document.getElementById("formAjouter:maxv").style.visibility ="hidden";					
+			document.getElementById("formAjouter:minValue").style.visibility ="hidden";					
+			document.getElementById("formAjouter:maxValue").style.visibility ="hidden";					
+		 }
+		}
+		
+		function showminmax(){ 					
+			 if(document.forms['formAjouter']['formAjouter:radiob'][0].checked) { 
+					document.getElementById("formAjouter:minv").style.visibility ="hidden";					
+					document.getElementById("formAjouter:maxv").style.visibility ="hidden";					
+					document.getElementById("formAjouter:minValue").style.visibility ="hidden";					
+					document.getElementById("formAjouter:maxValue").style.visibility ="hidden";					
+			 }
+			 else {				
+				document.getElementById("formAjouter:minv").style.visibility ="visible";					
+				document.getElementById("formAjouter:maxv").style.visibility ="visible";					
+				document.getElementById("formAjouter:minValue").style.visibility ="visible";					
+				document.getElementById("formAjouter:maxValue").style.visibility ="visible";					
+			 }
+			}
+
+	</script>   
+
+	    <br /><br />
+     <div align="center">
+     
+    
+        <rich:panel  style="width:400px;">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{msg['page_choix_ajouter_titre']}" />
+                </h:panelGroup>
+            </f:facet>
+
+		
+		<h:form id="formAjouter">
+				<h:panelGrid columns="1"> 
+					<rich:messages />
+					<br />
+	
+				</h:panelGrid>
+				
+				<h:link id="linkNavig" value="#{msg['navigation_parametrage_choix']}" outcome="liste_choix"  />
+	    		<h:outputText value=" > "/>
+				<h:outputText value="#{msg['page_choix_ajouter_titre']}" />
+				<br /><br />
+				
+            <h:panelGrid columns="1"> 
+	            <h:panelGrid columns="3"> 
+	                <h:outputText value="#{msg['form_choix_liste_libelle']}" />
+	                <h:inputText value="#{valeurReponseBean.libelleTypeReponse}" id="nom" validatorMessage="#{msg['erreur_choix_libelle']}">
+	                    <rich:validator />
+	                </h:inputText>
+	                <h:outputLabel value="" />
+	               
+	                
+			<h:outputText value="#{msg['form_mode_reponse']}" />
+
+			<h:selectOneRadio value="#{valeurReponseBean.modeReponse}" id="typemode" layout="pageDirection" onclick="showvalue()" >
+			   	<f:selectItem itemValue="Liste" itemLabel="Liste de choix" />
+			   	<f:selectItem itemValue="Valeur" itemLabel="Valeur"  />
+			</h:selectOneRadio>
+	         
+
+       
+				 	<br/>
+				 	<br/>
+				 	<br/>
+				 	
+ 						 	
+	                <h:outputText value="Label:" id="lable123"  />
+	                <h:inputText value="#{valeurReponseBean.valeur}" id="valeur" validatorMessage="#{msg['erreur_libelle_niveau2']}"  >
+	                    <rich:validator />
+	                </h:inputText>
+                
+              		
+					<h:outputLabel value="" />	                
+ 	                <h:outputText value="#{msg['form_mode_unitemesure']}" id="unit" />
+	                <h:inputText value="#{valeurReponseBean.unitMeasure}" id="unitMeasure" validatorMessage="#{msg['erreur_libelle_niveau2']}" >
+	                    <rich:validator />
+	                </h:inputText>
+				 	<br/>
+					 
+					 
+					<h:outputText value="#{msg['form_mode_typeformat']}" id="format" style="vertical-align:top;"/>				 	
+					
+		 			<h:selectOneRadio value="#{valeurReponseBean.typeFormat}" layout="pageDirection"  id="radiob" onclick="showminmax()" >							
+						<h:outputLabel value="" />	
+					   	<f:selectItem itemValue="Date" itemLabel="Date" />
+						<h:outputLabel value="" />	
+					   	
+						<h:outputLabel value="" />			 				
+					   	<f:selectItem itemValue="Entier" itemLabel="Entier" />
+						<h:outputLabel value="" />	
+					   	
+						<h:outputLabel value="" />			 				
+					   	<f:selectItem itemValue="Flottant" itemLabel="Flottant" />
+						<h:outputLabel value="" />						   
+					</h:selectOneRadio>
+
+					<h:outputLabel value="" />	
+ 					<h:outputText value="#{msg['form_mode_minautorise']} " id="minv" />
+	                <h:inputText value="#{valeurReponseBean.minValue}" id="minValue" validatorMessage="#{msg['erreur_libelle_niveau2']}">
+	                    <rich:validator />
+	                </h:inputText>
+					<h:outputLabel value="" />	                
+            		
+	                <h:outputText value="#{msg['form_mode_maxautorise']} " id="maxv" />
+	                <h:inputText value="#{valeurReponseBean.maxValue}" id="maxValue" validatorMessage="#{msg['erreur_libelle_niveau2']}">
+	                    <rich:validator />
+	                </h:inputText>
+ 					 					
+					
+            	
+
+<h:outputLabel value="" />	
+<h:outputLabel value="" />	 
+<h:outputLabel value="" />	 
+					
+
+	                <h:outputLabel value="" />	                
+	                <h:outputLabel value="" />	                
+            		<h:commandButton id="AjouterTypeReponse" value="#{msg['appli_bouton_ajouter']}" action="#{typeReponseBean.ajouter()}" />
+	            </h:panelGrid>
+            
+            
+            	
+            </h:panelGrid> 
+            
+            
+            </h:form>
+    
+ 			<script type="text/javascript"> 	
+					document.getElementById("formAjouter:lable123").style.visibility ="hidden";
+					document.getElementById("formAjouter:valeur").style.visibility ="hidden";
+					document.getElementById("formAjouter:unit").style.visibility ="hidden";
+					document.getElementById("formAjouter:unitMeasure").style.visibility ="hidden";					
+					document.getElementById("formAjouter:format").style.visibility ="hidden";					
+					document.getElementById("formAjouter:radiob").style.visibility ="hidden";					
+					document.getElementById("formAjouter:minv").style.visibility ="hidden";					
+					document.getElementById("formAjouter:maxv").style.visibility ="hidden";					
+					document.getElementById("formAjouter:minValue").style.visibility ="hidden";					
+					document.getElementById("formAjouter:maxValue").style.visibility ="hidden";					
+			</script>            
+            
+        </rich:panel>
+    </div>
+    
+ 
+
+    
+	</ui:define>
+
+</ui:composition>
+   
+</html>

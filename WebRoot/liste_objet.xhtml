@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+		<f:viewParam name="id"   value="#{listeObjetsBean.idObjet}"/>
+			
+		<f:event type="preRenderView" listener="#{listeObjetsBean.show()}" />
+	</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+	
+<h:form id="form" > 
+
+		<div class="presentation-page">
+			<rich:panel>
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg['page_listeObjets_titres']}" />
+					</h:panelGroup>
+				</f:facet>
+				<br />
+				<div align="center">
+					
+						
+						<p:button id="ajouterInspection"
+							outcome="ajouter_objet_inspection"
+							value="#{msg['form_listeObjets_bouton_ajout']} #{listeObjetsBean.libelleNiveauCourant}" type="submit"   >
+							
+						</p:button>
+						
+								
+					
+				</div>
+				<br />
+				<rich:panel style="width: 400px;">
+				 <h:panelGrid id="addPDP" columns="2" cellspacing="3" cellpadding="3">
+	          
+				<h:outputText value="#{msg['page_listeObjets_findtitres']}" />
+				<p:autoComplete id="themePojo" value="#{listeObjetsBean.objetchoisi}" completeMethod="#{listeObjetsBean.completeTheme}"
+                        forceSelection="true"  style="width: 250px; " />
+				<p:commandButton id="rechercher"   update=":form:d1"
+							action="#{listeObjetsBean.afficher()}"
+							value="#{msg['appli_bouton_rechercher']}"   />	
+							</h:panelGrid>	
+							<h:panelGrid  columns="2" cellspacing="3" cellpadding="3">
+			<p:commandButton   update=":form" action="#{listeObjetsBean.reset()}" value="#{msg['appli_bouton_reset']}" 
+			type="submit"  />
+						</h:panelGrid>	
+				</rich:panel>
+				
+						
+				 <h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
+					<h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
+					
+				
+				<p:dataTable id ="d1" value="#{listeObjetsBean.getLister()}" var="o" tableStyle="width:auto"
+					 headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-even-row" paginator="true" rows="20" paginatorPosition="bottom" 
+					emptyMessage="#{msg['appli_bouton_chooseoption']}" >
+ <f:facet name="header">
+       <h:outputText value="#{msg['page_listeObjets_titres']}" />
+    </f:facet>
+     <p:column headerText="#{listeObjetsBean.libelleNiveauCourant}" sortBy="#{o.libelle}" >
+            <h:outputText value="#{o.libelle}" />
+        </p:column>
+				 <p:column >	  
+           				 <f:facet name="header">
+            	
+                			<h:outputText value="#{listeObjetsBean.libelleNiveauCourant2}"  styleClass="titreTableauInspection" />
+               
+            				</f:facet>  
+           				 <h:outputText value="#{o.libelleNiveau}" />  
+        		</p:column> 
+						
+ 				<p:column >  
+           				 <f:facet name="header">
+            	
+                			<h:outputText value="#{msg.form_mode_unitemesure}"  styleClass="titreTableauInspection" />
+               
+            				</f:facet>  
+           				 <h:outputText value="#{o.unitmeasure}" />  
+        		</p:column>  
+				
+						<p:column >  
+           				 <f:facet name="header">
+            	
+                			<h:outputText value="#{msg.form_mode_minautorise}"  styleClass="titreTableauInspection" />
+               
+            				</f:facet>  
+           				 <h:outputText value="#{o.reponseminvalue}" rendered= "#{o.islist==false}" />  
+           				 <h:outputText value="-" rendered= "#{o.islist==true}"/>  
+        		</p:column>		
+        		
+        		<p:column >  
+           				 <f:facet name="header">
+            	
+                			<h:outputText value="#{msg.form_mode_maxautorise}"  styleClass="titreTableauInspection" />
+               
+            				</f:facet>  
+           				 <h:outputText value="#{o.reponsemaxvalue}" rendered= "#{o.islist==false}" />  
+           				 <h:outputText value="-" rendered= "#{o.islist==true}"/>   
+        		</p:column>		
+        		
+        		<p:column >  
+           				 <f:facet name="header" >
+            	
+                			<h:outputText value="#{msg.form_mode_limitbasse}"  styleClass="titreTableauInspection" />
+               
+            				</f:facet>  
+           				 <h:outputText value="#{o.lowborder}" rendered= "#{o.islist==false}" />  
+           				 <h:outputText value="-" rendered= "#{o.islist==true}"/>    
+        		</p:column>		
+        		
+        		<p:column >  
+           				 <f:facet name="header">
+            	
+                			<h:outputText value="#{msg.form_mode_limithausse}"  styleClass="titreTableauInspection" />
+               
+            				</f:facet>  
+           				 <h:outputText value="#{o.highborder}" rendered= "#{o.islist==false}" />  
+           				 <h:outputText value="-" rendered= "#{o.islist==true}"/>   
+        		</p:column>		
+        		
+        			
+        		
+        		
+        		
+        			
+									<p:column >
+					<f:facet name="header">Option</f:facet>
+							<p:button id="modifierInspection#{o.idNiveauObjet}" icon="ui-icon-pencil"  title="#{msg['form_listeObjets_bouton_modifier']}" 
+										outcome="modifier_objet_inspection" 
+										 >
+										<f:param name="id" value="#{o.idNiveauObjet}" />
+										
+										<f:param name="idp" value="O"  />
+										
+											</p:button>
+											
+							
+								<p:commandButton id="Supp"  icon="ui-icon ui-icon-trash"  onclick="if (! confirm('#{msg['appli_confirm_supprimer']}')) return false"
+							  action="#{listeObjetsBean.supprimerv2(o)}"  title="#{msg['appli_bouton_supprimer']}">
+							  </p:commandButton>
+						
+
+								<p:commandButton  icon="ui-icon ui-icon-unlocked"  rendered ="#{o.exist==true}" onclick="if (! confirm('#{msg['appli_confirm_unlock']}')) return false"
+									action="#{listeObjetsBean.dissocier(o)}"   title="#{msg['appli_bouton_unlock']}">
+							  </p:commandButton>
+							 
+							 
+							  <p:commandButton  icon="ui-icon ui-icon-link"  oncomplete="dlg1.show();" update=":form:dial1"
+									action="#{listeObjetsBean.affichertag(o)}"   title="#{msg['appli_bouton_lock']}">
+							</p:commandButton>
+							
+							
+					</p:column>
+
+				</p:dataTable>
+				
+				
+			</rich:panel>
+		</div>
+<br /><br />
+
+			
+		
+		
+		<p:dialog id="dial1" header="#{msg['appli_bouton_lock']}" widgetVar="dlg1" modal="true" height="300">
+		<h:panelGrid columns="1">
+		
+		<p:selectOneMenu id="site" value="#{listeObjetsBean.siteChoisi}" >  
+    <f:selectItems value="#{listeObjetsBean.niveauList}"/>  
+                    
+                    <f:ajax listener="#{listeObjetsBean.siteChanged}" render="bat" />
+</p:selectOneMenu>
+		
+		<p:selectOneMenu id="bat" value="#{listeObjetsBean.batChoisi}" >  
+    <f:selectItems value="#{listeObjetsBean.batList}"
+                    />  
+         <f:ajax listener="#{listeObjetsBean.batChanged}" render="tag" />           
+</p:selectOneMenu>
+		
+	<p:selectOneMenu id="tag" value="#{listeObjetsBean.tagChoisi}" >  
+    <f:selectItems value="#{listeObjetsBean.tagList}"
+                    />  
+                   
+</p:selectOneMenu>
+<p:commandButton  value="#{msg['appli_bouton_lock']}" action="#{listeObjetsBean.associer()}" />
+ 
+</h:panelGrid>
+		</p:dialog>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

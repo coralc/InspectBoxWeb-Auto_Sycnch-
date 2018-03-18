@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+		
+		<f:event type="preRenderView" listener="#{affecTeamBean.aff()}" />
+	</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+
+
+		<div class="presentation-page">
+			<rich:panel style="width: 1200px;">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg['page_affectation_team']}" />
+					</h:panelGroup>
+				</f:facet>
+				<br />
+				
+
+				<br />
+				
+					
+				
+			<p:dataTable var="o" value="#{affecTeamBean.listObjetAFF}" style="margin-top:40px" paginator="true" rows="10" paginatorPosition="bottom" >
+        
+ 
+        	<p:columnGroup type="header" colspan="24"  >  
+             <p:row>  
+                <p:column rowspan="3"  colspan="1"  headerText="Tag"/>  
+                  <p:column rowspan="3"  colspan="1"  headerText="Objekt"/>  
+                <p:column  colspan="21"   headerText="#{msg['page_consulter_general_equipe']}" /> 
+                <p:column rowspan="3"  colspan="1"  headerText="Option"/>
+            </p:row>  
+        
+  
+            <p:row>  
+                
+                
+                <p:column colspan="7"  rowpan="2" headerText="Frühschicht"  />
+                <p:column  colspan="7"   rowpan="2" headerText="Spätschicht" />
+                <p:column  colspan="7" rowpan="2"  headerText="Nachtschicht" />
+                
+         </p:row> 
+          <p:row>
+ 
+             
+   				<p:column   headerText="#{msg['form_utilisateur_lu']}"  />
+                <p:column     headerText="#{msg['form_utilisateur_ma']}" />
+                <p:column    headerText="#{msg['form_utilisateur_me']}" />
+                <p:column     headerText="#{msg['form_utilisateur_je']}" />
+                <p:column    headerText="#{msg['form_utilisateur_ve']}" />
+                <p:column     headerText="#{msg['form_utilisateur_sa']}" />
+                 <p:column   headerText="#{msg['form_utilisateur_di']}" />
+                 
+                 <p:column   headerText="#{msg['form_utilisateur_lu']}"  />
+                <p:column     headerText="#{msg['form_utilisateur_ma']}" />
+                <p:column    headerText="#{msg['form_utilisateur_me']}" />
+                <p:column     headerText="#{msg['form_utilisateur_je']}" />
+                <p:column    headerText="#{msg['form_utilisateur_ve']}" />
+                <p:column     headerText="#{msg['form_utilisateur_sa']}" />
+                 <p:column   headerText="#{msg['form_utilisateur_di']}" />
+                 
+                 <p:column   headerText="#{msg['form_utilisateur_lu']}"  />
+                <p:column     headerText="#{msg['form_utilisateur_ma']}" />
+                <p:column    headerText="#{msg['form_utilisateur_me']}" />
+                <p:column     headerText="#{msg['form_utilisateur_je']}" />
+                <p:column    headerText="#{msg['form_utilisateur_ve']}" />
+                <p:column     headerText="#{msg['form_utilisateur_sa']}" />
+                 <p:column   headerText="#{msg['form_utilisateur_di']}" />
+                 
+                 
+   
+  
+                
+   </p:row>
+   
+        </p:columnGroup>  
+ 
+        <p:column>
+            <h:outputText value="#{o.libelleTag}" />
+        </p:column>
+        <p:column>
+            <h:outputText value="#{o.libelle}" />
+        </p:column>
+        <p:column>
+           <h:selectBooleanCheckbox value="#{o.lunFS}" disabled="true"  />
+        </p:column>
+ 		<p:column>
+           <h:selectBooleanCheckbox value="#{o.marFS}" disabled="true"  />
+        </p:column>
+        <p:column>
+           <h:selectBooleanCheckbox value="#{o.merFS}" disabled="true"  />
+        </p:column>
+       
+ <p:column>
+           <h:selectBooleanCheckbox value="#{o.jeuFS}" disabled="true"  />
+        </p:column>
+ <p:column>
+           <h:selectBooleanCheckbox value="#{o.venFS}" disabled="true"  />
+        </p:column>
+        <p:column>
+           <h:selectBooleanCheckbox value="#{o.samFS}" disabled="true"  />
+        </p:column>
+        <p:column>
+           <h:selectBooleanCheckbox value="#{o.dimFS}" disabled="true"  />
+        </p:column>
+        
+        
+         <p:column>
+           <h:selectBooleanCheckbox value="#{o.lunSS}" disabled="true"  />
+        </p:column>
+ 		<p:column>
+           <h:selectBooleanCheckbox value="#{o.marSS}" disabled="true"  />
+        </p:column>
+        <p:column>
+           <h:selectBooleanCheckbox value="#{o.merSS}" disabled="true"  />
+        </p:column>
+       
+ <p:column>
+           <h:selectBooleanCheckbox value="#{o.jeuSS}" disabled="true"  />
+        </p:column>
+ <p:column>
+           <h:selectBooleanCheckbox value="#{o.venSS}" disabled="true"  />
+        </p:column>
+        <p:column>
+           <h:selectBooleanCheckbox value="#{o.samSS}" disabled="true"  />
+        </p:column>
+        <p:column>
+           <h:selectBooleanCheckbox value="#{o.dimSS}" disabled="true"  />
+        </p:column>
+           
+            <p:column>
+           <h:selectBooleanCheckbox value="#{o.lunNS}" disabled="true"  />
+        </p:column>
+ 		<p:column>
+           <h:selectBooleanCheckbox value="#{o.marNS}" disabled="true"  />
+        </p:column>
+        <p:column>
+           <h:selectBooleanCheckbox value="#{o.merNS}" disabled="true"  />
+        </p:column>
+       
+ <p:column>
+           <h:selectBooleanCheckbox value="#{o.jeuNS}" disabled="true"  />
+        </p:column>
+ <p:column>
+           <h:selectBooleanCheckbox value="#{o.venNS}" disabled="true"  />
+        </p:column>
+        <p:column>
+           <h:selectBooleanCheckbox value="#{o.samNS}" disabled="true"  />
+        </p:column>
+        <p:column>
+           <h:selectBooleanCheckbox value="#{o.dimNS}" disabled="true"  />
+        </p:column>
+         <p:column >
+					
+						
+							<p:button icon="ui-icon-link" outcome="ajouter_team_objet1"  title="#{msg.form_listeNiveaux_affecter_team}" 
+									  >										 
+										<f:param name="id" value="#{o.idObjet}"  />
+										
+									</p:button>			
+						
+
+					</p:column>  
+    </p:dataTable>
+
+				
+			</rich:panel>
+		</div>
+<br /><br />
+
+			
+		
+	</ui:define>
+
+</ui:composition>
+</html>

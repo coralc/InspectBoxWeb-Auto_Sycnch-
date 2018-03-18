@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		
+		<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+		<f:viewParam name="id"   
+			value="#{listeNiveauxBean.idNiveau}"/>
+		<f:event type="preRenderView" listener="#{documentsController.afficher()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+
+
+		<div class="presentation-page">
+			<rich:panel>
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg['page_code_barre_titre']}" />
+					</h:panelGroup>
+				</f:facet>
+				<br />
+				
+<h:form id="form2">
+
+<center><p:commandButton action="#{documentsController.imprimer()}" value="#{msg['appli_bouton_imprimer']}" icon="ui-icon-print" /></center>
+<br /><br />
+    <p:dataTable var="car" value="#{documentsController.listeNiveaux}" 
+                 selection="#{documentsController.selectedNiveaux}" rowKey="#{car.idNiveau}" paginator="true" rows="30"  scrollable="false" scrollWidth="1000">
+
+        <f:facet name="header">
+            #{msg.form_code_barre_titre}
+        </f:facet>
+
+        <p:column selectionMode="multiple" />
+
+        <p:column headerText="#{msg['form_code_barre_niveau']}">
+
+				<p:spacer width="#{car.spacer}" height="1" /> <h:outputText value="#{car.libelle}"  />
+        </p:column>
+
+ <p:column headerText="#{msg['appli_codeBarre']}">
+
+				<p:spacer width="#{car.spacer}" height="1" /> <h:outputText value="#{car.codeBarre}"  />
+        </p:column>
+
+        <f:facet name="footer">
+           
+            <p:commandButton action="#{documentsController.imprimer()}" value="#{msg['appli_bouton_imprimer']}" icon="ui-icon-print" />
+        </f:facet>
+    </p:dataTable>
+
+			</h:form>
+
+
+			</rich:panel>
+		</div>
+
+
+			<br /><br />
+		
+	</ui:define>
+
+</ui:composition>
+</html>

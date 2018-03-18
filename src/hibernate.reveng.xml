@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	
+	
+	<table catalog="inspectbox" name="droitutilisateur"></table>
+	<table catalog="inspectbox" name="client"></table>
+	<table catalog="inspectbox" name="utilisateur"></table>
+	<table catalog="inspectbox" name="inspection"></table>
+	<table catalog="inspectbox" name="choix"></table>
+	<table catalog="inspectbox" name="niveauobjet"></table>
+	<table catalog="inspectbox" name="niveau"></table>
+	<table catalog="inspectbox" name="typereponse"></table>
+	<table catalog="inspectbox" name="libelleniveau"></table>
+	<table catalog="inspectbox" name="import"></table>
+	<table catalog="inspectbox" name="codebarretmp"></table>
+	<table catalog="inspectbox" name="team"></table>
+<table catalog="inspectbox" name="objeteam"></table>
+<table catalog="inspectbox" name="statut"></table>
+<table catalog="inspectbox" name="synch"></table>
+<table catalog="inspectbox" name="terminal"></table>
+<table catalog="inspectbox" name="synchPK"></table>
+</hibernate-reverse-engineering>

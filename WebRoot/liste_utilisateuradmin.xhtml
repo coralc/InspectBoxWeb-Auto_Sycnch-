@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+
+<ui:composition template="/WEB-INF/templateadmin.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+			<f:event type="preRenderView" listener="#{listeUtilisateursBean.afficherAdmin()}" />
+			
+		</f:metadata>
+	</ui:define>
+<ui:define name="myCSS">
+	 	<style>		
+		.head2 {
+		 
+		border:none;
+    
+        background-color : #FFFFFF !important;;
+       border-color:transparent;
+        
+    	}    	
+		
+	</style>
+	</ui:define> 
+	<ui:define name="content">
+
+
+		<div class="presentation-page">
+			<rich:panel>
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg['page_utilisateur_titre']}" />
+					</h:panelGroup>
+				</f:facet>
+				<br />
+				
+
+
+				
+				
+				<h:outputStylesheet>
+    .rf-dt{
+        width:900px;    
+    }
+    .acent{
+        text-align: center;
+    }
+    
+    .titreTableauInspection{
+        font-weight:bold;
+        font-family: arial,verdana,sans-serif; 
+        font-size: 11px; 
+    }
+    
+    
+</h:outputStylesheet>
+
+	<br/>
+
+<div align="center">
+   
+			
+						<p:button id="ajouterNiveau" 
+							outcome="ajouter_utilisateurAdmin" 
+							value=" #{msg['form_utilisateur_liste_nouveau']}" >
+						</p:button>
+						
+
+				<br /><br />
+				
+				<h:form id="formAjouter">  
+  
+    <p:dataTable value="#{listeUtilisateursBean.lister}" var="o2" cache="false" tableStyle="width:auto">  
+
+   <p:column>  
+            <f:facet name="header" >  
+                <h:outputText value="#{Client}" styleClass="titreTableauInspection"/>  
+            </f:facet>  
+            <h:outputText value="#{o2.client}" />  
+        </p:column>
+        <p:column>  
+            <f:facet name="header" >  
+                <h:outputText value="#{msg['form_utilisateur_liste_utilisateur']}" styleClass="titreTableauInspection"/>  
+            </f:facet>  
+            <h:outputText value="#{o2.codeAcess}" />  
+        </p:column>  
+  
+        <p:column >  
+            <f:facet name="header" >  
+                <h:outputText value="#{msg['form_utilisateur_liste_nom']}"  styleClass="titreTableauInspection" />  
+            </f:facet>  
+            <h:outputText value="#{o2.prenom} #{o2.nom}" />  
+        </p:column>  
+   <p:column >  
+            <f:facet name="header" >  
+                <h:outputText value="#{msg['form_utilisateur_type']}"  styleClass="titreTableauInspection" />  
+            </f:facet> 
+            <p:commandButton  icon=" ui-icon-person"  styleClass="head2 "  title="#{msg['appli_bouton_Simple']}"   readonly="true" rendered="#{o2.typeUser eq 'Simple'}"/> 
+            <p:commandButton  icon="fa-user-plus"  styleClass="head2 " title="#{msg['appli_bouton_Team']}"  readonly="true" rendered="#{o2.typeUser eq 'Team'}"/>
+              <p:commandButton  icon=" ui-icon-person"  styleClass="head2 " title="#{msg['appli_bouton_Team']}"  readonly="true" rendered="#{o2.typeUser eq 'Team'}"/>
+            
+        </p:column>  
+        <p:column>  
+        
+            <f:facet name="header">  
+                <h:outputText value="#{msg['form_utilisateur_liste_terminal']}" styleClass="titreTableauInspection" />  
+            </f:facet>  
+            <div align="center">
+            	<h:selectBooleanCheckbox value="#{o2.droitTerminal}" onclick="return false;" />
+            </div>  
+        </p:column>  
+  
+        <p:column>  
+            <f:facet name="header">  
+                <h:outputText value="#{msg['form_utilisateur_liste_administration']}"  styleClass="titreTableauInspection" />  
+            </f:facet>
+            <div align="center">
+            	<h:selectBooleanCheckbox value="#{o2.droitAdminClient}" onclick="return false;" />
+            </div>  
+        </p:column>  
+  
+   <p:column>  
+            <f:facet name="header">  
+                <h:outputText value="#{msg.page_utilisateur_consulter_hour2}"  styleClass="titreTableauInspection" />  
+            </f:facet>
+            <div align="center">
+            	<p:commandButton  icon="ui-icon-search"  title="#{msg['appli_bouton_view']}" oncomplete="dlg1.show();" update=":dial1" rendered="#{o2.typeUser eq 'Team'}"
+					action="#{listeUtilisateursBean.affiTeam(o2.idUtilisateur)}"/>
+            </div>  
+        </p:column>  
+          <p:column   >  
+            <f:facet name="header">  
+                <h:outputText value="" />  
+            </f:facet> 
+           
+            <p:button outcome="modifier_utilisateuradmin"  icon="ui-icon-pencil" 
+							id="Ajouter#{o2.idUtilisateur}" title="#{msg['appli_bouton_modifier']}">
+				<f:param name="id" value="#{o2.idUtilisateur}" />
+			</p:button>
+			
+		
+			
+		 <p:commandButton  icon="ui-icon ui-icon-trash"  title="#{msg['appli_bouton_supprimer']}"   onclick="if (! confirm('#{msg['appli_confirm_supprimer']}')) return false"
+					action="#{listeUtilisateursBean.supprimerAdmin(o2)}"/>
+			
+		 
+        </p:column>  
+    </p:dataTable>  
+  
+   
+</h:form>  
+			<p:dialog id="dial1" header="#{msg.page_utilisateur_consulter_hour} #{listeUtilisateursBean.codeAcces}" widgetVar="dlg1" modal="true" height="300">
+         <p:dataTable id ="tlist" value="#{listeUtilisateursBean.lister2}" var="o" cache="false" tableStyle="width:auto" > 
+	             
+	             
+	               
+	                <p:column >  
+            <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_utilisateur_jour']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+             
+            <h:outputText value="#{o.dayOfWeek}" /> 
+             
+        </p:column> 
+        
+        <p:column >  
+            <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_utilisateur_beginHour']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+             
+            <h:outputText value="#{o.beginHour}" /> 
+              
+        </p:column> 
+        
+         <p:column >  
+            <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_utilisateur_endHour']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+             
+            <h:outputText value="#{o.endHour}" /> 
+             
+        </p:column> 
+       
+	                </p:dataTable> 
+	           <f:facet name="footer">   
+	          
+       <p:commandButton type="button" value="#{msg['form_objetInspection_annuler']}"   icon="ui-icon-closethick" style="margin:0"  oncomplete="dlg1.hide();" onclick="dlg1.hide();"/>
+              	 
+    	</f:facet>  
+	               
+</p:dialog>
+  	
+				
+	  </div>
+	</rich:panel>
+			
+			
+		</div>
+
+			
+	<br /><br />
+	</ui:define>
+
+</ui:composition>
+</html>

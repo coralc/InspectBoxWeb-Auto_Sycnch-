@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		
+		<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+		<f:viewParam name="id"   
+			value="#{listeNiveauxBean.idNiveau}"/>
+			<f:viewParam name="ido"   
+			value="#{listeNiveauxBean.idNiveauObjet}"/>
+			
+			<f:viewParam name="idrep"   
+			value="#{listeNiveauxBean.idtyprep}"/>
+			
+		<f:event type="preRenderView" listener="#{listeNiveauxBean.afficher()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+<h:form id="form" >
+
+		<div class="presentation-page">
+			<rich:panel  >
+				
+				<div align="center"> 
+			
+						<p:button id="ajouterNiveau" 
+							outcome="ajouter_niveau"
+							value="#{msg.form_listeNiveaux_bouton_ajout} #{listeNiveauxBean.libelleNiveauCourant}" 
+							 rendered="#{( listeNiveauxBean.isLast==false and listeNiveauxBean.isObjet==false and loginBean.idacce)}" >
+							<f:param name="idParent" value="#{listeNiveauxBean.idNiveau}"  />
+							<f:param name="idlink" value="#{listeNiveauxBean.link}"  />
+							<f:param name="idcour" value="#{listeNiveauxBean.libelleNiveauCourant}"  />
+							
+						</p:button>
+						
+						
+						
+						<p:button id="ajouterInspection" 
+							outcome="ajouter_niveau_inspection"
+							value="#{msg.form_listeNiveaux_bouton_ajout} #{listeNiveauxBean.libelleNiveauCourant}"
+							 rendered="#{(listeNiveauxBean.isLast==true  and listeNiveauxBean.isObjet==false and loginBean.idacce) }" >
+							<f:param name="idParent" value="#{listeNiveauxBean.idNiveau}"  />
+							<f:param name="idlink" value="#{listeNiveauxBean.link}"  />
+						</p:button>
+						
+						
+								
+				</div>
+
+
+				<br />
+					
+					<h:outputText value="#{listeNiveauxBean.link}"  style="color:#58D3F7;"/>
+				<br /><br />
+							 	
+
+				<p:dataTable value="#{listeNiveauxBean.getLister()}" var="o" 
+					style="width: 60%"      width="50%"    tableStyle="width:auto" >
+ 
+         
+					<p:column >
+						<!-- column header -->
+						<f:facet name="header">#{listeNiveauxBean.libelleNiveauCourant}</f:facet>
+						<!-- row record -->
+							<h:link rendered="#{listeNiveauxBean.isObjet==false}"
+								action="liste_niveau" >
+								<h:outputText value="#{o.libelle}" />
+								<f:param name="id" value="#{o.idNiveau}" />
+								<f:param name="ido" value="#{o.idNiveauObjet}" />
+								<f:param name="idrep" value="#{o.idtyprep}" />
+								
+								
+							</h:link>
+							
+							<h:outputLabel value="#{o.libelle}"  rendered="#{ listeNiveauxBean.isObjet==true}" /> 
+
+
+					</p:column>
+					
+			
+				
+<p:column  rendered="#{listeNiveauxBean.isObjet==false}">
+						<f:facet name="header">Tri</f:facet>
+						
+							
+									
+										<p:commandButton action="#{listeNiveauxBean.monter(o.idNiveau)}" id="haut#{o.idNiveau}" type="submit"  icon="ui-icon-arrowthick-1-n" 
+										  rendered="#{o.premier == false}">
+											<f:param name="id" value="#{listeNiveauxBean.idAjouter}"/>
+										</p:commandButton>
+										<p:spacer width="15" height="5" />
+										<p:commandButton  action="#{listeNiveauxBean.descendre(o.idNiveau)}" id="bas#{o.idNiveau}" type="submit" 
+										icon=" ui-icon-arrowthick-1-s"  rendered="#{o.dernier == false}">
+											<f:param name="id" value="#{listeNiveauxBean.idAjouter}"/>
+										</p:commandButton>
+										
+									
+						</p:column>	
+<p:column  rendered= "#{loginBean.idacce}" >
+						<f:facet name="header">Option</f:facet>
+								 	
+							
+							
+							
+									<p:button icon="ui-icon-pencil" outcome="modifier_niveau" id="modifier#{o.idNiveau}" title="#{msg.form_listeNiveaux_bouton_modifier}" 
+										
+										rendered="#{ (listeNiveauxBean.isLast == false and listeNiveauxBean.isObjet==false) }" >
+										<f:param name="id" value="#{o.idNiveau}"  />
+										<f:param name="idParent" value="#{listeNiveauxBean.idAjouter}"  />
+									</p:button>
+									
+																		
+									<p:button id="modifierInspection#{o.idNiveau}" icon="ui-icon-pencil" title="#{msg.form_listeNiveaux_bouton_modifier}"  
+										outcome="modifier_niveau_inspection" 
+										rendered="#{( listeNiveauxBean.isLast == true and listeNiveauxBean.isObjet==false)  }" >
+										<f:param name="id" value="#{o.idNiveau}"  />
+										<f:param name="idParent" value="#{listeNiveauxBean.idAjouter}"  />
+									</p:button>	
+									
+									 <p:commandButton  icon="ui-icon-transferthick-e-w"  oncomplete="dlg1.show();" update=":form:dial1" 
+									 rendered="#{( listeNiveauxBean.isLast == true and listeNiveauxBean.isObjet==false)  }" action="#{listeNiveauxBean.affichertag(o.idNiveau)}"
+									   title="#{msg['appli_bouton_swich']}">
+							</p:commandButton>
+							
+									<p:spacer width="15" height="5" />
+									<p:button icon="ui-icon-link" outcome="ajouter_team_objet"  title="#{msg.form_listeNiveaux_affecter_team}" 
+									 rendered="#{listeNiveauxBean.isObjet==true}" >										 
+										<f:param name="id" value="#{o.idNiveau}"  />
+										
+									</p:button>	
+								<p:spacer width="15" height="5" />
+								
+							  <p:commandButton  rendered="#{listeNiveauxBean.isObjet==false}"   icon="ui-icon ui-icon-trash"  onclick="if (! confirm('#{msg['appli_confirm_supprimer']}')) return false"
+							  action="#{listeNiveauxBean.supprimer(o)}"  title="#{msg['appli_bouton_supprimer']}">
+							  
+							   </p:commandButton>
+							   
+								</p:column>
+</p:dataTable>
+      
+			</rich:panel>
+		</div>
+
+<br /><br />
+<div align="center"> 
+<p:commandButton  value="#{msg['appli_bouton_retour']}" onclick="history.go(-1)"  />  
+</div>
+			<br /><br />
+			<p:dialog id="dial1" header="#{msg['appli_bouton_swich']}" widgetVar="dlg1" modal="true" height="300">
+			<h:panelGrid columns="1">
+			<p:selectOneMenu id="site" value="#{listeNiveauxBean.siteChoisi}" >  
+    <f:selectItems value="#{listeNiveauxBean.niveauList}"/>  
+                    
+                    <f:ajax listener="#{listeNiveauxBean.siteChanged}" render="bat" />
+</p:selectOneMenu>
+
+<p:selectOneMenu id="bat" value="#{listeNiveauxBean.batChoisi}" >  
+    <f:selectItems value="#{listeNiveauxBean.batList}"
+                    />  
+                    </p:selectOneMenu>
+               <br /><br />     
+         <p:commandButton  value="#{msg['form_objetInspection_valider']}" action="#{listeNiveauxBean.associer()}" />        
+
+
+</h:panelGrid>
+		</p:dialog>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

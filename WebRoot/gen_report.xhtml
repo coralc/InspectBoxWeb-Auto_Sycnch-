@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"   
+style="height: 100%;"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      >
+
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+		<f:viewParam name="clear" value="#{genReportBean.aAfficher}"/>
+		
+		<f:event type="preRenderView" listener="#{genReportBean.afficher()}" />
+	</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+
+
+		<div class="presentation-page-temp">
+			<rich:panel>
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg.page_home_generate_report_titre}" />
+					</h:panelGroup>
+				</f:facet>
+				<br />
+				<div align="center">
+				
+			
+				
+				<rich:panel style="width: 450px;">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg.form_generate_report_select_titre}" />
+					</h:panelGroup>
+				</f:facet>
+				
+				<div align="center">
+				
+				<h:form id="FormReport">
+					
+					<h:panelGrid columns="2">
+					<h:outputLabel value="#{msg.form_generate_report_date_de_debut}" />
+					<rich:calendar datePattern="dd/MM/yyyy" locale="fr" value="#{genReportBean.datededebut}" currentDate="" enableManualInput="true" />
+					<h:outputLabel value="#{msg.form_generate_report_date_de_fin}" />
+					<rich:calendar datePattern="dd/MM/yyyy" locale="fr" value="#{genReportBean.datedefin}" currentDate="" enableManualInput="true" />
+            		<h:outputLabel value="#{listeInspectionBean.libelleNiveau0} : " />
+					<rich:select value="#{genReportBean.idNiveauChoisi}" id="niveauInitial" openOnEdit="true" enableManualInput="false" required="true"  label="Niveau">
+                		<f:selectItems value="#{genReportBean.niveauList}"  />
+                		<f:validateLongRange minimum = "1" />
+            		</rich:select>
+            		
+            		<h:outputLabel value="Type de visite : " />
+					<rich:select value="#{genReportBean.idTypeVisiteChoisi}" id="idType" openOnEdit="true" enableManualInput="false" validatorMessage="#{msg.erreur_type_visite}" required="true" >
+                		<f:selectItems value="#{genReportBean.typeVisiteList}"  />
+                		<rich:validator />                		
+            		</rich:select>
+            		
+            		
+	                <h:outputText value="           " /> 
+	                <rich:message for="idType" showDetail="true"/>           		
+	                <h:outputText value="           " /> 
+	                <h:outputText value="" />            		
+	                <h:outputText value="           " /> 
+	                <h:outputText value="" />            		
+	                <h:outputText value="           " /> 
+	                <h:outputText value="" />            		
+	                <h:outputText value="           " /> 
+	                <h:outputText value="" />            		
+	                <h:outputText value="           " /> 
+	                <h:outputText value="" />            		
+	               
+					
+	                <h:outputText value="#{msg.form_generate_report_numero_rapport}" style="white-space:nowrap; font-style: italic; font-size: 7pt;" />
+	                <h:outputText value="" />
+
+
+	                <h:outputText value="N° Rapport:" />
+	                <h:inputText value="#{genReportBean.reportId}" id="libelleNiveau2" validatorMessage="#{msg.erreur_libelle_niveau2}">
+	                    <rich:validator />
+	                </h:inputText>
+            		
+					</h:panelGrid>
+					<br />
+					
+						<h:commandButton id="rechercher"
+							action="#{genReportBean.generer()}"
+							value="#{msg.appli_bouton_generate_report}" type="submit"  />			
+					</h:form>
+				</div>
+				</rich:panel>
+					
+				</div>
+
+
+				
+				
+				<h:outputStylesheet>
+    .rf-dt{
+        width:550px;    
+    }
+    .acent{
+        text-align: center;
+    }
+    
+    .titreTableauInspection{
+        font-weight:bold;
+        font-family: arial,verdana,sans-serif; 
+        font-size: 11px; 
+    }
+    
+    
+</h:outputStylesheet>
+
+	<br/>
+
+
+	</rich:panel>
+			
+			
+		</div>
+
+			
+	<br /><br />
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+		    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+		    
+		    <f:event type="preRenderView" listener="#{ajouterObjetInspectionBean.affichernv()}"/>
+	    </f:metadata>
+	</ui:define>
+ <ui:define name="myCSS">
+	 	<style>		
+		.head2 {
+		background-image: url();
+        background-color : #808080 !important;;
+        height:18px;
+        text-align:center;
+        vertical-align:middle;
+		color:White;        
+        padding:4px 0;
+        font-size:120%;
+        border-style: none;
+    	}    	
+		.body3 {
+	    background-color: #F7F6F3;
+        font-size:105%;
+        border-style: none;
+		}
+		.rf-p {
+		 border-style: none;
+		}
+		.ui-picklist-list {
+height:200px !important;
+width:250px !important;
+}
+	</style>
+</ui:define>
+	<ui:define name="content">
+<script type="text/javascript"> 
+function showhi()
+{
+	alert ("hi");
+}
+
+		function showvalue(){
+			 if(document.forms['form']['form:typemode'][1].checked) {
+				  document.getElementById("form:unit").style.display="block";
+				 document.getElementById("form:unitMeasure").style.display="block";
+				 document.getElementById("form:minv").style.display="block";					
+					document.getElementById("form:maxv").style.display="block";			
+					document.getElementById("form:minValue").style.display="block";					
+					document.getElementById("form:maxValue").style.display="block";					
+					document.getElementById("form:minl").style.display="block";					
+					document.getElementById("form:minlimit").style.display="block";					
+					document.getElementById("form:maxl").style.display="block";					
+					document.getElementById("form:maxlimit").style.display="block";	
+					document.getElementById("form:highAl").style.display="block";	
+					document.getElementById("form:highAlert").style.display="block";
+					document.getElementById("form:lowAl").style.display="block";
+					document.getElementById("form:lowAlert").style.display="block";
+					document.getElementById("form:listlab").style.display="none";
+					 document.getElementById("form:choix").style.display="none";
+				 
+			 }
+			 if(document.forms['form']['form:typemode'][0].checked) {
+				 document.getElementById("form:listlab").style.display="block";
+				 document.getElementById("form:choix").style.display="block";
+				 
+				 document.getElementById("form:unit").style.display="none";
+				 document.getElementById("form:unitMeasure").style.display="none";
+				 document.getElementById("form:minv").style.display="none";					
+					document.getElementById("form:maxv").style.display="none";			
+					document.getElementById("form:minValue").style.display="none";					
+					document.getElementById("form:maxValue").style.display="none";					
+					document.getElementById("form:minl").style.display="none";					
+					document.getElementById("form:minlimit").style.display="none";					
+					document.getElementById("form:maxl").style.display="none";					
+					document.getElementById("form:maxlimit").style.display="none";	
+					document.getElementById("form:highAl").style.display="none";	
+					document.getElementById("form:highAlert").style.display="none";
+					document.getElementById("form:lowAl").style.display="none";
+					document.getElementById("form:lowAlert").style.display="none";
+					 
+						
+		                
+		                
+				 
+			 }
+			
+		}
+
+
+		</script>  
+	    <h:form id="form"> 
+    
+       
+    
+       <rich:panel     headerClass="head2" style="width:600px;align:center;" bodyClass="body3">
+   
+            <f:facet name="header">
+                <h:panelGroup>
+                	<h:outputText value="#{msg['appli_titre_ajout_objet']} " />
+                
+                </h:panelGroup>
+            </f:facet>
+		
+		
+ <h:panelGrid id="addPDP" columns="2" cellspacing="2" cellpadding="2">
+		
+	                <h:outputText value="#{msg['appli_libelle']}"/>
+	                <p:inputText value="#{ajouterObjetInspectionBean.nom}" id="nom"  />
+	                
+	                 <h:outputText value="#{msg['appli_codeBarre']}"/>
+	                <p:inputText value="#{ajouterObjetInspectionBean.codeBarre}" id="cb"  />
+	                     
+	                </h:panelGrid>
+	    
+ 					<h:panelGrid id="addPDP1" columns="2" cellspacing="2" cellpadding="2">
+ 					<h:outputText value="#{msg['appli_typeChoix']} " />
+ 					<h:selectOneRadio value="#{ajouterObjetInspectionBean.choix}" id="typemode" layout="pageDirection" onclick="showvalue()"  >
+			   	<f:selectItem itemValue="2" itemLabel="#{msg.form_choix_liste}" id="listechoix" />
+			   	<f:selectItem itemValue="1" itemLabel="#{msg.form_choix_valeur}" id="valuechoix"  />
+			   	</h:selectOneRadio>
+ 					
+                	<h:outputText style="display:none;" value="#{msg.form_mode_unitemesure} " id="unit" />
+	                <p:inputText style="display:none;" value="#{ajouterObjetInspectionBean.unitMeasure}" id="unitMeasure"  />
+            		
+            		<h:outputText style="display:none;" value="#{msg.form_mode_minautorise} " id="minv" />
+	                <p:inputText style="display:none;" value="#{ajouterObjetInspectionBean.minValue}" id="minValue"           />
+	                    
+	                 <h:outputText style="display:none;" value="#{msg.form_mode_maxautorise}" id="maxv" />
+	                <p:inputText style="display:none;" value="#{ajouterObjetInspectionBean.maxValue}" id="maxValue"   />
+	                
+	                <h:outputText style="display:none;" value="#{msg.form_mode_limitbasse}" id="minl" />
+	                <p:inputText style="display:none;" value="#{ajouterObjetInspectionBean.lowBorder}" id="minlimit" />
+	                
+	                 <h:outputText style="display:none;" value="#{msg.form_mode_limithausse} " id="maxl" />
+	                <p:inputText style="display:none;" value="#{ajouterObjetInspectionBean.highBorder}" id="maxlimit" />
+	                
+	                <h:outputText style="display:none;" value="#{msg.form_mode_limitbassealert} " id="lowAl" />
+	                <p:inputText style="display:none;" value="#{ajouterObjetInspectionBean.lowBorderAlert}" id="lowAlert" />
+	                
+	                 <h:outputText style="display:none;" value="#{msg.form_mode_limithaussealert} " id="highAl" />
+	                <p:inputText style="display:none;" value="#{ajouterObjetInspectionBean.highBorderAlert}" id="highAlert" />	
+	                  <h:outputText style="display:none;" value="#{msg.form_choix_exist} " id="listlab" />
+	                <p:selectOneMenu  style="display:none;"  value="#{ajouterObjetInspectionBean.choixListe}" id="choix"  defaultLabel="#{msg['appli_typeObjet_choix']}"  >
+                		<f:selectItems value="#{ajouterObjetInspectionBean.listchoix()}"  />
+
+            		</p:selectOneMenu>			
+									
+   </h:panelGrid>	
+   
+  				 
+					
+
+            	<p:spacer width="150" height="10" />
+  	 	 <h:outputText value="" />  
+  	 	 <p:commandButton  value="#{msg.appli_bouton_retour}"  action="#{ajouterObjetInspectionBean.retourback()}"  />
+         <h:outputText value="" />  
+         <p:spacer width="40" height="5" />
+            		<p:commandButton id="Ajouter" value="#{msg['appli_bouton_ajouter']}" type="submit" action="#{ajouterObjetInspectionBean.ajouterobj}" />
+            	
+            	
+            	
+            	
+            	
+           </rich:panel>
+            </h:form>
+        
+    
+    
+    
+    
+	</ui:define>
+
+</ui:composition>
+</html>

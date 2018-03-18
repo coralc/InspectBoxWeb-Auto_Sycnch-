@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}"
+xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      >
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+	    <f:viewParam name="id" value="#{choixBean.idChoix}"/>
+	    <f:viewParam name="idParent" value="#{choixBean.idTypeReponse}"/>
+	    
+	    <f:event type="preRenderView" listener="#{choixBean.afficher()}"/>
+	</f:metadata>
+	</ui:define>
+ 
+	<ui:define name="content">
+
+	    <br /><br />
+     <div class="presentation-page-temp">
+     
+ 
+
+		
+         <rich:panel  style="width:400px;" >
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{msg['appli_titre_supprimer']} #{choixBean.nom}" />
+                </h:panelGroup>
+            </f:facet>
+            <h:link id="linkNavig" value="#{msg['navigation_parametrage_choix']}" outcome="liste_choix"  />
+	    	<h:outputText value=" > "/>
+	    	<h:link id="linkNavig2" value="#{choixBean.libelleTypeReponse}" outcome="liste_choix_reponse" >
+	    		<f:param name="id" value="#{choixBean.idTypeReponse}" />
+	    	</h:link>
+	    	<h:outputText value=" > "/>
+			<h:outputText value="#{msg['page_choix_mofifier_titre']} (#{choixBean.nom})" />
+				<br /><br /><br />
+            
+			<br />
+            	<h:button id="SupprimerDemande" value="#{msg['appli_bouton_supprimer']}"  onclick="#{rich:component('confirmationSupprimer')}.show(); return false;" />	
+            <br /> <br />
+        </rich:panel>
+        
+       <rich:popupPanel id="confirmationSupprimer" resizeable="true"
+        header="#{msg['appli_confirmer_supprimer_titre']}" modal="true" width="300" height="100">
+        <f:facet name="controls">
+            <h:link  value="Fermer"  
+                onclick="#{rich:component('confirmationSupprimer')}.hide(); return false;" />
+                <h:outputLabel value="  " />
+        </f:facet>
+        <div align="center">
+        <h:outputText value="#{msg['appli_confirmer_supprimer']} #{typeReponseBean.nom}  ?" />
+   <br /><br />
+   		<h:panelGrid columns="2">
+   		<h:form id="formSupprimer">
+			<h:inputHidden id="idChoixSupprimer" value="#{choixBean.idChoix}" />
+			<h:inputHidden id="idChoixParent" value="#{choixBean.idTypeReponse}" />
+			
+        <h:commandButton action="#{choixBean.supprimer()}" value="#{msg['appli_bouton_supprimer']}"  type="submit" 
+                onclick="#{rich:component('confirmationSupprimer')}.hide();  return true;" />
+         </h:form>
+  
+        <h:button value="#{msg['appli_bouton_annuler']}"  
+                onclick="#{rich:component('confirmationSupprimer')}.hide(); return false;" />
+  		</h:panelGrid>
+  		</div>
+    </rich:popupPanel>
+        
+    </div>
+    
+    
+	</ui:define>
+
+</ui:composition>
+   
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+      <ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+			<f:event type="preRenderView"
+				listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+				
+			<f:event type="preRenderView" listener="#{generalControllerbean.afficherajouter()}" />
+			
+		</f:metadata>
+	</ui:define>
+<ui:define name="myCSS">
+	 	<style>		
+		.head2 {
+		background-image: url();
+        background-color : #808080 !important;;
+        height:18px;
+        text-align:center;
+        vertical-align:middle;
+		color:White;        
+        padding:4px 0;
+        font-size:120%;
+        border-style: none;
+    	}    	
+		.body3 {
+	    background-color: #F7F6F3;
+        font-size:105%;
+        border-style: none;
+		}
+		.rf-p {
+		 border-style: none;
+		}
+	</style>
+</ui:define>
+	<ui:define name="content">
+	
+	<script type="text/javascript"> 
+	
+		function showvalue(){ 	
+			var rt=document.getElementById("formAjouter:hidden2").value;
+			
+			
+			if (rt =="Valeur")
+			
+			 {
+				document.getElementById("formAjouter:team").style.display="block";					
+				document.getElementById("formAjouter:userteam").style.display="block";
+				document.getElementById("formAjouter:retour").style.display="block";					
+				document.getElementById("formAjouter:addvue").style.display="block";
+				document.getElementById("formAjouter:plist").style.display="none";
+				
+				document.getElementById("formAjouter:minv").style.display="block";					
+				document.getElementById("formAjouter:maxv").style.display="block";				
+				document.getElementById("formAjouter:minValue").style.display="block";				
+				document.getElementById("formAjouter:maxValue").style.display="block";				
+				document.getElementById("formAjouter:minl").style.display="block";					
+				document.getElementById("formAjouter:minlimit").style.display="block";
+				
+				document.getElementById("formAjouter:maxl").style.display="block";					
+				document.getElementById("formAjouter:maxlimit").style.display="block";	
+				document.getElementById("formAjouter:minlalert").style.display="block";					
+				document.getElementById("formAjouter:minlimitalert").style.display="block";				
+				document.getElementById("formAjouter:maxlalert").style.display="block";					
+				document.getElementById("formAjouter:maxlimitalert").style.display="block";
+
+				
+				
+			 }
+			
+			
+			else if (rt =="Liste")
+				{
+				document.getElementById("formAjouter:team").style.display="block";					
+				document.getElementById("formAjouter:userteam").style.display="block";
+				 document.getElementById("formAjouter:plist").style.display="block";
+				 document.getElementById("formAjouter:retour").style.display="block";					
+					document.getElementById("formAjouter:addvue").style.display="block";
+					
+					
+				document.getElementById("formAjouter:minv").style.display="none";
+document.getElementById("formAjouter:maxv").style.display="none";				
+				
+				document.getElementById("formAjouter:minValue").style.display="none";	
+				
+				document.getElementById("formAjouter:maxValue").style.display="none";	
+				
+				document.getElementById("formAjouter:minl").style.display="none";	
+				
+				document.getElementById("formAjouter:minlimit").style.display="none";	
+				
+				document.getElementById("formAjouter:maxl").style.display="none";	
+				
+				document.getElementById("formAjouter:maxlimit").style.display="none";	
+				
+				document.getElementById("formAjouter:minalert").style.display="none";	
+				
+				document.getElementById("formAjouter:minlimitalert").style.display="none";	
+				
+				document.getElementById("formAjouter:maxlalert").style.display="none";	
+				
+				document.getElementById("formAjouter:maxlimitalert").style.display="none";
+					
+			 }
+			else
+				{
+				document.getElementById("formAjouter:team").style.display="none";					
+				document.getElementById("formAjouter:userteam").style.display="none";
+				document.getElementById("formAjouter:plist").style.display="none";
+				document.getElementById("formAjouter:retour").style.display="none";					
+				document.getElementById("formAjouter:addvue").style.display="none";
+				
+				document.getElementById("formAjouter:minv").style.display="none";
+document.getElementById("formAjouter:maxv").style.display="none";				
+				
+				document.getElementById("formAjouter:minValue").style.display="none";	
+				
+				document.getElementById("formAjouter:maxValue").style.display="none";	
+				
+				document.getElementById("formAjouter:minl").style.display="none";	
+				
+				document.getElementById("formAjouter:minlimit").style.display="none";	
+				
+				document.getElementById("formAjouter:maxl").style.display="none";	
+				
+				document.getElementById("formAjouter:maxlimit").style.display="none";	
+				
+				document.getElementById("formAjouter:minalert").style.display="none";	
+				
+				document.getElementById("formAjouter:minlimitalert").style.display="none";	
+				
+				document.getElementById("formAjouter:maxlalert").style.display="none";	
+				
+				document.getElementById("formAjouter:maxlimitalert").style.display="none";
+					
+				}
+		 
+	
+		}
+	
+		</script> 
+	<h:form    id="formAjouter">
+	 <rich:panel  headerClass="head2" style="width:600px;align:center;" bodyClass="body3">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Ajouter Inspection" />
+                
+                </h:panelGroup>
+            </f:facet>
+  
+<h:panelGrid columns="3" cellspacing="2" cellpadding="2">
+<h:outputLabel value="#{generalControllerbean.libelleNiveau0} : " />
+ <p:selectOneMenu id="SiteId1" value="#{generalControllerbean.idSitechoisie}"  >
+			<f:selectItems value="#{generalControllerbean.listeSelectSite}" />   
+									<a4j:ajax event="change" render="bat1" execute="@this" listener="#{generalControllerbean.siteChanged}" />	                       
+		</p:selectOneMenu>
+		<p:commandButton id="ajoutersite" type="button" icon="ui-icon-pencil" title="#{msg.form_ajouter__niveau_vue}" onclick="dlgsite.show();"  />
+		
+
+
+	<h:outputLabel value="#{listeInspectionBean.libelleNiveau1} : " />
+	<p:selectOneMenu id="bat1" value="#{generalControllerbean.idBatchoisie}"  >
+			<f:selectItems value="#{generalControllerbean.listeSelectBat}" />   
+			<a4j:ajax event="change" render="eq1" execute="@this" listener="#{generalControllerbean.batimentChanged}" /> 							                       
+		</p:selectOneMenu>
+	<p:commandButton id="ajouterbat" type="button" icon="ui-icon-pencil" title="#{msg.form_ajouter__niveau_vue1}" onclick="dlgbat.show();"  />
+		
+<h:outputLabel value="#{listeInspectionBean.libelleNiveau2} : "  />		
+<p:selectOneMenu id="eq1" value="#{generalControllerbean.idLocalchoisie}" >
+			<f:selectItems value="#{generalControllerbean.listeSelectLoc}" />    
+				<a4j:ajax event="change" render="objId" execute="@this" listener="#{generalControllerbean.localChanged}" /> 								                       
+		</p:selectOneMenu>
+<p:commandButton id="ajoutereq" type="button" icon="ui-icon-pencil" title="#{msg.form_ajouter__niveau_vue2}" onclick="dlgeq.show();"  />	
+
+<h:outputText value="Description :" />
+		<p:selectOneMenu id="objId" value="#{generalControllerbean.idObjetaddChoisie}" >
+			<f:selectItems value="#{generalControllerbean.listeSelectObj}" /> 
+			<a4j:ajax event="change" render="cb ,typemode ,unitvue, hidden2, userteam ,team ,minv, maxv, minl, maxl, minalert, maxlalert,  minValue ,maxValue , minlimit, maxlimit ,minlimitalert, maxlimitalert, plist, retour, addvue " execute="@this" listener="#{generalControllerbean.objChanged}" />    						                       
+		</p:selectOneMenu>
+<p:commandButton id="ajouterobj" type="button" icon="ui-icon-pencil" title="#{msg.page_listeObjets_titre1}" onclick="dlgobj.show();"  />
+</h:panelGrid>
+<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+<h:outputText value="barrecode :" />
+<p:inputText value="#{generalControllerbean.codeBarre}" id="cb"  />
+	</h:panelGrid>	 	
+	<h:panelGrid columns="3" cellspacing="2" cellpadding="2">	
+		 		 <h:outputText value="#{msg.form_mode_reponse}" />
+			<h:selectOneRadio value="#{generalControllerbean.modeReponse}" id="typemode" layout="pageDirection" disabled="true"   >
+			   	<f:selectItem itemValue="Liste" itemLabel="#{msg.form_choix_liste}" id="listechoix" />
+			   	<f:selectItem itemValue="Valeur" itemLabel="#{msg.form_choix_valeur}" id="valuechoix"  />
+			   	</h:selectOneRadio>
+			   <p:inputText value="#{generalControllerbean.unitvue}" id="unitvue"  />	
+			   <h:inputHidden id="hidden2"  value="#{generalControllerbean.modeReponse}" />				
+		</h:panelGrid>
+		<p:commandButton  type="button" icon="ui-icon-triangle-1-s"  onclick="showvalue();"  />
+
+
+
+<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+		<h:outputText  value="#{msg['form_mode_minautorise']} " id="minv" style="display:none;"  />
+		 <p:inputText  value="#{generalControllerbean.minValue}" id="minValue" style="display:none;" />	                
+            		
+	                <h:outputText  value="#{msg['form_mode_maxautorise']} " id="maxv"  style="display:none;" />
+	                <p:inputText  value="#{generalControllerbean.maxValue}" id="maxValue" style="display:none;" />
+	                
+	                <h:outputText  value="#{msg['form_mode_limitbasse']} " id="minl" style="display:none;" />
+	                <p:inputText  value="#{generalControllerbean.lowBorder}" id="minlimit" style="display:none;" />	                
+            		
+	                <h:outputText  value="#{msg['form_mode_limithausse']} " id="maxl" style="display:none;" />
+	                <p:inputText  value="#{generalControllerbean.highBorder}" id="maxlimit" style="display:none;" />
+	                
+	                <h:outputText  value="#{msg['form_mode_limitbassealert']} " id="minalert" style="display:none;" />
+	                <p:inputText  value="#{generalControllerbean.lowBorderAlert}" id="minlimitalert" style="display:none;"  />	                
+            		
+	                <h:outputText  value="#{msg['form_mode_limithaussealert']} " id="maxlalert" style="display:none;" />
+	                <p:inputText  value="#{generalControllerbean.highBorderAlert}" id="maxlimitalert" style="display:none;" />
+			</h:panelGrid>		
+			<h:panelGrid columns="1" cellspacing="2" cellpadding="2">
+	<p:dataTable id ="plist" value="#{generalControllerbean.lister}" var="o2" cache="false" tableStyle="width:auto" display:none;"  editable="true"  >  
+
+  <p:ajax event="rowEdit" listener="#{generalControllerbean.onEditChoix}" update=":formAjouter:plist" />  
+        <p:ajax event="rowEditCancel" listener="#{listeChoixBean.onCancel}" update=":formAjouter:plist" />  
+    
+        <p:column style="width:260px;">  
+            <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_choix_liste_valeur']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+             <p:cellEditor> 
+             <f:facet name="output"> 
+            <h:outputText value="#{o2.libelle}" /> 
+             </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{o2.libelle}" />  
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+			 
+                    <p:inputText id="lib" value="#{generalControllerbean.nomlistrep}"  />  
+            </f:facet>  
+        </p:column>  
+
+        <p:column style="width:70px;">  
+            <f:facet name="header">  
+            
+                <h:outputText value="#{msg['form_choix_liste_nonConforme']}" />  
+            </f:facet> 
+           <p:cellEditor> 
+             <f:facet name="output">
+            	<p:selectBooleanCheckbox value="#{o2.nonConforme}" disabled="true"  />
+              </f:facet>  
+                <f:facet name="input"> 
+                <p:selectBooleanCheckbox value="#{o2.nonConforme}"  />
+                </f:facet>  
+            </p:cellEditor>  
+			<f:facet name="footer">  
+                    <p:selectBooleanCheckbox id="nonConforme" value="#{generalControllerbean.nclistrep}" />  
+            </f:facet>  
+        </p:column>  
+  
+  
+          <p:column style="width:70px;">  
+            <f:facet name="header">  
+                <h:outputText value="" />  
+            </f:facet> 
+           <p:rowEditor />
+            	<p:commandButton  icon="ui-icon ui-icon-trash" id="Aconsulter#{o2.idChoix}" title="#{msg['appli_bouton_supprimer']}" onclick="if (! confirm('#{msg['appli_confirm_supprimer']}')) return false"
+					action="#{generalControllerbean.supprimer(o2.idChoix)}"  update=":formAjouter:plist"/>
+			
+        </p:column>  
+        <f:facet name="footer">  
+            
+				<p:commandButton title="Ajouter" icon="ui-icon-plusthick"  action="#{generalControllerbean.creerlistrep2}"
+				update=":formAjouter:plist" />
+				</f:facet> 
+    </p:dataTable>  
+    	</h:panelGrid>	
+    	<h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+			<h:outputText value="Team :" id ="team" style="display:none;" />  
+  		<p:selectManyMenu id="userteam" value="#{generalControllerbean.selectedteam}" style="height:200px; width:200px ; display:none;">
+			<f:selectItems value="#{generalControllerbean.listeSelectteam}" />    							                       
+		</p:selectManyMenu>
+		
+			</h:panelGrid>
+<p:dialog id="dial1" header="#{msg['appli_titre_ajout_niveau']}" widgetVar="dlgsite" modal="true" height="100">
+	                 <h:panelGrid columns="2"> 
+	                <h:outputText value="#{msg['appli_libelle']}" />
+	                <p:inputText value="#{generalControllerbean.nomSite}" id="nomsite1"  />
+	                 <p:commandButton value="#{msg['appli_bouton_ajouter']}" type="submit" update=":formAjouter" action="#{generalControllerbean.ajouterSite}" oncomplete="dlgsite.hide();"/> 
+       				<p:commandButton type="button" value="#{msg['form_objetInspection_annuler']}"   icon="ui-icon-closethick" style="margin:0"  oncomplete="dlgsite.hide();" onclick="dlgsite.hide();"/>
+             		</h:panelGrid>
+	                </p:dialog>
+	                
+ <p:dialog id="dial2" header="#{msg['appli_titre_ajout_niveau']}" widgetVar="dlgbat" modal="true" height="100">
+	                 <h:panelGrid columns="2"> 
+	                <h:outputText value="#{msg['appli_libelle']}" />
+	                <p:inputText value="#{generalControllerbean.nomBat}" id="nombat1"  />
+	                 <p:commandButton value="#{msg['appli_bouton_ajouter']}" type="submit" update=":formAjouter" action="#{generalControllerbean.ajouterBat}" oncomplete="dlgbat.hide();"/> 
+       				<p:commandButton type="button" value="#{msg['form_objetInspection_annuler']}"   icon="ui-icon-closethick" style="margin:0"  oncomplete="dlgbat.hide();" onclick="dlgbat.hide();"/>
+             		</h:panelGrid>
+	                </p:dialog>
+
+<p:dialog id="dial3" header="#{msg['appli_titre_ajout_niveau']}" widgetVar="dlgeq" modal="true" height="100">
+	                 <h:panelGrid columns="2"> 
+	                <h:outputText value="#{msg['page_consulter_general_tag']}" />
+	                <p:inputText value="#{generalControllerbean.nomEqa}" id="nomeq"  />
+	                 <h:outputText value="#{msg['page_consulter_general_eq']}" />
+	                 <p:inputText value="#{generalControllerbean.nomEqa1}" id="nomeq1"  />
+	                 <p:commandButton value="#{msg['appli_bouton_ajouter']}" type="submit" update=":formAjouter" action="#{generalControllerbean.ajouterEq}" oncomplete="dlgeq.hide();"/> 
+       				<p:commandButton type="button" value="#{msg['form_objetInspection_annuler']}"   icon="ui-icon-closethick" style="margin:0"  oncomplete="dlgeq.hide();" onclick="dlgeq.hide();"/>
+             		</h:panelGrid>
+	                </p:dialog>
+	                
+<p:dialog id="dial4" header="#{msg['page_listeObjets_titre1']}" widgetVar="dlgobj" modal="true" height="200">
+	                 <h:panelGrid columns="2"> 
+	                <h:outputText value="#{msg['page_listeObjets_titre2']}" />
+	                <p:inputText value="#{generalControllerbean.nomobja}" id="nomobja"  />
+	                 <h:outputText value="#{msg['appli_codeBarre']}"/>
+	                <p:inputText value="#{generalControllerbean.codeBarreadd}" id="cbadd"  />
+	                <h:outputText value="#{msg['appli_typeChoix']} " />
+	                <p:selectOneMenu value="#{generalControllerbean.choix}" id="choix" defaultLabel="#{msg['appli_make_choice']}"   >
+                		<f:selectItems value="#{generalControllerbean.listTypeReponse()}"  />
+            		</p:selectOneMenu>
+            		<h:selectBooleanCheckbox id="photo" value="#{generalControllerbean.photoAutorise}" />
+							<h:outputLabel value="#{msg['form_objetInspection_photo']}" />
+						
+							<h:selectBooleanCheckbox id="commentaire" value="#{generalControllerbean.commentaireAutorise}" />
+							<h:outputLabel value="#{msg['form_objetInspection_commentaire']}" />
+							
+							
+	                 <p:commandButton value="#{msg['appli_bouton_ajouter']}" type="submit" update=":formAjouter" action="#{generalControllerbean.ajouterobja}" oncomplete="dlgobj.hide();"/> 
+       				<p:commandButton type="button" value="#{msg['form_objetInspection_annuler']}"   icon="ui-icon-closethick" style="margin:0"  oncomplete="dlgobj.hide();" onclick="dlgobj.hide();"/>
+             		</h:panelGrid>
+	                </p:dialog>
+	                
+	                <p:spacer width="150" height="10" />
+	                <h:panelGrid columns="2" cellspacing="2" cellpadding="2">
+  	 	  <h:outputText value="" />        
+	           
+            	<p:commandButton  value="#{msg.appli_bouton_retour}"  id ="retour" action="#{generalControllerbean.retourback()}"  style="display:none;"  />
+           <h:outputText value="" /> 
+	            
+            	
+            		<p:commandButton align="center" id="addvue" value="#{msg['appli_bouton_ajouter']}" type="submit" action="${generalControllerbean.ajouter()}" style="display:none;"  />
+            	</h:panelGrid>
+</rich:panel>
+
+
+	</h:form>
+	
+	
+	
+	
+	</ui:define>
+
+</ui:composition>
+</html>

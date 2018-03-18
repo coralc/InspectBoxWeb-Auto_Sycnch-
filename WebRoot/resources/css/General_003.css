@@ -1,0 +1,35 @@
+    html, body { margin: 0; height: 100%; }
+    
+    BODY { 
+        font-family: arial,verdana,sans-serif; 
+        background-color: #ffffff; 
+        background-image: url();
+        background-position: center top; /* 0% 0% | [left|right|center] [top|center|bottom] */
+        background-repeat: repeat;
+        
+    }
+    TD.titleText {
+        /* http://commons.wikimedia.org/wiki/Image:GPS_Satellite_NASA_art-iif.jpg */
+        background: #ffffff  center no-repeat;
+        font-family: arial,verdana,sans-serif; 
+        font-size: 18pt; 
+        font-weight: bold;
+        text-align: left;
+        padding-bottom: 15px;
+        color: #000000;
+    }
+
+
+    .accountLoginCell { 
+        border: none; 
+        background-color: none; 
+    }
+    TABLE.accountLoginContentTable {
+        text-align: left;
+    }
+    TD.accountLoginTextCell {
+        text-align: left;
+    }
+    TABLE.accountLoginFormTable {
+        padding-left: 0px;
+    }

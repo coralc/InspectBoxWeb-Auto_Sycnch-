@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+		<f:metadata>
+		    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+		    <f:viewParam name="id"   
+				value="#{niveauInspectionBean.idObjetCourant}"/>
+		    <f:viewParam name="idParent"   
+				value="#{niveauInspectionBean.idObjetParent}"/>
+				
+		    <f:event type="preRenderView" listener="#{niveauInspectionBean.afficher2()}"/>
+	    </f:metadata>
+	</ui:define>
+	<ui:define name="myCSS">
+	 	<style>		
+		.head2 {
+		background-image: url();
+        background-color : #808080 !important;;
+        height:18px;
+        text-align:center;
+        vertical-align:middle;
+		color:White;        
+        padding:4px 0;
+        font-size:120%;
+        border-style: none;
+    	}    	
+		.body3 {
+	    background-color: #F7F6F3;
+        font-size:105%;
+        border-style: none;
+		}
+		.rf-p {
+		 border-style: none;
+		}
+	</style>
+</ui:define>
+ 
+	<ui:define name="content">
+<script type="text/javascript"> 
+
+		function showvalue(){
+			 if(document.forms['formAjouter']['formAjouter:typemode'][1].checked) {
+				  document.getElementById("formAjouter:unit").style.display="block";
+				 document.getElementById("formAjouter:unitMeasure").style.display="block";
+				 document.getElementById("formAjouter:minv").style.display="block";					
+					document.getElementById("formAjouter:maxv").style.display="block";			
+					document.getElementById("formAjouter:minValue").style.display="block";					
+					document.getElementById("formAjouter:maxValue").style.display="block";					
+					document.getElementById("formAjouter:minl").style.display="block";					
+					document.getElementById("formAjouter:minlimit").style.display="block";					
+					document.getElementById("formAjouter:maxl").style.display="block";					
+					document.getElementById("formAjouter:maxlimit").style.display="block";	
+					document.getElementById("formAjouter:highAl").style.display="block";	
+					document.getElementById("formAjouter:highAlert").style.display="block";
+					document.getElementById("formAjouter:lowAl").style.display="block";
+					document.getElementById("formAjouter:lowAlert").style.display="block";
+					document.getElementById("formAjouter:listlab").style.display="none";
+					document.getElementById("formAjouter:list").style.display="none";
+				 
+			 }
+			 if(document.forms['formAjouter']['formAjouter:typemode'][0].checked) {
+				
+				 document.getElementById("formAjouter:unit").style.display="none";
+				 document.getElementById("formAjouter:unitMeasure").style.display="none";
+				 document.getElementById("formAjouter:minv").style.display="none";					
+					document.getElementById("formAjouter:maxv").style.display="none";			
+					document.getElementById("formAjouter:minValue").style.display="none";					
+					document.getElementById("formAjouter:maxValue").style.display="none";					
+					document.getElementById("formAjouter:minl").style.display="none";					
+					document.getElementById("formAjouter:minlimit").style.display="none";					
+					document.getElementById("formAjouter:maxl").style.display="none";					
+					document.getElementById("formAjouter:maxlimit").style.display="none";	
+					document.getElementById("formAjouter:highAl").style.display="none";	
+					document.getElementById("formAjouter:highAlert").style.display="none";
+					document.getElementById("formAjouter:lowAl").style.display="none";
+					document.getElementById("formAjouter:lowAlert").style.display="none";
+					document.getElementById("formAjouter:listlab").style.display="block";
+					document.getElementById("formAjouter:list").style.display="block";
+				 
+						
+		                
+		                
+				 
+			 }
+			
+		}
+
+
+		</script>  
+	    <br /><br />
+    
+     <h:form id="formAjouter">
+      <rich:panel  headerClass="head2" style="width:500px;align:center;" bodyClass="body3">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{msg['appli_titre_modifier_niveau_inspection']} #{listeNiveauxBean.libelleNiveauCourant} (#{niveauInspectionBean.nom})" />
+                
+                </h:panelGroup>
+            </f:facet>
+
+		
+		
+		
+
+		
+		
+            <h:panelGrid id="addPDP" columns="2" cellspacing="2" cellpadding="2">
+	                <h:outputText value="#{msg['appli_libelle']}" />
+	                <p:inputText value="#{niveauInspectionBean.nom}" />
+	                   
+	                
+	                
+	                <h:outputText value="#{msg['appli_codeBarre']}" />
+	                <p:inputText value="#{niveauInspectionBean.codeBarre}" id="codeBarre" />
+	                    
+	                </h:panelGrid>
+ 					<h:panelGrid  columns="3" cellspacing="2" cellpadding="2">
+					<h:outputText value="#{msg['appli_typeObjet']}" />
+                	<p:selectOneMenu value="#{niveauInspectionBean.objetInitial}" id="choix"  defaultLabel="#{msg['appli_typeObjet_choix']}"  >
+                		<f:selectItems value="#{niveauInspectionBean.listObjetsInitial()}"  />
+
+            		</p:selectOneMenu>
+            		<p:commandButton id="ajoutertypobjt" type="button" icon="ui-icon-pencil" title="#{msg.cree_nveau_objet}" onclick="dlg1.show();"  >
+										
+									</p:commandButton>
+									
+									
+            		
+	            </h:panelGrid>
+            	<p:spacer width="150" height="10" />
+  	 	 <h:outputText value="" />  
+          <p:commandButton  value="#{msg.appli_bouton_retour}"  action="#{niveauInspectionBean.retourback()}"  />
+          <h:outputText value="" />  
+           <p:commandButton id="Modifier" value="#{msg['appli_bouton_modifier']}" type="submit" action="#{niveauInspectionBean.modifier}"  />
+            </rich:panel>
+           
+         <p:dialog id="dial1" header="#{msg['cree_nveau_objet']}" widgetVar="dlg1" modal="true" height="350">
+        <h:panelGrid  columns="2" cellspacing="2" cellpadding="2">
+           
+	            	<h:outputText value="#{msg['appli_libelle']}"/>
+	                <p:inputText value="#{niveauInspectionBean.nomobj}" id="nomobj"  />
+	                
+	                <h:outputText value="#{msg['appli_codeBarre']}"/>
+	                <p:inputText value="#{niveauInspectionBean.codeBarreobj}" id="cbobj"  />
+	              <h:outputText  id="tagchoix" value="#{msg['appli_typeChoix']}" />
+	              <h:selectOneRadio value="#{niveauInspectionBean.choixobj}"  layout="pageDirection" id="typemode"  onclick="showvalue()"  >
+			   	<f:selectItem itemValue="2" itemLabel="#{msg.form_choix_liste}" id="listechoix" />
+			   	<f:selectItem itemValue="1" itemLabel="#{msg.form_choix_valeur}" id="valuechoix"  />
+			   	</h:selectOneRadio>
+        
+		<h:outputText style="display:none;" value="#{msg.form_mode_unitemesure} " id="unit" />
+	                <p:inputText style="display:none;" value="#{niveauInspectionBean.unitMeasure}" id="unitMeasure"  />
+            		
+            		<h:outputText style="display:none;" value="#{msg.form_mode_minautorise} " id="minv" />
+	                <p:inputText style="display:none;" value="#{niveauInspectionBean.minValue}" id="minValue"           />
+	                    
+	                 <h:outputText style="display:none;" value="#{msg.form_mode_maxautorise}" id="maxv" />
+	                <p:inputText style="display:none;" value="#{niveauInspectionBean.maxValue}" id="maxValue"   />
+	                
+	                <h:outputText style="display:none;" value="#{msg.form_mode_limitbasse}" id="minl" />
+	                <p:inputText style="display:none;" value="#{niveauInspectionBean.lowBorder}" id="minlimit" />
+	                
+	                 <h:outputText style="display:none;" value="#{msg.form_mode_limithausse} " id="maxl" />
+	                <p:inputText style="display:none;" value="#{niveauInspectionBean.highBorder}" id="maxlimit" />
+	                
+	                <h:outputText style="display:none;" value="#{msg.form_mode_limitbassealert} " id="lowAl" />
+	                <p:inputText style="display:none;" value="#{niveauInspectionBean.lowBorderAlert}" id="lowAlert" />
+	                
+	                 <h:outputText style="display:none;" value="#{msg.form_mode_limithaussealert} " id="highAl" />
+	                <p:inputText style="display:none;" value="#{niveauInspectionBean.highBorderAlert}" id="highAlert" />
+		
+		<h:outputText style="display:none;" value="#{msg.form_mode_choose_liste} " id="listlab" />
+	              
+		<p:selectOneMenu style="display:none;" value="#{niveauInspectionBean.listchoisi}" id="list"  >
+                		<f:selectItems value="#{niveauInspectionBean.listdesListes()}"  />
+						
+            		</p:selectOneMenu>
+		  
+	      
+	               	</h:panelGrid>
+	               	
+	           <f:facet name="footer">   
+	           <p:commandButton value="#{msg['form_objetInspection_valider']}" type="submit" update=":formAjouter:choix" action="#{niveauInspectionBean.ajouterobj}" oncomplete="dlg1.hide();"/> 
+       <p:commandButton type="button" value="#{msg['form_objetInspection_annuler']}"   icon="ui-icon-closethick" style="margin:0"  oncomplete="dlg1.hide();" onclick="dlg1.hide();"/>
+              	
+    	</f:facet>  
+</p:dialog>
+           
+     </h:form>     
+          <br />
+        
+        
+        
+        
+        
+     
+    
+    
+	</ui:define>
+</ui:composition>
+</html>

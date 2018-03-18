@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+ xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+		<f:event type="preRenderView"
+			listener="#{loginBean.fowardToLoginIfNotLoggedIn}" />
+		<f:viewParam name="clear" value="#{listeInspectionBean.aAfficher}"/>
+		
+		<f:event type="preRenderView" listener="#{listeInspectionBean.afficher()}" />
+	</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+
+<div align="left">
+	<p:treeTable value="#{gammesBean.root}" var="node">  
+        <p:column>             
+            <h:outputText value="#{node}" /> 
+        </p:column>   
+	</p:treeTable>  
+</div>
+		<div class="presentation-page">
+			<rich:panel>
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg.page_home_recherche_inspection_titre}" />
+					</h:panelGroup>
+				</f:facet>
+				<br />
+				<div align="center">
+				
+			
+				
+				<rich:panel style="width: 350px;">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{msg.form_rechercher_inspection_titre}" />
+					</h:panelGroup>
+				</f:facet>
+				
+				<div align="center">
+				
+				<h:form id="FormRecherche">
+					<h:panelGrid columns="2">
+					<h:outputLabel value="#{msg.form_rechercher_inspection_date}" />
+					<rich:calendar datePattern="dd/MM/yyyy" locale="fr" value="#{listeInspectionBean.dateInspection}" currentDate="" enableManualInput="true" />
+            		<h:outputLabel value="#{listeInspectionBean.libelleNiveau0} : " />
+					<rich:select value="#{listeInspectionBean.idNiveauChoisi}" id="niveauInitial" openOnEdit="true" enableManualInput="false" >
+                		<f:selectItems value="#{listeInspectionBean.niveauList}"  />                		
+                		<a4j:ajax event="change" render="niveaulibelle1" execute="@this" listener="#{listeInspectionBean.siteChanged}" />
+            		</rich:select>
+            		
+            		
+            		<h:outputLabel value="#{listeInspectionBean.libelleNiveau1} : " />
+					<rich:select value="#{listeInspectionBean.idLibelleNiveau1Choisi}" id="niveaulibelle1" openOnEdit="true" enableManualInput="false"  >
+                		<f:selectItems value="#{listeInspectionBean.libelleNiveau1List}"  />
+                		<a4j:ajax event="change" render="niveaulibelle2" execute="@this" listener="#{listeInspectionBean.batimentChanged}" />
+            		</rich:select>
+
+            		<h:outputLabel value="#{listeInspectionBean.libelleNiveau2} : "  />
+					<rich:select value="#{listeInspectionBean.idLibelleNiveau2Choisi}" id="niveaulibelle2" openOnEdit="true" enableManualInput="false"  >
+                		<f:selectItems value="#{listeInspectionBean.libelleNiveau2List}"  />
+                		<a4j:ajax event="change" render="niveauObjet0" execute="@this" listener="#{listeInspectionBean.localisationChanged}" />
+            		</rich:select>
+
+            		<h:outputLabel value="#{listeInspectionBean.libelleNiveauObjet0} : "  />
+					<rich:select value="#{listeInspectionBean.idNiveauObjetChoisi}" id="niveauObjet0" openOnEdit="true" enableManualInput="false"  >
+                		<f:selectItems value="#{listeInspectionBean.niveauObjetList}"  />
+            		</rich:select>
+
+            		
+					</h:panelGrid>
+					<br />
+					<h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
+					<h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
+						<h:commandButton id="rechercher"
+							action="#{listeInspectionBean.rechercher()}"
+							value="#{msg.appli_bouton_rechercher}" type="submit"  />	
+							<h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
+							<h:commandButton id ="resetme" value="Réinitialiser" action="#{listeInspectionBean.resetMe()}" />		
+					</h:form>
+				</div>
+				</rich:panel>
+					
+				</div>
+
+
+				
+				
+				<h:outputStylesheet>
+    .rf-dt{
+        width:550px;    
+    }
+    .acent{
+        text-align: center;
+    }
+    
+    .titreTableauInspection{
+        font-weight:bold;
+        font-family: arial,verdana,sans-serif; 
+        font-size: 11px; 
+    }
+    
+    
+</h:outputStylesheet>
+
+	<br/>
+
+<div align="center">
+   
+				
+				<h:form >  
+  
+    <p:dataTable value="#{listeInspectionBean.lister}" var="o2" cache="false"
+                 paginator="true" rows="50" 
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                 paginatorPosition="bottom"
+                 rowsPerPageTemplate="50,100,150" rendered="#{listeInspectionBean.aAfficher == true}"
+                 emptyMessage="#{msg.erreur_recherche_inspection_vide}"
+                 dynamic="true"
+                 >  
+
+  
+        <p:column>  
+            <f:facet name="header">  
+                <h:outputText value="#{msg.form_rechercher_colone_date}" styleClass="titreTableauInspection"/>  
+            </f:facet>  
+            <h:outputText value="#{o2.date}" />  
+        </p:column>  
+  
+  
+        <p:column>  
+            <f:facet name="header">  
+                <h:outputText value="#{listeInspectionBean.libelleNiveau0}"  styleClass="titreTableauInspection" />  
+            </f:facet>  
+            <h:outputText value="#{o2.nomNiveauInitial}" />  
+        </p:column>  
+  
+          <p:column>  
+            <f:facet name="header">  
+                <h:outputText value="" />  
+            </f:facet> 
+            <div align="center">
+            <h:commandButton action="#{inspectionBean.consulter(o2.idNiveauInitial, o2.idUtilisateur, o2.clefDate, o2.idNiveauBatiment, o2.idNiveauLocalisation, o2.idNiveauObjet )}"
+							id="Aconsulter#{o2.idInspection}" value="#{msg.appli_bouton_consulter}"
+							type="submit"  />
+			</div>
+        </p:column>  
+    </p:dataTable>  
+  
+</h:form>  
+				
+				
+	  </div>
+	</rich:panel>
+			
+			
+		</div>
+
+			
+	<br /><br />
+	</ui:define>
+
+</ui:composition>
+</html>

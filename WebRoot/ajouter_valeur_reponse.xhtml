@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      >
+    
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+		<f:viewParam name="id" value="#{valeurReponseBean.idTypeReponse}"/>
+		<f:viewParam name="tri" value="#{valeurReponseBean.tri}"/>
+	    <f:event type="preRenderView" listener="#{valeurReponseBean.afficher()}"/>
+	</f:metadata>
+	</ui:define>
+ 
+	<ui:define name="content">
+
+	    <br /><br />
+     <div align="center">
+     
+    
+        <rich:panel  style="width:400px;">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{msg['page_choix_ajouter_titre']}" />
+                </h:panelGroup>
+            </f:facet>
+
+		
+		<h:form id="formAjouter">
+			<h:inputHidden value="#{valeurReponseBean.idTypeReponse}" />
+			<h:inputHidden value="#{valeurReponseBean.tri}" />
+				<h:panelGrid columns="1"> 
+					<rich:messages />
+					<br />
+				</h:panelGrid>
+				
+				
+				<h:link id="linkNavig" value="#{msg['navigation_parametrage_choix']}" outcome="liste_choix"  />
+	    		<h:outputText value=" > "/>
+	    	   	<h:link id="linkNavig2" value="#{valeurReponseBean.libelleTypeReponse}" outcome="liste_valeur_reponse" >
+	    			<f:param name="id" value="#{valeurReponseBean.idTypeReponse}}" />
+	    		</h:link>
+	    		<h:outputText value=" > "/>
+				<h:outputText value="#{msg['page_choix_ajouter_titre']}" />
+				<br /><br />
+				
+            <h:panelGrid columns="1"> 
+	            <h:panelGrid columns="3"> 
+	                <h:outputText value="#{msg['form_choix_liste_valeur']}" />
+	                <h:inputText value="#{valeurReponseBean.nom}" id="nom" validatorMessage="#{msg['erreur_choix_valeur']}">
+	                    <rich:validator />
+	                </h:inputText>
+	                <h:outputLabel value="" />
+	               	
+	               	<h:outputText value="" />
+	               	<h:panelGrid columns="2">
+		                <h:selectBooleanCheckbox  value="#{valeurReponseBean.nonConforme}" id="nonConforme" validatorMessage="#{msg['erreur_utilisateur_prenom']}">
+		                    <rich:validator />
+		                </h:selectBooleanCheckbox>
+		                <h:outputText value="#{msg['form_choix_liste_nonConforme']}" />
+	                </h:panelGrid>
+	                <h:outputLabel value="" />
+	         
+	                
+	                <h:outputLabel value="" />
+            		<h:commandButton id="AjouterTypeReponse" value="#{msg['appli_bouton_ajouter']}" action="#{valeurReponseBean.ajouter()}" />
+
+	            </h:panelGrid>
+            
+            
+            	
+            </h:panelGrid> 
+            
+            
+            </h:form>
+        </rich:panel>
+    </div>
+    
+ 
+
+    
+	</ui:define>
+
+</ui:composition>
+   
+</html>

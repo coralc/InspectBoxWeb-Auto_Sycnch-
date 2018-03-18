@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+xmlns="http://www.w3.org/1999/xhtml"   
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.org/ui" 
+      >
+
+    
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+	    <f:viewParam name="idt"   
+			value="#{teamBean.idUtilisateur}"/>
+	    <f:event type="preRenderView" listener="#{statusBean.afficher()}"/>
+	</f:metadata>
+	</ui:define>
+ 
+	<ui:define name="content">
+
+	   <h:form id="form">
+     <p:growl id="messages" showDetail="true" sticky="true" /> 
+    
+       <rich:panel style="width:700px;align:center;" >
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{msg.page_status_consulter} " />
+                </h:panelGroup>
+            </f:facet>
+
+		     
+	  <p:dataTable id ="tlist" value="#{statusBean.listeMapStatus}"   var="o2" cache="false"  tableStyle="width:auto" > 
+	              
+	             <p:column > 
+        <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_status_label']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+               
+            <h:outputText value="#{o2.label}" />    
+            
+                      
+              
+		 </p:column> 
+	                <p:column > 
+        <f:facet name="header">  
+            	
+                	<h:outputText value="#{msg['form_add_status']}" styleClass="titreTableauInspection"/>
+                  
+            </f:facet> 
+               
+           <p:graphicImage value="/resources/images/vert.gif" rendered="#{o2.label == 'ERFASST'}"/>
+            <p:graphicImage value="/resources/images/blanc.gif" rendered="#{o2.label == 'NICHTERFASST'}"/>
+            <p:graphicImage value="/resources/images/Leer.gif" rendered="#{o2.label == 'LEER'}"/>
+            <p:graphicImage value="/resources/images/jaune.gif" rendered="#{o2.label == 'GRENZWERT'}"/>
+            <p:graphicImage value="/resources/images/rouge.gif" rendered="#{o2.label == 'DEFEKT'}"/>  
+             <p:graphicImage value="/resources/images/noir.gif" rendered="#{o2.label == 'INAKTIV'}"/>
+		 </p:column> 
+	            
+	                </p:dataTable> 
+	               
+            	
+          <h:outputText value="" /> 
+           </rich:panel>
+        </h:form>
+  
+       
+        
+   
+    
+ 
+
+    
+	</ui:define>
+
+</ui:composition>
+   
+</html>

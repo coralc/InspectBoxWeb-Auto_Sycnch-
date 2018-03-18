@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="#{languageDetails.language}" 
+xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      >
+    
+
+<ui:composition template="/WEB-INF/template1.xhtml">
+	<ui:define name="haut">
+	<f:metadata>
+	    <f:event type="preRenderView" listener="#{loginBean.fowardToLoginIfNotLoggedIn}"/>
+	    <f:viewParam name="id" value="#{gammesBean.idGammes}"/>
+	    <f:event type="preRenderView" listener="#{gammesBean.viewModifierScreen()}"/>
+	</f:metadata>
+	</ui:define>
+ 
+ 	<ui:define name="myCSS">
+ 	<style type="text/css">
+        .ui-widget-content {
+        	border:0;
+        	font-family: Arial, Verdana, sans-serif !important;
+        	font-size: 8pt !important;
+        	width:350px !important;
+			}
+    </style>
+ 	
+ 	</ui:define>
+ 	
+	<ui:define name="content">
+
+	    <br /><br />
+     <div class="presentation-page-temp">
+     
+    
+        <rich:panel  style="width:400px;">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{msg['appli_titre_modifier']} #{gammesBean.libelleGamme} (#{gammesBean.libelle})" />
+                </h:panelGroup>
+            </f:facet>
+
+		
+		<h:form id="formAjouter">
+			<h:inputHidden value="#{gammesBean.idGammes}" />
+				<h:panelGrid columns="1"> 
+					<rich:messages />
+					<br />
+	
+				</h:panelGrid>
+				
+				<h:link id="linkNavig" value="#{msg['navigation_parametrage_gammes']} #{gammesBean.libelleGamme}" outcome="liste_gammes"  />
+	    		<h:outputText value=" > "/>
+				<h:outputText value="#{msg['page_gammes_mofifier_titre']} #{gammesBean.libelleGamme}" />
+				<br /><br /><br />
+				
+           
+             
+             <h:panelGrid columns="1"> 
+	             <h:panelGrid columns="3">
+	             
+	                <h:outputText value="#{msg['form_gammes_liste_libelle']} #{gammesBean.libelleGamme}" />
+	                <h:inputText value="#{gammesBean.libelle}" id="nom" validatorMessage="#{msg['erreur_gammes_libelle']}" >
+	                    <rich:validator />
+	                </h:inputText>
+	                <h:outputLabel value="" />
+	             </h:panelGrid>
+	                
+	             <h:panelGrid columns="3"> 
+	                <h:outputText value="" />	
+	                           
+	                <p:tree value="#{gammesBean.root}" var="node" id="checkboxTree"  selectionMode="checkbox"  
+            			selection="#{gammesBean.selectedNodes}">   
+				        <p:treeNode>  
+				            <h:outputText value="#{node}" />  
+				        </p:treeNode>  
+				    </p:tree>  
+                                 
+	               </h:panelGrid>
+	                
+	             <h:panelGrid columns="3"> 
+	                <h:outputText value="" />	
+	                           <p:growl id="messages" showDetail="true" escape="false"/>  
+	                <p:tree value="#{gammesBean.rootNiveauObjet}" var="nodeObjet" id="checkboxTreeObjet"  selectionMode="checkbox"  
+            			selection="#{gammesBean.selectedModifiedNodesNiveauObjet}">   
+				        <p:treeNode>  
+				            <h:outputText value="#{nodeObjet}" />  
+				        </p:treeNode>  
+				    </p:tree>
+	               </h:panelGrid>
+	               
+
+ 				<h:panelGrid columns="3">          
+	                <h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />	                
+					<h:outputText value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" />
+            		<h:commandButton id="ModifierGammes" value="#{msg['appli_bouton_modifier']}" action="#{gammesBean.modifier()}" />
+					<h:outputLabel value="" />	              	
+	              </h:panelGrid> 
+    
+            
+            	
+            </h:panelGrid> 
+            
+            </h:form>
+            
+            
+        </rich:panel>
+        
+        
+        <br/><br/>
+         <rich:panel  style="width:400px;" >
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{msg['appli_titre_supprimer']} #{gammesBean.libelleGamme}" />
+                </h:panelGroup>
+            </f:facet>
+			<br />
+            	<h:button id="SupprimerDemande" value="#{msg['appli_bouton_supprimer']}"   onclick="#{rich:component('confirmationSupprimer')}.show(); return false;" />
+            <br /> <br />
+        </rich:panel>
+        
+       <rich:popupPanel id="confirmationSupprimer" resizeable="true"
+        header="#{msg['appli_confirmer_supprimer_titre']}" modal="true" width="300" height="100">
+        <f:facet name="controls">
+            <h:link  value="Fermer"  
+                onclick="#{rich:component('confirmationSupprimer')}.hide(); return false;" />
+                <h:outputLabel value="  " />
+        </f:facet>
+        <div align="center">
+        <h:outputText value="#{msg['appli_confirmer_supprimer']} #{gammesBean.libelleGamme}  ?" />
+   <br /><br />
+   		<h:panelGrid columns="2">
+   		<h:form id="formSupprimer">
+			<h:inputHidden id="idTypeReponseSupprimer" value="#{gammesBean.idGammes}" />
+        <h:commandButton action="#{gammesBean.supprimer()}" value="#{msg['appli_bouton_supprimer']}"  type="submit" 
+                onclick="#{rich:component('confirmationSupprimer')}.hide(); return true;" />
+         </h:form>
+  
+        <h:button value="#{msg['appli_bouton_annuler']}"  
+                onclick="#{rich:component('confirmationSupprimer')}.hide(); return false;" />
+  		</h:panelGrid>
+  		</div>
+    </rich:popupPanel>
+        
+    </div>
+    
+    
+	</ui:define>
+
+</ui:composition>
+   
+</html>
